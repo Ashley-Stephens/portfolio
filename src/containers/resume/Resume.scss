@@ -1,0 +1,36 @@
+.resume-page{
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 24px 16px 40px;
+}
+
+.resume-actions{
+   display: flex;
+   gap: 12px;
+   align-items: center;
+   flex-wrap: wrap;
+   margin-bottom: 12px;
+}
+
+.resume-download,
+.resume-open{
+   padding: 10px 14px;
+   border-radius: 10px;
+   text-decoration: none;
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.resume-viewer{
+   border-radius: 14px;
+   overflow: hidden;
+   border: 1px solid rgba(255,255,255,0.12);
+}
+
+.resume-viewer iframe{
+   width: 100%;
+   height: calc(100vh - 220px);
+   border: 0;
+   background: white;
+}
