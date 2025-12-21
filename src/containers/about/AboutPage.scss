@@ -1,0 +1,93 @@
+.about-page {
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.about-card {
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-title {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.about-body {
+  margin-top: 0.9rem;
+  opacity: 0.9;
+  max-width: 60ch;
+  line-height: 1.7;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.about-section {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  padding-top: 1.2rem;
+}
+
+.about-section-title {
+  margin: 0 0 0.8rem 0;
+  font-size: 1.1rem;
+}
+
+.about-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  columns: 2;
+  column-gap: 2rem;
+}
+
+.about-item {
+  break-inside: avoid;
+  margin: 0.4rem 0;
+  opacity: 0.95;
+}
+
+.about-cta {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.about-primary,
+.about-secondary {
+  display: inline-block;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.18);
+  text-decoration: none;
+}
+
+.dark-mode {
+  .about-section {
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .about-primary,
+  .about-secondary {
+    border-color: rgba(255,255,255,0.22);
+  }
+}
+
+@media (max-width: 900px) {
+  .about-card {
+    grid-template-columns: 1fr;
+  }
+
+  .about-list {
+    columns: 1;
+  }
+}

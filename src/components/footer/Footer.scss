@@ -1,15 +1,78 @@
-@import "../../_globalColor";
-
-.footer-text {
-  text-align: center;
-  color: $subTitle !important;
+.site-footer{
+  border-top: 1px solid rgba(255,255,255,0.10);
+  padding: 18px 16px;
 }
 
-.dark-mode {
-  color: $textColorDark !important;
+.footer-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.footer-div {
-  margin-top: 2rem;
-  padding-bottom: 1rem;
+.footer-copy{
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+}
+
+.footer-right{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-emailWrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-emailText{
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+}
+
+.footer-iconBtn{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+
+.footer-iconBtn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.28);
+}
+
+.footer-iconBtn:active{
+  transform: translateY(0px);
+}
+
+.footer-iconBtn svg{
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.footer-copied{
+  color: rgba(255,255,255,0.85);
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
 }

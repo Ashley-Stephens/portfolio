@@ -1,0 +1,177 @@
+@import "../../globalColor";
+
+.case-page {
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.case-wrap {
+  width: min(1100px, 100%);
+}
+
+.case-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.case-hero {
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 18px;
+  padding: 1.25rem 1.25rem;
+}
+
+.case-title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.case-what {
+  margin-top: 0.7rem;
+  opacity: 0.9;
+  max-width: 70ch;
+  line-height: 1.7;
+}
+
+.case-meta {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.35rem;
+  opacity: 0.92;
+}
+
+.case-meta-label {
+  font-weight: 650;
+}
+
+.case-tags {
+  margin-top: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.case-tag {
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.case-cta {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.case-button {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 14px;
+  padding: 0.75rem 0.95rem;
+}
+
+.case-section {
+  margin-top: 2rem;
+}
+
+.case-h2 {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.25rem;
+}
+
+.case-h3 {
+  margin: 1rem 0 0.6rem 0;
+  font-size: 1.05rem;
+  opacity: 0.95;
+}
+
+.case-p {
+  margin: 0.5rem 0;
+  opacity: 0.9;
+  line-height: 1.75;
+  max-width: 75ch;
+}
+
+.case-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  opacity: 0.92;
+}
+
+.case-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.case-process {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.decisions-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.decision-card {
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 18px;
+  padding: 1rem 1rem;
+}
+
+.decision-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+}
+
+.decision-label {
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.case-bottom-nav {
+  margin-top: 2.2rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.case-nav-link {
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+}
+
+.case-nav-link.primary {
+  border-color: $buttonColor;
+  background-color: rgba(136, 91, 213, 0.12);
+}
+
+.dark-mode {
+  .case-hero,
+  .case-tag,
+  .case-button,
+  .decision-card,
+  .case-nav-link {
+    border-color: rgba(255,255,255,0.22);
+  }
+}
+
+@media (max-width: 900px) {
+  .case-two-col,
+  .case-process {
+    grid-template-columns: 1fr;
+  }
+}

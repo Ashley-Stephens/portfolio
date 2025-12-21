@@ -21,7 +21,8 @@
 }
 
 .header {
-  background-color: $lightBackground1;
+  background-color: $darkBackground;
+  color: $textColorDark;
   max-width: 100%;
   padding: 15px 20px;
   margin: 0px auto;
@@ -34,20 +35,33 @@
   overflow: hidden;
 }
 
-.grey-color {
-  color: $subTitle;
-}
 
 .header li a {
   display: block;
   padding: 15px 20px;
-  color: $textColor;
+  color: $textColorDark;
   text-decoration: none;
+   transition: background-color 150ms ease;
+}
+.header {
+  background-color: $darkBackground;
+  color: $textColorDark;
 }
 
-.header li a:hover,
-.header .menu-btn:hover {
-  background-color: $headerHoverBG;
+.header li a:hover{
+  background-color: $buttonColor; // purple box highlight
+  color: $textColorDark;          // KEEP TEXT WHITE
+}
+
+/* hamburger lines white */
+.header .menu-icon .navicon,
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: $textColorDark;
+}
+
+.grey-color {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .header .logo {
@@ -58,6 +72,18 @@
   text-decoration: none;
   margin-top: 10px;
   line-height: normal;
+}
+
+.logo-name{
+  color: #fff;              // always white
+  font-weight: 600;
+  position: relative;
+}
+
+.logo:hover .logo-name {
+   text-shadow:
+      0 0 14px rgba(136, 91, 213, 0.75),
+      0 0 28px rgba(136, 91, 213, 0.35);
 }
 
 .header .logo-name {

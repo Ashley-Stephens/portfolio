@@ -12,7 +12,7 @@ const illustration = {
 };
 
 const greeting = {
-  username: "Saad Pasta",
+  username: "Ashley Stephens",
   title: "Hi all, I'm Saad",
   subTitle: emoji(
     "A passionate Full Stack Software Developer 🚀 having an experience of building Web and Mobile applications with JavaScript / Reactjs / Nodejs / React Native and some other cool libraries and frameworks."
@@ -361,7 +361,211 @@ const contactInfo = {
   email_address: "saadpasta70@gmail.com"
 };
 
-const isHireable = false; // Set false if you are not looking for a job. Also isHireable will be display as Open for opportunities: Yes/No in the GitHub footer
+const isHireable = true; // Set false if you are not looking for a job. Also isHireable will be display as Open for opportunities: Yes/No in the GitHub footer
+
+// -------------------------
+// Projects Page + Case Studies
+// -------------------------
+
+const projectsPage = {
+  title: "Projects",
+  subtitle: "Pick a case study to dive into.",
+  projects: [
+    {
+      slug: "spoofify",
+      name: "Spoofify — Music playback UX",
+      oneLineProblem:
+        "Reduced “what do I play?” friction with clearer queue + shuffle controls.",
+      role: "UX/UI",
+      methods: ["flows", "prototype", "usability testing"],
+      outcome: "Iteration based on testing",
+      tags: ["Human-Centered", "UX Systems", "Technical"],
+      links: {
+        prototype: "", // add later if you have
+        github: "",    // add later if you have
+        live: ""       // add later if you have
+      },
+
+      caseStudy: {
+        whatItIs:
+          "A Spotify-inspired music player focused on faster decisions and clearer playback control.",
+        team: "",      // optional: "Team of 4"
+        timeline: "",  // optional: "Spring 2025"
+
+        problem: [
+          "Music apps often bury queue and shuffle behavior behind unclear controls.",
+          "When users just want to quickly pick something, uncertainty around “what plays next” increases friction."
+        ],
+
+        owned: [
+          "Interaction design for queue + shuffle behavior",
+          "Wireframes/prototype and iteration based on feedback",
+          "Implementation details to match the UX decisions"
+        ],
+
+        constraints: [
+          "Had to fit within an existing template + routes",
+          "Time-limited iteration cycles",
+          "Design needed to be understandable at a glance"
+        ],
+
+        process: {
+          research: [
+            "Quick scan of comparable players for queue/shuffle patterns",
+            "Observed where users hesitated or got lost"
+          ],
+          synthesis: [
+            "Identified primary tasks: pick, play, understand next, adjust quickly",
+            "Prioritized controls that reduce decision friction"
+          ],
+          design: [
+            "Designed clearer queue visibility and shuffle modes",
+            "Reduced hidden states and improved labeling"
+          ],
+          iteration: [
+            "Tested the flow, noted confusions, adjusted affordances and copy",
+            "Refined layout for faster scanning"
+          ]
+        },
+
+        decisions: [
+          {
+            issue: "Users couldn’t confidently predict what would play next.",
+            change: "Made the queue easier to view and understand during playback.",
+            why: "Reducing uncertainty improves speed-to-action.",
+            result: "Users moved through “choose → play → confirm next” with less hesitation."
+          },
+          {
+            issue: "Shuffle controls felt ambiguous (users didn’t know what shuffle meant).",
+            change: "Clarified shuffle modes with explicit labels and placement.",
+            why: "Transparency reduces misclicks and backtracking.",
+            result: "Fewer “wait, why did it play that?” moments in testing."
+          },
+          {
+            issue: "Too many controls competed for attention.",
+            change: "Simplified the hierarchy so the primary action reads first.",
+            why: "Cleaner hierarchy supports scanning and confidence.",
+            result: "Faster initial orientation in the UI."
+          }
+        ],
+
+        outcome: {
+          metrics: [], // add numbers if you have them
+          whatChanged: [
+            "Validated key interaction changes through testing and iteration",
+            "Improved clarity of queue + shuffle behavior"
+          ]
+        },
+
+        reflection: [
+          "Next: add lightweight instrumentation for behavioral metrics",
+          "Next: test with users who rely heavily on queue management",
+          "Learned: clear labels beat clever controls for decision-heavy moments"
+        ]
+      },
+
+      nextSlug: "shelfsaver"
+    },
+
+    {
+      slug: "shelfsaver",
+      name: "ShelfSaver — Food tracking concept",
+      oneLineProblem:
+        "Help users track food and reduce waste with reminders and recipes.",
+      role: "UX research + IA",
+      methods: ["personas", "user stories", "wireframes"],
+      outcome: "Clarified MVP + key flows",
+      tags: ["Human-Centered", "Information Architecture"],
+      links: {
+        prototype: "",
+        github: "",
+        live: ""
+      },
+
+      caseStudy: {
+        whatItIs:
+          "A concept for tracking food, surfacing reminders, and suggesting recipes to reduce waste.",
+        team: "",
+        timeline: "",
+
+        problem: [
+          "People forget what they already have and discover food too late.",
+          "A solution needs to be quick to use, or it becomes another chore."
+        ],
+
+        owned: [
+          "Research framing and assumptions",
+          "Information architecture and key user flows",
+          "Wireframes for MVP screens"
+        ],
+
+        constraints: [
+          "Concept had to stay minimal to avoid “another app I won’t use”",
+          "Needed clear MVP scope for a first iteration"
+        ],
+
+        process: {
+          research: [
+            "Created personas + scenarios for typical households",
+            "Mapped where forgetting happens in real routines"
+          ],
+          synthesis: [
+            "Defined the MVP around: add item, see what’s expiring, act on it",
+            "Reduced scope to the flows that drive habit formation"
+          ],
+          design: [
+            "Designed flows for tracking + reminders + recipe prompt moments",
+            "Wireframed screens with strong hierarchy"
+          ],
+          iteration: [
+            "Reviewed flows for friction and removed unnecessary steps",
+            "Refined IA so users can find items fast"
+          ]
+        },
+
+        decisions: [
+          {
+            issue: "Too much data-entry kills adoption.",
+            change: "Kept input lightweight and prioritized quick adds.",
+            why: "Lower effort increases follow-through.",
+            result: "The MVP stays usable even for busy users."
+          },
+          {
+            issue: "Users needed a clear “what do I do now?” moment.",
+            change: "Centered the experience around expiring-soon items and actions.",
+            why: "Action-first design reduces procrastination.",
+            result: "Flows feel more purposeful and less like “tracking for tracking’s sake.”"
+          },
+          {
+            issue: "Feature creep made the concept unfocused.",
+            change: "Tightened scope to MVP + key flows.",
+            why: "A smaller product can be tested and improved faster.",
+            result: "Clearer product definition and roadmap."
+          }
+        ],
+
+        outcome: {
+          metrics: [],
+          whatChanged: [
+            "Clarified MVP scope and core flows",
+            "Produced wireframes aligned to realistic routines"
+          ]
+        },
+
+        reflection: [
+          "Next: validate reminder timing with quick user tests",
+          "Next: explore scanning/receipt import as a later enhancement",
+          "Learned: MVP clarity matters more than feature ambition"
+        ]
+      },
+
+      nextSlug: "spoofify"
+    }
+  ]
+};
+
+
+
 
 export {
   illustration,
@@ -379,5 +583,6 @@ export {
   podcastSection,
   contactInfo,
   isHireable,
-  resumeSection
+  resumeSection,
+  projectsPage
 };

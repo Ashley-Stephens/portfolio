@@ -10,37 +10,24 @@ import Footer from "../components/footer/Footer";
 import Education from "./education/Education";
 import ScrollToTopButton from "./topbutton/Top";
 import Profile from "./profile/Profile";
-import {StyleProvider} from "../contexts/StyleContext";
-import {useLocalStorage} from "../hooks/useLocalStorage";
 import "./Main.scss";
 
 const Main = () => {
-  const darkPref = window.matchMedia("(prefers-color-scheme: dark)");
-  const [isDark, setIsDark] = useLocalStorage("isDark", darkPref.matches);
-
-  const changeTheme = () => {
-    setIsDark(!isDark);
-  };
-
-  return (
-    <div className={isDark ? "dark-mode" : null}>
-      <StyleProvider value={{isDark: isDark, changeTheme: changeTheme}}>
-        <>
-          <Header />
-          <Greeting />
-          <Skills />
-          <StackProgress />
-          <Education />
-          <WorkExperience />
-          <Projects />
-          <StartupProject />
-          <Profile />
-          <Footer />
-          <ScrollToTopButton />
-        </>
-      </StyleProvider>
-    </div>
-  );
+   return (
+      <>
+         <Header />
+         <Greeting />
+         <Skills />
+         <StackProgress />
+         <Education />
+         <WorkExperience />
+         <Projects />
+         <StartupProject />
+         <Profile />
+         <Footer />
+         <ScrollToTopButton />
+      </>
+   );
 };
 
 export default Main;

@@ -1,69 +1,35 @@
-import React, {useContext} from "react";
-import {Fade} from "react-reveal";
-import emoji from "react-easy-emoji";
+import React from "react";
 import "./Greeting.scss";
-import landingPerson from "../../assets/lottie/landingPerson";
-import DisplayLottie from "../../components/displayLottie/DisplayLottie";
-import SocialMedia from "../../components/socialMedia/SocialMedia";
-import Button from "../../components/button/Button";
-import {illustration, greeting} from "../../portfolio";
-import StyleContext from "../../contexts/StyleContext";
 
 export default function Greeting() {
-  const {isDark} = useContext(StyleContext);
-  if (!greeting.displayGreeting) {
-    return null;
-  }
+  const headshotUrl = process.env.PUBLIC_URL + "/ashley.png"; // put in /public
+
   return (
-    <Fade bottom duration={1000} distance="40px">
-      <div className="greet-main" id="greeting">
-        <div className="greeting-main">
-          <div className="greeting-text-div">
-            <div>
-              <h1
-                className={isDark ? "dark-mode greeting-text" : "greeting-text"}
-              >
-                {" "}
-                {greeting.title}{" "}
-                <span className="wave-emoji">{emoji("👋")}</span>
-              </h1>
-              <p
-                className={
-                  isDark
-                    ? "dark-mode greeting-text-p"
-                    : "greeting-text-p subTitle"
-                }
-              >
-                {greeting.subTitle}
-              </p>
-              <div id="resume" className="empty-div"></div>
-              <SocialMedia />
-              <div className="button-greeting-div">
-                <Button text="Contact me" href="#contact" />
-                {greeting.resumeLink && (
-                  <a
-                    href={require("./resume.pdf")}
-                    download="Resume.pdf"
-                    className="download-link-button"
-                  >
-                    <Button text="Download my resume" />
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="greeting-image-div">
-            {illustration.animated ? (
-              <DisplayLottie animationData={landingPerson} />
-            ) : (
-              <img
-                alt="man sitting on table"
-                src={require("../../assets/images/manOnTable.svg")}
-              ></img>
-            )}
-          </div>
+    <section className="greeting-main" id="home">
+      <div className="greeting-text-div">
+        <h1 className="greeting-text">Hey, I&apos;m Ashley</h1>
+
+        <p className="greeting-subtitle">UX / UI Designer</p>
+      </div>
+
+      <div className="greeting-image-div">
+        <div className="heroHeadshot" aria-label="Headshot">
+          <span className="heroShape heroShape1" />
+          <span className="heroShape heroShape2" />
+          <span className="heroShape heroShape3" />
+          <span className="heroDot heroDot1" />
+          <span className="heroDot heroDot2" />
+          <span className="heroPlus heroPlus1">+</span>
+          <span className="heroPlus heroPlus2">+</span>
+
+          <img
+            className="heroHeadshotImg"
+            src={headshotUrl}
+            alt="Ashley headshot"
+          />
         </div>
       </div>
-    </Fade>
+    </section>
   );
+
 }

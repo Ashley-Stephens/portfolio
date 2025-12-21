@@ -1,0 +1,82 @@
+@import "../../globalColor";
+
+.projects-page {
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.projects-wrap {
+  width: min(1100px, 100%);
+}
+
+.projects-title {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.projects-subtitle {
+  margin-top: 0.6rem;
+  opacity: 0.85;
+  max-width: 60ch;
+}
+
+.projects-grid {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 18px;
+  padding: 1.1rem 1.1rem;
+
+  transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  transform: translateY(-1px);
+  border-color: $buttonColor;
+  background-color: rgba(136, 91, 213, 0.12); /* subtle purple wash */
+}
+
+.project-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.project-problem {
+  margin-top: 0.55rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.project-meta {
+  margin-top: 0.55rem;
+  opacity: 0.92;
+}
+
+.project-meta-label {
+  font-weight: 650;
+  opacity: 0.95;
+}
+
+.dark-mode {
+  .project-card {
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+}
+
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

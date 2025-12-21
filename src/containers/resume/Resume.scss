@@ -12,14 +12,55 @@
    margin-bottom: 12px;
 }
 
+/* shared button styling */
 .resume-download,
 .resume-open{
-   padding: 10px 14px;
-   border-radius: 10px;
-   text-decoration: none;
    display: inline-flex;
    align-items: center;
-   gap: 8px;
+   justify-content: center;
+   padding: 10px 14px;
+   border-radius: 12px;
+   font-weight: 600;
+   text-decoration: none;
+   cursor: pointer;
+   transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, opacity 140ms ease;
+}
+
+/* Primary: Download */
+.resume-download{
+   background: rgba(255,255,255,0.92);
+   color: rgba(0,0,0,0.88);
+   border: 1px solid rgba(255,255,255,0.92);
+}
+
+.resume-download:hover{
+   background: rgba(255,255,255,1);
+   transform: translateY(-1px);
+}
+
+/* Secondary: Open in new tab */
+.resume-open{
+   background: rgba(255,255,255,0.10);
+   color: rgba(255,255,255,0.96);
+   border: 1px solid rgba(255,255,255,0.28);
+}
+
+.resume-open:hover{
+   background: rgba(255,255,255,0.16);
+   border-color: rgba(255,255,255,0.40);
+   transform: translateY(-1px);
+}
+
+.resume-download:active,
+.resume-open:active{
+   transform: translateY(0);
+   opacity: 0.9;
+}
+
+.resume-download:focus-visible,
+.resume-open:focus-visible{
+   outline: 2px solid rgba(255,255,255,0.9);
+   outline-offset: 3px;
 }
 
 .resume-viewer{

@@ -28,3 +28,21 @@
 .subTitle {
   color: $subTitle;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $darkBackground;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: $darkBackground;
+}
+
+/* in case your wrapper is used */
+.dark-mode {
+  min-height: 100vh;
+  background-color: $darkBackground;
+}
