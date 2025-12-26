@@ -5,6 +5,32 @@ import Footer from "../../components/footer/Footer";
 import { projectsPage } from "../../portfolio";
 import "./ProjectsPage.scss";
 
+function getTitle(p) {
+  return p.title || p.name || "Untitled project";
+}
+
+function getDesc(p) {
+  return (
+    p.desc ||
+    p.oneLiner ||
+    p.oneLineProblem ||
+    (p.caseStudy && p.caseStudy.whatItIs) ||
+    ""
+  );
+}
+
+function getThumb(p) {
+  // Prefer explicit thumb on the project object
+  if (p.thumb) return p.thumb;
+
+  // Safe fallback by slug (so cards still show images even if you forget to add thumb)
+  if (p.slug === "mixflow") return "/mixflow.png";
+  if (p.slug === "shelfsaver") return "/leftoverchef.png";
+  if (p.slug === "leftoverchef") return "/leftoverchef.png";
+
+  return "";
+}
+
 export default function ProjectsPage() {
   return (
     <>
@@ -16,26 +42,35 @@ export default function ProjectsPage() {
           <p className="projects-subtitle">{projectsPage.subtitle}</p>
 
           <div className="projects-grid">
-            {projectsPage.projects.map((p) => (
-              <Link key={p.slug} className="project-card" to={`/projects/${p.slug}`}>
-                <div className="project-name">{p.name}</div>
+            {projectsPage.projects.map((p) => {
+              const title = getTitle(p);
+              const desc = getDesc(p);
+              const thumb = getThumb(p);
 
-                <div className="project-problem">{p.oneLineProblem}</div>
+              return (
+                <div key={p.slug} className="work-card">
+                  <div className="work-thumb">
+                    {thumb ? (
+                      <img
+                        src={process.env.PUBLIC_URL + thumb}
+                        alt={`${title} thumbnail`}
+                      />
+                    ) : (
+                      <div className="thumb-placeholder" />
+                    )}
+                  </div>
 
-                <div className="project-meta">
-                  <span className="project-meta-label">Role:</span> {p.role}
+                  <div className="work-body">
+                    <div className="work-title">{title}</div>
+                    <div className="work-desc">{desc}</div>
+
+                    <Link className="work-link" to={`/projects/${p.slug}`}>
+                      View case study →
+                    </Link>
+                  </div>
                 </div>
-
-                <div className="project-meta">
-                  <span className="project-meta-label">Methods:</span>{" "}
-                  {p.methods.slice(0, 5).join(", ")}
-                </div>
-
-                <div className="project-meta">
-                  <span className="project-meta-label">Outcome:</span> {p.outcome}
-                </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </main>

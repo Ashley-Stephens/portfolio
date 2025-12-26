@@ -46,3 +46,25 @@ body {
   min-height: 100vh;
   background-color: $darkBackground;
 }
+
+html, body {
+  background: $darkBackground;
+}
+
+.dark-mode {
+  min-height: 100vh;
+  background: $darkBackground;
+  color: $textColorDark;
+}
+
+.dark-mode p,
+.dark-mode li,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6,
+.dark-mode span {
+  color: $textColorDark;
+}
