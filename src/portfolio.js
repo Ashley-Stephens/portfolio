@@ -67,97 +67,40 @@ const projectsPage = {
       tags: ["Human-Centered", "UX Systems", "Technical"],
       methods: ["interviews", "surveys", "personas", "scenarios", "wireframes", "prototyping", "usability testing"],
       outcome: "Visible shuffle modes + rediscovery + optional playlist cleanup prompts",
-      thumb: "/mixflow.png",
+      thumb: "/Mixflow.png",
       links: { prototype: "", github: "", live: "" },
 
       caseStudy: {
-        whatItIs:
-          "Mixflow is a music player that gives users meaningful control over how their playlists shuffle, helping them rediscover forgotten songs and reduce repetitive listening.",
-        team: "Team of 5",
-        timeline: "",
-
-        problem: [
-          "People don’t trust shuffle. It doesn’t feel random—users hear the same songs repeatedly while others never play.",
-          "Shuffle felt unpredictable but not transparent, so users couldn’t influence playback behavior or understand why repeats happened.",
-          "Users wanted agency: steer playback toward discovery and away from repetition."
+        heroTagline: "Improving shuffle to give users control and rediscover forgotten songs.",
+        platform: "Web",
+        heroImage: "/mixflow-hero.jpg",
+        problemBullets: [
+          "Shuffle felt random but predictable",
+          "Same songs repeated too often",
+          "No control over shuffle behavior"
         ],
+        problemQuote: "Shuffle doesn’t feel random — it feels biased.",
+        problemImage: "/images/mixflow/problem-photo.png",
 
-        owned: [
-          "End-to-end UX (research, personas, scenarios, flows, IA, wireframes, prototypes, UI specs)",
-          "Usability testing + iteration (copy, layout, interaction)",
-          "Solo front-end implementation of the UI and core interactions"
-        ],
-
-        constraints: [
-          "Time-limited iteration cycles (shipping mattered)",
-          "Avoid ‘settings hell’—controls must be understandable at a glance",
-          "Playback/shuffle behavior needed to stay feasible for a web app",
-          "Team alignment across 5 people while I owned UX/UI + front end"
-        ],
-
-        process: {
-          research: [
-            "Interviewed students about shuffle trust, repeats, and discovery habits",
-            "Identified pain points: repetition, missed songs, lack of control"
-          ],
-          synthesis: [
-            "Mapped primary tasks: pick music fast, reduce repeats, discover underplayed tracks",
-            "Converted insights into requirements: transparency + control with low effort"
-          ],
-          design: [
-            "Made shuffle behavior visible via modes instead of hidden logic",
-            "Added ‘Least played’ mode to encourage rediscovery",
-            "Designed cleanup as a gentle prompt triggered by repeated skips"
-          ],
-          iteration: [
-            "Tested early prototypes; users understood modes faster than customization sliders",
-            "Refined labels and microcopy so modes feel obvious and low-risk"
-          ]
-        },
-
-        decisions: [
+        featuresIntro: "I designed Mixflow around usability and rediscovery.",
+        features: [
           {
-            issue: "Shuffle felt ‘random’ but untrustworthy (black box).",
-            change: "Added visible shuffle modes users can choose.",
-            why: "Transparency increases perceived fairness and reduces frustration.",
-            result: "Users could predict outcomes and felt more in control."
+            title: "Visible Shuffle Modes",
+            description: "Give users control with preset shuffle modes.",
+            badges: ["Balanced", "Least Played"],
+            image: "/feature-modes.png"
           },
           {
-            issue: "Repetition made playlists feel stale.",
-            change: "Introduced ‘Least played’ mode to encourage rediscovery.",
-            why: "Directly targets the ‘forgotten songs’ problem without extra work.",
-            result: "Users reported more novelty and fewer repeat loops."
-          },
-          {
-            issue: "Users kept skipping the same songs but rarely cleaned playlists.",
-            change: "Designed ‘push gently’ cleanup prompts based on repeated skips.",
-            why: "Nudges support maintenance without guilt or forced decisions.",
-            result: "Users liked that it was optional and reversible."
-          },
-          {
-            issue: "Why presets instead of infinite customization?",
-            change: "Chose preset modes over sliders/weight tuning.",
-            why: "Lower cognitive load + feasible within solo FE time constraints.",
-            result: "Controls stayed simple while still feeling powerful."
+            title: "Rediscover Least Played",
+            description: "Prioritize lesser played songs for discovery.",
+            image: "/images/mixflow/feature-least-played.png"
           }
         ],
 
-        outcome: {
-          metrics: [],
-          whatChanged: [
-            "Turned shuffle into a transparent, user-controlled system (mode-based playback)",
-            "Reduced perceived repetition with an explicit rediscovery path (Least played)",
-            "Added lightweight playlist maintenance via optional ‘push gently’ prompts"
-          ]
-        },
-
-        reflection: [
-          "Learned: Perceived randomness matters as much as mathematical randomness—trust comes from clarity.",
-          "Learned: Preset controls can feel more empowering than deep customization when users are time-poor.",
-          "Learned: Nudges work best when optional, reversible, and framed neutrally.",
-          "Next: Add ‘session goals’ (discovery vs comfort) to auto-suggest a mode.",
-          "Next: Add lightweight “why this played next” explanations.",
-          "Next: Explore personalization using skip/like patterns while preserving user control."
+        outcomes: [
+          { icon: "☰", title: "Shuffle Modes", description: "Clear preset options gave users control." },
+          { icon: "⟲", title: "Rediscovered Songs", description: "Forgotten tracks resurfaced in playlists." },
+          { icon: "▢", title: "Cleaner Playlists", description: "Users kept playlists fresh and relevant." }
         ]
       },
 

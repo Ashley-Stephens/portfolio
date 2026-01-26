@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import { greeting, socialMediaLinks } from "../../portfolio";
+import { socialMediaLinks } from "../../portfolio";
 import "./ContactPage.scss";
 
 export default function ContactPage() {
-  const headshotUrl = process.env.PUBLIC_URL + "/headshot.jpg"; // add this file to /public
-  const email = socialMediaLinks.gmail;
+  const email = socialMediaLinks.gmail || "";
+  const gmailCompose = email
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent("Hello Ashley")}`
+    : "";
+  const linkedin = socialMediaLinks.linkedin || "";
+  const github = socialMediaLinks.github || ""; // optional if you add it later
 
   const [copied, setCopied] = useState(false);
 
@@ -27,70 +31,110 @@ export default function ContactPage() {
       <Header />
 
       <main className="contact-page">
-        <div className="contact-card">
-          <div className="contact-left">
-            <img
-              className="contact-photo"
-              src={headshotUrl}
-              alt={`${greeting.username} headshot`}
-            />
-          </div>
-
-          <div className="contact-right">
+        <section className="contact-card" aria-label="Contact">
+          <div className="contact-top">
             <h1 className="contact-title">Contact</h1>
             <p className="contact-subtitle">
               Fastest way to reach me: email.
             </p>
+          </div>
 
-            <div className="contact-rows">
-              {email && (
-                <div className="contact-row">
+          <div className="contact-rows">
+            {email && (
+              <div className="contact-row">
+                <div className="contact-left">
                   <div className="contact-label">Email</div>
-                  <a className="contact-link" href={`mailto:${email}`}>
+                  <a className="contact-value" href={`mailto:${email}`}>
                     {email}
                   </a>
-                  <button className="contact-mini" type="button" onClick={copyEmail}>
-                    {copied ? "Copied" : "Copy"}
+                </div>
+
+                <div className="contact-actions">
+                  <a className="contact-btn contact-btn--primary" href={`mailto:${email}`}>
+                    Email me
+                  </a>
+
+                  <a
+                    className="contact-btn contact-btn--primary"
+                    href={gmailCompose}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open Gmail
+                  </a>
+
+                  <button
+                    className="contact-btn contact-btn--secondary"
+                    type="button"
+                    onClick={copyEmail}
+                  >
+                    {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
-              )}
+              </div>
+            )}
 
-              {socialMediaLinks.linkedin && (
-                <div className="contact-row">
+            {linkedin && (
+              <div className="contact-row">
+                <div className="contact-left">
                   <div className="contact-label">LinkedIn</div>
                   <a
-                    className="contact-link"
-                    href={socialMediaLinks.linkedin}
+                    className="contact-value"
+                    href={linkedin}
                     target="_blank"
                     rel="noreferrer"
                   >
                     Open profile
                   </a>
                 </div>
-              )}
 
-              {socialMediaLinks.github && (
-                <div className="contact-row">
+                <div className="contact-actions">
+                  <a
+                    className="contact-btn contact-btn--primary"
+                    href={linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View LinkedIn
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {github && (
+              <div className="contact-row">
+                <div className="contact-left">
                   <div className="contact-label">GitHub</div>
                   <a
-                    className="contact-link"
-                    href={socialMediaLinks.github}
+                    className="contact-value"
+                    href={github}
                     target="_blank"
                     rel="noreferrer"
                   >
                     Open GitHub
                   </a>
                 </div>
-              )}
-            </div>
 
-            <div className="contact-cta">
-              <Link className="contact-primary" to="/resume">
-                View resume
-              </Link>
-            </div>
+                <div className="contact-actions">
+                  <a
+                    className="contact-btn contact-btn--primary"
+                    href={github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View GitHub
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
+
+          <div className="contact-cta">
+            <Link className="contact-btn contact-btn--ghost" to="/resume">
+              View resume
+            </Link>
+          </div>
+        </section>
       </main>
 
       <Footer />

@@ -5,18 +5,34 @@ import Footer from "../../components/footer/Footer";
 import { projectsPage } from "../../portfolio";
 import "./ProjectCaseStudyPage.scss";
 
+function toArray(x) {
+  if (!x) return [];
+  return Array.isArray(x) ? x : [x];
+}
+
+function splitTitle(name = "") {
+  // Supports: "Mixflow — Music playback UX"
+  const parts = name.split("—").map((s) => s.trim());
+  if (parts.length >= 2) return [parts[0], parts.slice(1).join(" — ")];
+  return [name, ""];
+}
+
 export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
-  const project = projectsPage.projects.find((p) => p.slug === slug);
+  const projects = projectsPage?.projects || [];
+  const idx = projects.findIndex((p) => p.slug === slug);
+  const project = idx >= 0 ? projects[idx] : null;
 
   if (!project) {
     return (
       <>
         <Header />
-        <main className="case-page">
-          <div className="case-wrap">
-            <h1 className="case-title">Project not found</h1>
-            <Link className="case-back" to="/projects">← Back to Projects</Link>
+        <main className="csPage">
+          <div className="csWrap">
+            <h1 className="csTitle">Project not found</h1>
+            <Link className="csPill" to="/projects">
+              ← Back to Projects
+            </Link>
           </div>
         </main>
         <Footer />
@@ -24,178 +40,213 @@ export default function ProjectCaseStudyPage() {
     );
   }
 
-  const cs = project.caseStudy;
-  const next = projectsPage.projects.find((p) => p.slug === project.nextSlug);
+  const cs = project.caseStudy || {};
+  const [heroTitle, heroSubtitle] = splitTitle(project.name);
 
-  const ctas = [
-    { label: "Prototype", url: project.links.prototype },
-    { label: "GitHub", url: project.links.github },
-    { label: "Live Demo", url: project.links.live }
-  ].filter((x) => !!x.url);
+  const heroTagline =
+    cs.heroTagline ||
+    cs.tagline ||
+    cs.whatItIs ||
+    project.oneLineProblem ||
+    "";
+
+  const platform = cs.platform || project.platform || "Web";
+
+  const prototypeUrl = project.links?.prototype || cs.prototypeUrl || "";
+  const heroImage = cs.heroImage || cs.heroMedia || project.heroImage || project.thumb || "";
+
+  const problemBullets = toArray(cs.problemBullets || cs.problem).slice(0, 3);
+  const problemQuote =
+    cs.problemQuote || "Shuffle doesn’t feel random — it feels biased.";
+  const problemImage = cs.problemImage || cs.problemMedia || "";
+
+  // Key Features (preferred: cs.features)
+  let features = toArray(cs.features || cs.keyFeatures || cs.coreSolution);
+
+  // If you didn’t define features yet, fall back to decisions → feature cards
+  if (!features.length && Array.isArray(cs.decisions)) {
+    features = cs.decisions.slice(0, 3).map((d) => ({
+      title: d.change || "Feature",
+      description: d.why || d.issue || "",
+      image: d.image || ""
+    }));
+  }
+
+  // Key Outcomes (preferred: cs.outcomes)
+  let outcomes = toArray(cs.outcomes || cs.keyOutcomes || cs.outcome?.whatChanged);
+  outcomes = outcomes
+    .map((o) => (typeof o === "string" ? { title: o, description: "" } : o))
+    .slice(0, 3);
+
+  const prev = idx > 0 ? projects[idx - 1] : null;
+  const next = idx < projects.length - 1 ? projects[idx + 1] : null;
 
   return (
     <>
       <Header />
 
-      <main className="case-page">
-        <div className="case-wrap">
-          {/* Escape route #1 */}
-          <Link className="case-back" to="/projects">← Back to Projects</Link>
+      <main className="csPage">
+        <div className="csWrap">
+          {/* HERO (text left, laptop image right) */}
+          <section className="csHero">
+            <div className="csHeroLeft">
+              <div className="csHeroHeading">
+                <h1 className="csHeroTitle">{heroTitle}</h1>
+                {heroSubtitle ? (
+                  <div className="csHeroSubtitle">{heroSubtitle}</div>
+                ) : null}
+              </div>
 
-          {/* HERO */}
-          <section className="case-hero">
-            <h1 className="case-title">{project.name}</h1>
-            <p className="case-what">{cs.whatItIs}</p>
+              {heroTagline ? <p className="csHeroTagline">{heroTagline}</p> : null}
 
-            <div className="case-meta">
-              <div><span className="case-meta-label">Role:</span> {project.role}</div>
-              {cs.team && <div><span className="case-meta-label">Team:</span> {cs.team}</div>}
-              {cs.timeline && <div><span className="case-meta-label">Timeline:</span> {cs.timeline}</div>}
+              <div className="csMeta">
+                <div className="csMetaRow">
+                  <span className="csMetaLabel">Role:</span>
+                  <span>{project.role}</span>
+                </div>
+                {cs.team ? (
+                  <div className="csMetaRow">
+                    <span className="csMetaLabel">Team:</span>
+                    <span>{cs.team}</span>
+                  </div>
+                ) : null}
+                <div className="csMetaRow">
+                  <span className="csMetaLabel">Platform:</span>
+                  <span>{platform}</span>
+                </div>
+              </div>
+
+              {prototypeUrl ? (
+                <a
+                  className="csBtnPrimary"
+                  href={prototypeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Prototype
+                </a>
+              ) : null}
             </div>
 
-            <div className="case-tags">
-              {project.tags.slice(0, 3).map((t) => (
-                <span key={t} className="case-tag">{t}</span>
-              ))}
+            <div className="csHeroRight">
+              {heroImage ? (
+                <img className="csHeroMock" src={heroImage} alt={`${heroTitle} hero`} />
+              ) : (
+                <div className="csHeroMockPlaceholder" />
+              )}
             </div>
+          </section>
 
-            {ctas.length > 0 && (
-              <div className="case-cta">
-                {ctas.map((b) => (
-                  <a
-                    key={b.label}
-                    className="case-button"
-                    href={b.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {b.label}
-                  </a>
+          {/* PROBLEM (big card with bullets + quote + image) */}
+          <section className="csProblemCard">
+            <div className="csProblemLeft">
+              <div className="csSectionTitleRow">
+                <div className="csSectionIcon">♪</div>
+                <h2 className="csSectionTitle">The Problem</h2>
+              </div>
+
+              <ul className="csBullets">
+                {problemBullets.map((b, i) => (
+                  <li key={i}>
+                    <span className="csCheck">✓</span>
+                    <span>{b}</span>
+                  </li>
                 ))}
+              </ul>
+
+              <div className="csQuote">
+                <span className="csQuoteMark">“</span>
+                <span>{problemQuote}</span>
               </div>
-            )}
-          </section>
+            </div>
 
-          {/* Problem */}
-          <section className="case-section">
-            <h2 className="case-h2">Problem</h2>
-            {cs.problem.map((p, i) => (
-              <p key={i} className="case-p">{p}</p>
-            ))}
-          </section>
-
-          {/* Role & constraints */}
-          <section className="case-section">
-            <h2 className="case-h2">Your role & constraints</h2>
-
-            <div className="case-two-col">
-              <div className="case-col">
-                <h3 className="case-h3">What I owned</h3>
-                <ul className="case-list">
-                  {cs.owned.map((x) => <li key={x}>{x}</li>)}
-                </ul>
-              </div>
-
-              <div className="case-col">
-                <h3 className="case-h3">Constraints</h3>
-                <ul className="case-list">
-                  {cs.constraints.map((x) => <li key={x}>{x}</li>)}
-                </ul>
-              </div>
+            <div className="csProblemRight">
+              {problemImage ? (
+                <img className="csProblemImg" src={problemImage} alt="Problem context" />
+              ) : (
+                <div className="csProblemImgPlaceholder" />
+              )}
             </div>
           </section>
 
-          {/* Process */}
-          <section className="case-section">
-            <h2 className="case-h2">Process</h2>
+          {/* KEY FEATURES */}
+          <section className="csSection">
+            <h2 className="csH2">Key Features</h2>
+            {cs.featuresIntro ? (
+              <p className="csSectionSub">{cs.featuresIntro}</p>
+            ) : null}
 
-            <div className="case-process">
-              <div className="case-col">
-                <h3 className="case-h3">Research</h3>
-                <ul className="case-list">{cs.process.research.map((x) => <li key={x}>{x}</li>)}</ul>
-              </div>
+            <div className="csFeatureStack">
+              {features.map((f, i) => (
+                <div className="csFeatureCard" key={i}>
+                  <div className="csFeatureLeft">
+                    <h3 className="csH3">{f.title}</h3>
+                    {f.description ? <p className="csBody">{f.description}</p> : null}
 
-              <div className="case-col">
-                <h3 className="case-h3">Synthesis</h3>
-                <ul className="case-list">{cs.process.synthesis.map((x) => <li key={x}>{x}</li>)}</ul>
-              </div>
-
-              <div className="case-col">
-                <h3 className="case-h3">Design decisions</h3>
-                <ul className="case-list">{cs.process.design.map((x) => <li key={x}>{x}</li>)}</ul>
-              </div>
-
-              <div className="case-col">
-                <h3 className="case-h3">Iteration</h3>
-                <ul className="case-list">{cs.process.iteration.map((x) => <li key={x}>{x}</li>)}</ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Key decisions */}
-          <section className="case-section">
-            <h2 className="case-h2">Key decisions</h2>
-
-            <div className="decisions-grid">
-              {cs.decisions.slice(0, 5).map((d, idx) => (
-                <div key={idx} className="decision-card">
-                  <div className="decision-row">
-                    <div className="decision-label">Issue</div>
-                    <div>{d.issue}</div>
+                    {Array.isArray(f.badges) && f.badges.length ? (
+                      <div className="csBadges">
+                        {f.badges.map((t) => (
+                          <span className="csBadge" key={t}>
+                            ✓ {t}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
-                  <div className="decision-row">
-                    <div className="decision-label">Change</div>
-                    <div>{d.change}</div>
-                  </div>
-                  <div className="decision-row">
-                    <div className="decision-label">Why</div>
-                    <div>{d.why}</div>
-                  </div>
-                  <div className="decision-row">
-                    <div className="decision-label">Result</div>
-                    <div>{d.result}</div>
+
+                  <div className="csFeatureRight">
+                    {f.image ? (
+                      <img className="csFeatureImg" src={f.image} alt={f.title} />
+                    ) : (
+                      <div className="csFeatureImgPlaceholder" />
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Outcome */}
-          <section className="case-section">
-            <h2 className="case-h2">Outcome</h2>
+          {/* KEY OUTCOMES */}
+          <section className="csSection">
+            <h2 className="csH2">Key Outcomes</h2>
 
-            {cs.outcome.metrics.length > 0 && (
-              <>
-                <h3 className="case-h3">What improved</h3>
-                <ul className="case-list">
-                  {cs.outcome.metrics.map((x) => <li key={x}>{x}</li>)}
-                </ul>
-              </>
-            )}
-
-            <h3 className="case-h3">{cs.outcome.metrics.length > 0 ? "What changed" : "What changed / validated"}</h3>
-            <ul className="case-list">
-              {cs.outcome.whatChanged.map((x) => <li key={x}>{x}</li>)}
-            </ul>
+            <div className="csOutcomesGrid">
+              {outcomes.map((o, i) => (
+                <div className="csOutcomeCard" key={i}>
+                  <div className="csOutcomeTop">
+                    <div className="csOutcomeIcon">{o.icon || "▢"}</div>
+                    <div className="csOutcomeTitle">{o.title}</div>
+                  </div>
+                  {o.description ? (
+                    <div className="csOutcomeDesc">{o.description}</div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </section>
 
-          {/* Reflection */}
-          <section className="case-section">
-            <h2 className="case-h2">Reflection</h2>
-            <ul className="case-list">
-              {cs.reflection.map((x) => <li key={x}>{x}</li>)}
-            </ul>
-          </section>
-
-          {/* Escape routes #2 and #3 */}
-          <div className="case-bottom-nav">
-            <Link className="case-nav-link" to="/projects">Back to Projects</Link>
-            {next && (
-              <Link className="case-nav-link primary" to={`/projects/${next.slug}`}>
-                Next project →
+          {/* BOTTOM NAV (Prev / All / Next) */}
+          <section className="csBottomNav">
+            {prev ? (
+              <Link className="csPill" to={`/projects/${prev.slug}`}>
+                ← Previous Project
               </Link>
+            ) : (
+              <span className="csPill disabled">← Previous Project</span>
             )}
-          </div>
+
+            <Link className="csPill primary" to="/projects">
+              View All Projects
+            </Link>
+
+            {next ? (
+              <Link className="csPill" to={`/projects/${next.slug}`}>
+                Next Project →
+              </Link>
+            ) : (
+              <span className="csPill disabled">Next Project →</span>
+            )}
+          </section>
         </div>
       </main>
 
