@@ -5,29 +5,13 @@ import Footer from "../../components/footer/Footer";
 import { projectsPage } from "../../portfolio";
 import "./ProjectsPage.scss";
 
-function getTitle(p) {
-  return p.title || p.name || "Untitled project";
-}
-
-function getDesc(p) {
-  return (
-    p.desc ||
-    p.oneLiner ||
-    p.oneLineProblem ||
-    (p.caseStudy && p.caseStudy.whatItIs) ||
-    ""
-  );
-}
+const PROCESS_STEPS = ["Discover", "Define", "Design", "Deliver"];
 
 function getThumb(p) {
-  // Prefer explicit thumb on the project object
   if (p.thumb) return p.thumb;
-
-  // Safe fallback by slug (so cards still show images even if you forget to add thumb)
   if (p.slug === "mixflow") return "/mixflow.png";
   if (p.slug === "shelfsaver") return "/leftoverchef.png";
   if (p.slug === "leftoverchef") return "/leftoverchef.png";
-
   return "";
 }
 
@@ -38,37 +22,100 @@ export default function ProjectsPage() {
 
       <main className="projects-page">
         <div className="projects-wrap">
-          <h1 className="projects-title">{projectsPage.title}</h1>
-          <p className="projects-subtitle">{projectsPage.subtitle}</p>
+          <div className="projects-header">
+            <p className="projects-eyebrow">Case Studies</p>
+            <h1 className="projects-title">{projectsPage.title}</h1>
+            <p className="projects-subtitle">{projectsPage.subtitle}</p>
+          </div>
 
-          <div className="projects-grid">
-            {projectsPage.projects.map((p) => {
-              const title = getTitle(p);
-              const desc = getDesc(p);
+          <div className="projects-list">
+            {projectsPage.projects.map((p, idx) => {
               const thumb = getThumb(p);
+              const isEven = idx % 2 === 0;
 
               return (
-                <div key={p.slug} className="work-card">
-                  <div className="work-thumb">
-                    {thumb ? (
-                      <img
-                        src={process.env.PUBLIC_URL + thumb}
-                        alt={`${title} thumbnail`}
-                      />
-                    ) : (
-                      <div className="thumb-placeholder" />
-                    )}
-                  </div>
-
-                  <div className="work-body">
-                    <div className="work-title">{title}</div>
-                    <div className="work-desc">{desc}</div>
-
-                    <Link className="work-link" to={`/projects/${p.slug}`}>
-                      View case study →
+                <article
+                  key={p.slug}
+                  className={`project-card ${isEven ? "card-img-left" : "card-img-right"}`}
+                >
+                  {/* Thumbnail */}
+                  <div className="project-card__media">
+                    <Link to={`/projects/${p.slug}`} tabIndex={-1} aria-hidden>
+                      {thumb ? (
+                        <img
+                          src={process.env.PUBLIC_URL + thumb}
+                          alt={`${p.name} preview`}
+                          className="project-card__img"
+                        />
+                      ) : (
+                        <div className="project-card__img-placeholder" />
+                      )}
                     </Link>
                   </div>
-                </div>
+
+                  {/* Content */}
+                  <div className="project-card__body">
+                    <div className="project-card__meta">
+                      <span className="project-card__category">{p.category || "UX Design"}</span>
+                      {p.year && <span className="project-card__year">{p.year}</span>}
+                    </div>
+
+                    <h2 className="project-card__name">
+                      {p.name}
+                      {p.subtitle && (
+                        <span className="project-card__name-sub"> — {p.subtitle}</span>
+                      )}
+                    </h2>
+
+                    <p className="project-card__statement">
+                      {p.heroStatement ||
+                        p.oneLineProblem ||
+                        (p.caseStudy && p.caseStudy.overview) ||
+                        ""}
+                    </p>
+
+                    {/* Role + duration */}
+                    <div className="project-card__details">
+                      {p.role && (
+                        <div className="project-card__detail-row">
+                          <span className="project-card__detail-label">Role</span>
+                          <span>{p.role}</span>
+                        </div>
+                      )}
+                      {p.duration && (
+                        <div className="project-card__detail-row">
+                          <span className="project-card__detail-label">Timeline</span>
+                          <span>{p.duration}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Tags */}
+                    {Array.isArray(p.tags) && p.tags.length > 0 && (
+                      <div className="project-card__tags">
+                        {p.tags.map((t) => (
+                          <span key={t} className="project-card__tag">{t}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Process steps */}
+                    <div className="project-card__process">
+                      {PROCESS_STEPS.map((s, i) => (
+                        <React.Fragment key={s}>
+                          <span className="project-card__process-step">{s}</span>
+                          {i < PROCESS_STEPS.length - 1 && (
+                            <span className="project-card__process-arrow">→</span>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    <Link className="project-card__cta" to={`/projects/${p.slug}`}>
+                      View Case Study →
+                    </Link>
+                  </div>
+                </article>
               );
             })}
           </div>

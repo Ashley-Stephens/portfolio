@@ -10,13 +10,6 @@ function toArray(x) {
   return Array.isArray(x) ? x : [x];
 }
 
-function splitTitle(name = "") {
-  // Supports: "Mixflow — Music playback UX"
-  const parts = name.split("—").map((s) => s.trim());
-  if (parts.length >= 2) return [parts[0], parts.slice(1).join(" — ")];
-  return [name, ""];
-}
-
 export default function ProjectCaseStudyPage() {
   const { slug } = useParams();
   const projects = projectsPage?.projects || [];
@@ -29,10 +22,8 @@ export default function ProjectCaseStudyPage() {
         <Header />
         <main className="csPage">
           <div className="csWrap">
-            <h1 className="csTitle">Project not found</h1>
-            <Link className="csPill" to="/projects">
-              ← Back to Projects
-            </Link>
+            <h1>Project not found</h1>
+            <Link className="csPill" to="/projects">← Back to Projects</Link>
           </div>
         </main>
         <Footer />
@@ -41,40 +32,15 @@ export default function ProjectCaseStudyPage() {
   }
 
   const cs = project.caseStudy || {};
-  const [heroTitle, heroSubtitle] = splitTitle(project.name);
+  const heroImage = cs.heroImage || "";
+  const showcaseImage = cs.showcaseImage || "";
+  const prototypeUrl = project.links?.prototype || "";
 
-  const heroTagline =
-    cs.heroTagline ||
-    cs.tagline ||
-    cs.whatItIs ||
-    project.oneLineProblem ||
-    "";
-
-  const platform = cs.platform || project.platform || "Web";
-
-  const prototypeUrl = project.links?.prototype || cs.prototypeUrl || "";
-  const heroImage = cs.heroImage || cs.heroMedia || project.heroImage || project.thumb || "";
-
-  const problemBullets = toArray(cs.problemBullets || cs.problem).slice(0, 3);
-  const problemQuote =
-    cs.problemQuote || "Shuffle doesn’t feel random — it feels biased.";
-  const problemImage = cs.problemImage || cs.problemMedia || "";
-
-  // Key Features (preferred: cs.features)
-  let features = toArray(cs.features || cs.keyFeatures || cs.coreSolution);
-
-  // If you didn’t define features yet, fall back to decisions → feature cards
-  if (!features.length && Array.isArray(cs.decisions)) {
-    features = cs.decisions.slice(0, 3).map((d) => ({
-      title: d.change || "Feature",
-      description: d.why || d.issue || "",
-      image: d.image || ""
-    }));
-  }
-
-  // Key Outcomes (preferred: cs.outcomes)
-  let outcomes = toArray(cs.outcomes || cs.keyOutcomes || cs.outcome?.whatChanged);
-  outcomes = outcomes
+  const problemBullets = toArray(cs.problemBullets).slice(0, 3);
+  const researchData = cs.research || null;
+  const processSteps = toArray(cs.process);
+  const decisions = toArray(cs.decisions).slice(0, 3);
+  const outcomes = toArray(cs.outcomes)
     .map((o) => (typeof o === "string" ? { title: o, description: "" } : o))
     .slice(0, 3);
 
@@ -87,166 +53,271 @@ export default function ProjectCaseStudyPage() {
 
       <main className="csPage">
         <div className="csWrap">
-          {/* HERO (text left, laptop image right) */}
-          <section className="csHero">
-            <div className="csHeroLeft">
-              <div className="csHeroHeading">
-                <h1 className="csHeroTitle">{heroTitle}</h1>
-                {heroSubtitle ? (
-                  <div className="csHeroSubtitle">{heroSubtitle}</div>
-                ) : null}
-              </div>
 
-              {heroTagline ? <p className="csHeroTagline">{heroTagline}</p> : null}
+          {/* ── HERO ─────────────────────────────────────────── */}
+          <section className={`csHero ${!heroImage ? "csHeroNoImage" : ""}`}>
+            <div className="csHeroLeft">
+              <p className="csEyebrow">{project.category || "UX Design"} · {project.year || ""}</p>
+
+              <h1 className="csHeroTitle">{project.name}</h1>
+              {project.subtitle && (
+                <div className="csHeroSubtitle">{project.subtitle}</div>
+              )}
+
+              {(project.heroStatement || project.heroSubtext) && (
+                <div className="csHeroStatement">
+                  {project.heroStatement && <p className="csHeroQ">{project.heroStatement}</p>}
+                  {project.heroSubtext && <p className="csHeroA">{project.heroSubtext}</p>}
+                </div>
+              )}
 
               <div className="csMeta">
-                <div className="csMetaRow">
-                  <span className="csMetaLabel">Role:</span>
-                  <span>{project.role}</span>
-                </div>
-                {cs.team ? (
+                {project.role && (
                   <div className="csMetaRow">
-                    <span className="csMetaLabel">Team:</span>
-                    <span>{cs.team}</span>
+                    <span className="csMetaLabel">Role</span>
+                    <span>{project.role}</span>
                   </div>
-                ) : null}
-                <div className="csMetaRow">
-                  <span className="csMetaLabel">Platform:</span>
-                  <span>{platform}</span>
-                </div>
+                )}
+                {project.team && (
+                  <div className="csMetaRow">
+                    <span className="csMetaLabel">Team</span>
+                    <span>{project.team}</span>
+                  </div>
+                )}
+                {project.platform && (
+                  <div className="csMetaRow">
+                    <span className="csMetaLabel">Platform</span>
+                    <span>{project.platform}</span>
+                  </div>
+                )}
+                {project.duration && (
+                  <div className="csMetaRow">
+                    <span className="csMetaLabel">Timeline</span>
+                    <span>{project.duration}</span>
+                  </div>
+                )}
               </div>
 
-              {prototypeUrl ? (
-                <a
-                  className="csBtnPrimary"
-                  href={prototypeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Prototype
-                </a>
-              ) : null}
-            </div>
+              {Array.isArray(project.tags) && project.tags.length > 0 && (
+                <div className="csHeroTags">
+                  {project.tags.map((t) => (
+                    <span className="csHeroTag" key={t}>{t}</span>
+                  ))}
+                </div>
+              )}
 
-            <div className="csHeroRight">
-              {heroImage ? (
-                <img className="csHeroMock" src={heroImage} alt={`${heroTitle} hero`} />
-              ) : (
-                <div className="csHeroMockPlaceholder" />
+              {prototypeUrl && (
+                <a className="csBtnPrimary" href={prototypeUrl} target="_blank" rel="noreferrer">
+                  View Prototype ↗
+                </a>
               )}
             </div>
+
+            {heroImage && (
+              <div className="csHeroRight">
+                <img
+                  className="csHeroMock"
+                  src={process.env.PUBLIC_URL + heroImage}
+                  alt={`${project.name} preview`}
+                />
+              </div>
+            )}
           </section>
 
-          {/* PROBLEM (big card with bullets + quote + image) */}
-          <section className="csProblemCard">
-            <div className="csProblemLeft">
+          {/* ── OVERVIEW ─────────────────────────────────────── */}
+          {cs.overview && (
+            <section className="csOverview">
+              <p className="csOverviewText">{cs.overview}</p>
+            </section>
+          )}
+
+          {/* ── THE PROBLEM ──────────────────────────────────── */}
+          {(problemBullets.length > 0 || cs.problemQuote) && (
+            <section className="csProblemCard">
               <div className="csSectionTitleRow">
-                <div className="csSectionIcon">♪</div>
+                <div className="csSectionIcon">{cs.problemSectionIcon || "!"}</div>
                 <h2 className="csSectionTitle">The Problem</h2>
               </div>
 
-              <ul className="csBullets">
-                {problemBullets.map((b, i) => (
-                  <li key={i}>
-                    <span className="csCheck">✓</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="csQuote">
-                <span className="csQuoteMark">“</span>
-                <span>{problemQuote}</span>
-              </div>
-            </div>
-
-            <div className="csProblemRight">
-              {problemImage ? (
-                <img className="csProblemImg" src={problemImage} alt="Problem context" />
-              ) : (
-                <div className="csProblemImgPlaceholder" />
+              {problemBullets.length > 0 && (
+                <ul className="csBullets">
+                  {problemBullets.map((b, i) => (
+                    <li key={i}>
+                      <span className="csCheck">✕</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
               )}
-            </div>
-          </section>
 
-          {/* KEY FEATURES */}
-          <section className="csSection">
-            <h2 className="csH2">Key Features</h2>
-            {cs.featuresIntro ? (
-              <p className="csSectionSub">{cs.featuresIntro}</p>
-            ) : null}
-
-            <div className="csFeatureStack">
-              {features.map((f, i) => (
-                <div className="csFeatureCard" key={i}>
-                  <div className="csFeatureLeft">
-                    <h3 className="csH3">{f.title}</h3>
-                    {f.description ? <p className="csBody">{f.description}</p> : null}
-
-                    {Array.isArray(f.badges) && f.badges.length ? (
-                      <div className="csBadges">
-                        {f.badges.map((t) => (
-                          <span className="csBadge" key={t}>
-                            ✓ {t}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  <div className="csFeatureRight">
-                    {f.image ? (
-                      <img className="csFeatureImg" src={f.image} alt={f.title} />
-                    ) : (
-                      <div className="csFeatureImgPlaceholder" />
-                    )}
-                  </div>
+              {cs.problemQuote && (
+                <div className="csQuote">
+                  <span className="csQuoteMark">"</span>
+                  <span>{cs.problemQuote}</span>
+                  <span className="csQuoteMark">"</span>
                 </div>
-              ))}
+              )}
+            </section>
+          )}
+
+          {/* ── DESIGN PROCESS ───────────────────────────────── */}
+          {processSteps.length > 0 && (
+            <section className="csSection">
+              <p className="csEyebrowSection">How I Approached It</p>
+              <h2 className="csH2">Design Process</h2>
+              <div className="csProcessSteps">
+                {processSteps.map((s, i) => (
+                  <div className="csProcessStep" key={i}>
+                    <div className="csProcessNum">0{i + 1}</div>
+                    <div className="csProcessLabel">{s.step}</div>
+                    <div className="csProcessDesc">{s.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── HIGH FIDELITY SHOWCASE ───────────────────────── */}
+          {showcaseImage && (
+            <section className="csShowcase">
+              <p className="csEyebrowSection">High Fidelity Design</p>
+              <img
+                className="csShowcaseImg"
+                src={process.env.PUBLIC_URL + showcaseImage}
+                alt={`${project.name} high fidelity design`}
+              />
+            </section>
+          )}
+
+          {/* ── FIGMA NOTE ───────────────────────────────────── */}
+          {cs.figmaNote && (
+            <div className="csFigmaNote">
+              <span className="csFigmaLabel">Figma</span>
+              <p>{cs.figmaNote}</p>
             </div>
-          </section>
+          )}
 
-          {/* KEY OUTCOMES */}
-          <section className="csSection">
-            <h2 className="csH2">Key Outcomes</h2>
+          {/* ── RESEARCH INSIGHTS ────────────────────────────── */}
+          {researchData && (
+            <section className="csSection csResearchSection">
+              <p className="csEyebrowSection">What I Found</p>
+              <h2 className="csH2">Research Insights</h2>
 
-            <div className="csOutcomesGrid">
-              {outcomes.map((o, i) => (
-                <div className="csOutcomeCard" key={i}>
-                  <div className="csOutcomeTop">
-                    <div className="csOutcomeIcon">{o.icon || "▢"}</div>
+              {Array.isArray(researchData.methods) && researchData.methods.length > 0 && (
+                <div className="csResearchMethods">
+                  <span className="csResearchMethodsLabel">Methods:</span>
+                  {researchData.methods.map((m) => (
+                    <span className="csResearchMethod" key={m}>{m}</span>
+                  ))}
+                </div>
+              )}
+
+              {Array.isArray(researchData.insights) && researchData.insights.length > 0 && (
+                <div className="csInsightsGrid">
+                  {researchData.insights.map((ins, i) => (
+                    <div className="csInsightCard" key={i}>
+                      <div className="csInsightStat">{ins.stat}</div>
+                      <div className="csInsightLabel">{ins.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {researchData.quote && (
+                <div className="csResearchQuote">
+                  <div className="csResearchQuoteText">"{researchData.quote.text}"</div>
+                  {researchData.quote.author && (
+                    <div className="csResearchQuoteAuthor">— {researchData.quote.author}</div>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* ── DESIGN DECISIONS ─────────────────────────────── */}
+          {decisions.length > 0 && (
+            <section className="csSection">
+              <p className="csEyebrowSection">Key Decisions</p>
+              <h2 className="csH2">Design Decisions</h2>
+
+              <div className="csDecisionStack">
+                {decisions.map((d, i) => (
+                  <div className="csDecisionCard" key={i}>
+                    <div className="csDecisionNumber">Decision {i + 1}</div>
+                    <h3 className="csDecisionTitle">{d.title}</h3>
+
+                    <div className="csDecisionGrid">
+                      {d.problem && (
+                        <div className="csDecisionBlock csDecisionProblem">
+                          <div className="csDecisionBlockLabel">Problem</div>
+                          <p>{d.problem}</p>
+                        </div>
+                      )}
+                      {d.solution && (
+                        <div className="csDecisionBlock csDecisionSolution">
+                          <div className="csDecisionBlockLabel">Solution</div>
+                          <p>{d.solution}</p>
+                        </div>
+                      )}
+                      {d.rationale && (
+                        <div className="csDecisionBlock csDecisionRationale">
+                          <div className="csDecisionBlockLabel">Why</div>
+                          <p>{d.rationale}</p>
+                        </div>
+                      )}
+                      {d.impact && (
+                        <div className="csDecisionBlock csDecisionImpact">
+                          <div className="csDecisionBlockLabel">Impact</div>
+                          <p>{d.impact}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── KEY OUTCOMES ─────────────────────────────────── */}
+          {outcomes.length > 0 && (
+            <section className="csSection">
+              <p className="csEyebrowSection">Results</p>
+              <h2 className="csH2">Key Outcomes</h2>
+
+              <div className="csOutcomesGrid">
+                {outcomes.map((o, i) => (
+                  <div className="csOutcomeCard" key={i}>
                     <div className="csOutcomeTitle">{o.title}</div>
+                    {o.description && <div className="csOutcomeDesc">{o.description}</div>}
                   </div>
-                  {o.description ? (
-                    <div className="csOutcomeDesc">{o.description}</div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          )}
 
-          {/* BOTTOM NAV (Prev / All / Next) */}
+          {/* ── REFLECTION ───────────────────────────────────── */}
+          {cs.reflection && (
+            <section className="csReflection">
+              <p className="csEyebrowSection">Takeaway</p>
+              <blockquote className="csReflectionText">{cs.reflection}</blockquote>
+            </section>
+          )}
+
+          {/* ── BOTTOM NAV ───────────────────────────────────── */}
           <section className="csBottomNav">
             {prev ? (
-              <Link className="csPill" to={`/projects/${prev.slug}`}>
-                ← Previous Project
-              </Link>
+              <Link className="csPill" to={`/projects/${prev.slug}`}>← Previous Project</Link>
             ) : (
               <span className="csPill disabled">← Previous Project</span>
             )}
-
-            <Link className="csPill primary" to="/projects">
-              View All Projects
-            </Link>
-
+            <Link className="csPill primary" to="/projects">View All Projects</Link>
             {next ? (
-              <Link className="csPill" to={`/projects/${next.slug}`}>
-                Next Project →
-              </Link>
+              <Link className="csPill" to={`/projects/${next.slug}`}>Next Project →</Link>
             ) : (
               <span className="csPill disabled">Next Project →</span>
             )}
           </section>
+
         </div>
       </main>
 
