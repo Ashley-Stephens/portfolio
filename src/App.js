@@ -10,10 +10,13 @@ import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router
 
 function ScrollToHashBase({ location }) {
   useEffect(() => {
-    if (!location.hash) return;
-    const id = location.hash.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
   }, [location.pathname, location.hash]);
 
   return null;

@@ -1,0 +1,31 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "port": 3000
+    },
+    {
+      "name": "leftoverchef-proto",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8181", "--directory", "C:/Users/viole/Documents/Final_Project_CSEN_163/Final_Project_Prototype4"],
+      "port": 8181
+    }
+  ,
+    {
+      "name": "leftoverchef-lofi",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8282", "--directory", "C:/Users/viole/Documents/Final_Project_CSEN_163 - Copy/Final_Project_Prototype4"],
+      "port": 8282
+    }
+  ,
+    {
+      "name": "listening-habits",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4321", "--directory", "C:/Users/viole/Documents/listening insights"],
+      "port": 4321
+    }
+  ]
+}

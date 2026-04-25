@@ -9,23 +9,23 @@ const experience = [
     role: "Independent Designer & Shop Owner",
     company: "Self-employed",
     period: "Oct 2024 – Present",
-    detail: "Founded a digital design shop creating original cross-stitch patterns. 300+ sales — designed, marketed, and iterated on products based on real customer demand.",
+    detail: "Founded a digital design shop creating original cross-stitch patterns. 300+ sales: designed, marketed, and iterated on products based on real customer demand.",
   },
   {
     role: "Software Design Intern",
     company: "Data Physics Corporation",
     period: "Jun – Sep 2024",
-    detail: "Owned end-to-end design and development of a Flutter mobile app — research, UX design, and implementation of real-time data visualization for enterprise software.",
+    detail: "Owned end-to-end design and development of a Flutter mobile app: research, UX design, and implementation of real-time data visualization for enterprise software.",
   },
   {
     role: "UX & Marketing Intern",
     company: "Mocaa",
     period: "Jul – Sep 2023",
-    detail: "Audited the homepage and chat UX — 75% of proposed improvements were implemented. Conducted undercover user testing to improve the student booking experience.",
+    detail: "Audited the homepage and chat UX; 75% of proposed improvements were implemented. Conducted undercover user testing to improve the student booking experience.",
   },
 ];
 
-const tools = ["Figma", "React", "HTML / CSS", "Flutter", "Canva", "Usability Testing", "Wireframing", "Prototyping"];
+const tools = ["Figma", "React", "HTML / CSS", "Canva", "Usability Testing", "Wireframing", "Prototyping"];
 
 export default function AboutPage() {
   const aboutImgUrl = process.env.PUBLIC_URL + "/about_picture.jpg";
@@ -44,13 +44,12 @@ export default function AboutPage() {
               <h1 className="about-title">Hi, I'm Ashley.</h1>
 
               <p className="about-body">
-                I'm a CS student at Santa Clara University with a focus in UX/UI design —
-                and a Google UX Design certificate to go with it. I like figuring out
-                why things frustrate people, then fixing them.
+                I'm a CS student at Santa Clara University with a focus in UX/UI design.
+                I like figuring out why things frustrate people, then fixing them.
               </p>
 
               <p className="about-body">
-                My path into UX came naturally from studying CS — I kept caring more
+                My path into UX came naturally from studying CS. I kept caring more
                 about <em>how</em> something felt to use than how it was built under the hood.
                 That curiosity led me to research, prototyping, and eventually shipping
                 real interfaces. I care a lot about empathy, clear hierarchy, and
@@ -59,9 +58,8 @@ export default function AboutPage() {
 
               <p className="about-body">
                 Outside of design work, I run my own shop selling original cross-stitch
-                patterns — which has taught me more about iterating on a product based
-                on real audience feedback than any class has. I also love cooking,
-                baking, and true crime podcasts.
+                patterns, which has taught me more about iterating on a product based
+                on real audience feedback than any class has.
               </p>
             </div>
 

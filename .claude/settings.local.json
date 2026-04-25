@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(cp -r \"C:\\\\Users\\\\viole\\\\Documents\\\\lo-fi\\\\src \\(3\\)\\\\app\" \"C:\\\\Users\\\\viole\\\\Documents\\\\lo-fi\\\\lo-fi-app\\\\src\\\\app\")",
+      "Bash(cp -r \"C:\\\\Users\\\\viole\\\\Documents\\\\lo-fi\\\\src \\(3\\)\\\\styles\" \"C:\\\\Users\\\\viole\\\\Documents\\\\lo-fi\\\\lo-fi-app\\\\src\\\\styles\")",
+      "Bash(npm run *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import playwright; print\\('ok'\\)\")",
+      "Bash(node -e \"require\\('puppeteer'\\); console.log\\('puppeteer ok'\\)\")",
+      "Read(//c/Users/viole/Documents/Final_Project_CSEN_163 - Copy/**)",
+      "Bash(npx puppeteer *)",
+      "Bash('C:/Program Files/Google/Chrome/Application/chrome.exe' --headless=new '--screenshot=C:/Users/viole/Documents/Final_Project_CSEN_163 - Copy/Final_Project_Prototype4/images/step1_preview.jpg' --window-size=1280,5000 --hide-scrollbars --virtual-time-budget=4000 --force-device-scale-factor=2 --no-sandbox http://localhost:8282/step1.html)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":3000\")",
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/shuffle.png\" \"C:/Users/viole/Documents/listening insights/images/shuffle.png\")",
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/repeat.png\" \"C:/Users/viole/Documents/listening insights/images/repeat.png\")",
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/volume.png\" \"C:/Users/viole/Documents/listening insights/images/volume.png\")",
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/noshuffle.png\" \"C:/Users/viole/Documents/listening insights/images/noshuffle.png\")",
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/leastshuffle.png\" \"C:/Users/viole/Documents/listening insights/images/leastshuffle.png\")"
+    ]
+  }
+}

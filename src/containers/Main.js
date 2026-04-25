@@ -16,7 +16,7 @@ const featured = [
   {
     slug: "shelfsaver",
     title: "LeftoverChef — AI Meal Planner",
-    desc: "Turned leftover anxiety into a cooking plan — and made sustainability feel personal.",
+    desc: "Turned leftover anxiety into a cooking plan and made sustainability feel personal.",
     thumb: "/LeftoverChef.png",
   },
 ];
