@@ -28,7 +28,7 @@ const experience = [
 const tools = ["Figma", "React", "HTML / CSS", "Canva", "Usability Testing", "Wireframing", "Prototyping"];
 
 export default function AboutPage() {
-  const aboutImgUrl = process.env.PUBLIC_URL + "/about_picture.jpg";
+  const aboutImgUrl = process.env.PUBLIC_URL + "/about_picture.png";
 
   return (
     <>

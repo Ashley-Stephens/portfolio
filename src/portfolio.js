@@ -57,7 +57,7 @@ const projectsPage = {
       heroSubtext: "Redesigning shuffle to restore trust and surface forgotten music.",
 
       caseStudy: {
-        heroImage: "/default_cover.jpg",
+        heroImage: "/default_cover.png",
         showcaseImage: "/high-fidelity.jpg",
 
         overview:
