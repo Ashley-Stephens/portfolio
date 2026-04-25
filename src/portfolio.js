@@ -50,7 +50,7 @@ const projectsPage = {
       platform: "Web App",
       duration: "12 weeks",
       tags: ["UX Research", "Interaction Design", "Figma", "Prototyping"],
-      thumb: "/mixflow.png",
+      thumb: "/Mixflow.png",
       links: { prototype: "", github: "", live: "" },
 
       heroStatement: "Millions of songs, yet the same few keep playing.",

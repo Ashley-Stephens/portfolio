@@ -11,7 +11,7 @@ const featured = [
     slug: "mixflow",
     title: "Mixflow — Music Playback UX",
     desc: "Redesigned shuffle to restore user trust and bring forgotten tracks back to life.",
-    thumb: "/mixflow.png",
+    thumb: "/Mixflow.png",
   },
   {
     slug: "shelfsaver",

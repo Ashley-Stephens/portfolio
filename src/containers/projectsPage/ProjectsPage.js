@@ -9,9 +9,9 @@ const PROCESS_STEPS = ["Discover", "Define", "Design", "Deliver"];
 
 function getThumb(p) {
   if (p.thumb) return p.thumb;
-  if (p.slug === "mixflow") return "/mixflow.png";
-  if (p.slug === "shelfsaver") return "/leftoverchef.png";
-  if (p.slug === "leftoverchef") return "/leftoverchef.png";
+  if (p.slug === "mixflow") return "/Mixflow.png";
+  if (p.slug === "shelfsaver") return "/LeftoverChef.png";
+  if (p.slug === "leftoverchef") return "/LeftoverChef.png";
   return "";
 }
 
