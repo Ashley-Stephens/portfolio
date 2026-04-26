@@ -58,7 +58,7 @@ const projectsPage = {
 
       caseStudy: {
         heroImage: "/default_cover.png",
-        showcaseImage: "/high-fidelity.jpg",
+        showcaseImage: "/high-fidelity.png",
 
         overview:
           "Mixflow is a music player centered on a core problem: shuffle feels broken. Users kept hearing the same songs on repeat while large portions of their library went untouched. I led UX research, UI design in Figma, and front-end development across a team of five.",
