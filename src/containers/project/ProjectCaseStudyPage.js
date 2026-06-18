@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import MixflowCaseStudy from "./MixflowCaseStudy";
 import { projectsPage } from "../../portfolio";
 import "./ProjectCaseStudyPage.scss";
 
@@ -54,6 +55,16 @@ export default function ProjectCaseStudyPage() {
 
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+
+  if (project.slug === "mixflow" || project.slug === "shelfsaver") {
+    return (
+      <>
+        <Header />
+        <MixflowCaseStudy project={project} prev={prev} next={next} />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
