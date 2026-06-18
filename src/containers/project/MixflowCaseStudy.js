@@ -137,7 +137,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── 01 // THE STORY ─────────────────────────────── */}
         {(cs.overview || problemBullets.length > 0 || cs.problemQuote) && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // The Story</div>
+            <div className="mf-section-num">0{++sn} · The Story</div>
 
             <div className="mf-story-card">
               {cs.overview && (
@@ -172,7 +172,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── 02 // THE PROCESS ───────────────────────────── */}
         {processSteps.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // The Process</div>
+            <div className="mf-section-num">0{++sn} · The Process</div>
             <h2 className="mf-h2">How I Approached It</h2>
 
             <div className="mf-timeline">
@@ -198,7 +198,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── 03 // RESEARCH INSIGHTS ─────────────────────── */}
         {researchData && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // Research Insights</div>
+            <div className="mf-section-num">0{++sn} · Research Insights</div>
             <h2 className="mf-h2">What I Found</h2>
 
             {Array.isArray(researchData.methods) &&
@@ -240,7 +240,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── 04 // EARLY DESIGN ──────────────────────────── */}
         {cs.loFiImage && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // Early Design</div>
+            <div className="mf-section-num">0{++sn} · Early Design</div>
             <h2 className="mf-h2">Low Fidelity Wireframe</h2>
 
             <div className="mf-lofi-layout">
@@ -294,7 +294,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         <div className="mf-solution__wrap">
           <div className="mf-solution__intro mf-reveal">
             <div className="mf-section-num mf-section-num--dark">
-              0{++sn} // The Solution
+              0{++sn} · The Solution
             </div>
             <h2 className="mf-solution__title">
               Introducing <span className="mf-accent">{project.name}.</span>
@@ -514,7 +514,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── DESIGN DECISIONS ────────────────────────────── */}
         {decisions.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // Key Decisions</div>
+            <div className="mf-section-num">0{++sn} · Key Decisions</div>
             <h2 className="mf-h2">Design Decisions</h2>
 
             <div className="mf-decision-stack">
@@ -559,7 +559,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── KEY OUTCOMES ────────────────────────────────── */}
         {outcomes.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // Results</div>
+            <div className="mf-section-num">0{++sn} · Results</div>
             <h2 className="mf-h2">Key Outcomes</h2>
 
             <div className="mf-outcomes-grid">
@@ -578,7 +578,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── REFLECTION ──────────────────────────────────── */}
         {cs.reflection && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} // Reflection</div>
+            <div className="mf-section-num">0{++sn} · Reflection</div>
             <h2 className="mf-h2">Reflection &amp; Growth</h2>
             <blockquote className="mf-reflection-text">
               {cs.reflection}
