@@ -17,7 +17,7 @@
 }
 
 .dark-menu li a:hover {
-  background-color: $buttonColor !important;
+  background-color: rgba(82, 201, 122, 0.18) !important;
 }
 
 .header {
@@ -48,9 +48,9 @@
   color: $textColorDark;
 }
 
-.header li a:hover{
-  background-color: $buttonColor; // purple box highlight
-  color: $textColorDark;          // KEEP TEXT WHITE
+.header li a:hover {
+  background-color: rgba(82, 201, 122, 0.18);
+  color: $textColorDark;
 }
 
 /* hamburger lines white */
@@ -81,9 +81,9 @@
 }
 
 .logo:hover .logo-name {
-   text-shadow:
-      0 0 14px rgba(136, 91, 213, 0.75),
-      0 0 28px rgba(136, 91, 213, 0.35);
+  text-shadow:
+    0 0 14px rgba(82, 201, 122, 0.75),
+    0 0 28px rgba(82, 201, 122, 0.35);
 }
 
 .header .logo-name {

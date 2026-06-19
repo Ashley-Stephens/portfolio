@@ -12,20 +12,22 @@ const featured = [
     title: "Mixflow — Music Playback UX",
     desc: "Redesigned shuffle to restore user trust and bring forgotten tracks back to life.",
     thumb: "/Mixflow.png",
+    tag: "Interaction Design",
   },
   {
     slug: "shelfsaver",
     title: "LeftoverChef — AI Meal Planner",
-    desc: "Turned leftover anxiety into a cooking plan and made sustainability feel personal.",
+    desc: "Turned leftover anxiety into a cooking plan. Made sustainability feel personal, not preachy.",
     thumb: "/LeftoverChef.png",
+    tag: "End-to-End Design",
   },
 ];
 
 const skills = [
-  { label: "UX Research", sub: "Interviews · Surveys · Usability Testing" },
-  { label: "Interaction Design", sub: "Wireframes · Prototyping · Figma" },
-  { label: "Information Architecture", sub: "Flows · Systems · IA" },
-  { label: "Front-End", sub: "React · HTML / CSS / JS" },
+  { label: "UX Research", sub: ["Interviews", "Surveys", "Usability Testing"] },
+  { label: "Interaction Design", sub: ["Wireframes", "Prototyping", "Figma"] },
+  { label: "Information Architecture", sub: ["Flows", "Systems", "IA"] },
+  { label: "Front-End", sub: ["React", "HTML / CSS / JS", "SCSS"] },
 ];
 
 const Main = () => {
@@ -47,63 +49,84 @@ const Main = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const els = document.querySelectorAll(".hp-reveal");
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("hp-visible"); }),
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="home-page">
       <Header />
 
       <main className="home-wrap">
         {/* HERO */}
-        <section className="hero">
-          <div className="hero-left">
-            <h1 className="hero-title">
+        <section className="hp-hero">
+          <div className="hp-hero-left">
+            <div className="hp-eyebrow">
+              <span className="hp-eyebrow-line" />
+              UX / UI Designer · 2025
+            </div>
+
+            <h1 className="hp-h1">
               {typed}
               <span className={`typewriter-cursor${cursorDone ? " blink" : ""}`}>|</span>
             </h1>
-            <div className="hero-role">UX / UI Designer</div>
 
-            <p className="hero-desc">
-              Designing clear, human-centered interfaces backed by research and systems thinking.
+            <div className="hp-role-tag">Human-centered design</div>
+
+            <p className="hp-desc">
+              Designing clear interfaces backed by research and systems thinking — from wireframe to shipped product.
             </p>
 
-            <div className="hero-actions">
-              <Link className="btn primary" to="/projects">
-                View Projects
-              </Link>
-              <Link className="btn ghost" to="/resume">
-                Resume
-              </Link>
+            <div className="hp-actions">
+              <Link className="hp-btn-primary" to="/projects">View projects</Link>
+              <Link className="hp-btn-ghost" to="/resume">Resume</Link>
             </div>
           </div>
 
-          <div className="hero-right">
+          <div className="hp-hero-right">
             <div className="hero-portrait">
-              <img className="hero-img" src={heroImg} alt="Ashley" />
+              <img className="hero-img" src={heroImg} alt="Ashley Stephens" />
             </div>
           </div>
         </section>
 
+        {/* DIVIDER */}
+        <div className="hp-divider" aria-hidden="true">
+          <span className="hp-divider-line" />
+          <span className="hp-divider-dot" />
+          <span className="hp-divider-dot" />
+          <span className="hp-divider-dot" />
+          <span className="hp-divider-line" />
+        </div>
+
         {/* FEATURED PROJECTS */}
-        <section className="featured">
-          <h2 className="section-title">Featured Projects</h2>
+        <section className="hp-section hp-reveal">
+          <div className="hp-section-label">
+            <span className="hp-section-label-line" />
+            <span>01 · Selected work</span>
+          </div>
+          <h2 className="hp-h2">Featured projects</h2>
 
           <div className="card-grid">
             {featured.map((p) => (
               <div key={p.slug} className="work-card">
                 <div className="work-thumb">
-                  {p.thumb ? (
-                    <img
-                      src={process.env.PUBLIC_URL + p.thumb}
-                      alt={`${p.title} thumbnail`}
-                    />
-                  ) : (
-                    <div className="thumb-placeholder" />
-                  )}
+                  <img
+                    src={process.env.PUBLIC_URL + p.thumb}
+                    alt={`${p.title} thumbnail`}
+                  />
                 </div>
-
                 <div className="work-body">
+                  <div className="work-tag">{p.tag}</div>
                   <div className="work-title">{p.title}</div>
                   <div className="work-desc">{p.desc}</div>
-
                   <Link className="work-link" to={`/projects/${p.slug}`}>
                     View case study →
                   </Link>
@@ -114,14 +137,20 @@ const Main = () => {
         </section>
 
         {/* SKILLS */}
-        <section className="skills-strip">
-          <h2 className="section-title">What I bring</h2>
+        <section className="hp-section hp-reveal">
+          <div className="hp-section-label">
+            <span className="hp-section-label-line" />
+            <span>02 · Capabilities</span>
+          </div>
+          <h2 className="hp-h2">What I bring</h2>
 
-          <div className="skills-grid">
+          <div className="hp-skills-grid">
             {skills.map((s) => (
-              <div key={s.label} className="skill-card">
-                <div className="skill-label">{s.label}</div>
-                <div className="skill-sub">{s.sub}</div>
+              <div key={s.label} className="hp-skill">
+                <div className="hp-skill-label">{s.label}</div>
+                <div className="hp-skill-sub">
+                  {s.sub.map((line, i) => <span key={i}>{line}</span>)}
+                </div>
               </div>
             ))}
           </div>

@@ -49,19 +49,19 @@ export default function MixflowCaseStudy({ project, prev, next }) {
     .slice(0, 3);
   const annotatedScreenshots = toArray(cs.annotatedScreenshots);
 
+  const theme = project.slug === "shelfsaver" ? "shelfsaver" : "mixflow";
   let sn = 0;
 
   return (
-    <div className="mf-page" ref={pageRef}>
+    <div className="mf-page" data-theme={theme} ref={pageRef}>
       {/* ── HERO ──────────────────────────────────────────── */}
       <section className="mf-hero">
-        <div className="mf-hero__glow mf-hero__glow--1" />
-        <div className="mf-hero__glow mf-hero__glow--2" />
-        <div className="mf-hero__glow mf-hero__glow--3" />
-
         <div className="mf-hero__inner">
           <div className="mf-hero__content">
-            <span className="mf-pill-label">Case Study</span>
+            <span className="mf-eyebrow">
+              <span className="mf-eyebrow__line" />
+              Case Study
+            </span>
             <h1 className="mf-hero__title">{project.name}</h1>
             {project.subtitle && (
               <div className="mf-hero__subtitle">{project.subtitle}</div>
@@ -88,7 +88,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                View Prototype ↗
+                View Prototype &#8599;
               </a>
             )}
           </div>
@@ -113,6 +113,21 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         </div>
       </section>
 
+      {/* ── DIVIDER ─────────────────────────────────────────── */}
+      {theme === "shelfsaver" ? (
+        <div className="mf-dots-divider">
+          {Array.from({ length: 20 }, (_, i) => (
+            <span className="mf-dots-divider__dot" key={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="mf-waveform">
+          {Array.from({ length: 40 }, (_, i) => (
+            <span className="mf-waveform__bar" key={i} />
+          ))}
+        </div>
+      )}
+
       {/* ── METADATA ROW ──────────────────────────────────── */}
       <section className="mf-meta mf-reveal">
         {[
@@ -134,71 +149,71 @@ export default function MixflowCaseStudy({ project, prev, next }) {
 
       {/* ══════ DARK CONTENT ══════════════════════════════════ */}
       <div className="mf-wrap">
-        {/* ── 01 // THE STORY ─────────────────────────────── */}
+        {/* ── THE STORY ─────────────────────────────── */}
         {(cs.overview || problemBullets.length > 0 || cs.problemQuote) && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · The Story</div>
-
-            <div className="mf-story-card">
-              {cs.overview && (
-                <p className="mf-story__overview">{cs.overview}</p>
-              )}
-
-              {cs.problemQuote && (
-                <div className="mf-quote-card">
-                  <span className="mf-quote-mark">&ldquo;</span>
-                  <p className="mf-quote-text">{cs.problemQuote}</p>
-                  <span className="mf-quote-mark">&rdquo;</span>
-                </div>
-              )}
-
-              {problemBullets.length > 0 && (
-                <>
-                  <div className="mf-insight-banner">Key Problems Identified</div>
-                  <div className="mf-problem-list">
-                    {problemBullets.map((b, i) => (
-                      <div className="mf-problem-item" key={i}>
-                        <span className="mf-problem-num">0{i + 1}</span>
-                        <span className="mf-problem-text">{b}</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; The Story</span>
             </div>
+            <h2 className="mf-h2">Understanding the Problem</h2>
+
+            {cs.overview && (
+              <p className="mf-story__overview">{cs.overview}</p>
+            )}
+
+            {cs.problemQuote && (
+              <blockquote className="mf-quote">
+                <p className="mf-quote__text">&ldquo;{cs.problemQuote}&rdquo;</p>
+              </blockquote>
+            )}
+
+            {problemBullets.length > 0 && (
+              <div className="mf-problem-list">
+                {problemBullets.map((b, i) => (
+                  <div className="mf-problem-row" key={i}>
+                    <span className="mf-problem-num">0{i + 1}</span>
+                    <span className="mf-problem-text">{b}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
-        {/* ── 02 // THE PROCESS ───────────────────────────── */}
+        {/* ── THE PROCESS ───────────────────────────── */}
         {processSteps.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · The Process</div>
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; The Process</span>
+            </div>
             <h2 className="mf-h2">How I Approached It</h2>
 
-            <div className="mf-timeline">
+            <div className="mf-process-rail mf-reveal-stagger">
               {processSteps.map((s, i) => (
-                <div className="mf-timeline__step" key={i}>
-                  <div className="mf-timeline__marker">
-                    <div className="mf-timeline__node" />
-                    {i < processSteps.length - 1 && (
-                      <div className="mf-timeline__line" />
-                    )}
+                <React.Fragment key={i}>
+                  <div className="mf-process-card" style={{ "--i": i }}>
+                    <div className="mf-process-card__num">0{i + 1}</div>
+                    <div className="mf-process-card__name">{s.step}</div>
+                    <div className="mf-process-card__desc">{s.desc}</div>
                   </div>
-                  <div className="mf-timeline__content">
-                    <div className="mf-timeline__num">0{i + 1}</div>
-                    <div className="mf-timeline__label">{s.step}</div>
-                    <div className="mf-timeline__desc">{s.desc}</div>
-                  </div>
-                </div>
+                  {i < processSteps.length - 1 && (
+                    <div className="mf-process-dot" />
+                  )}
+                </React.Fragment>
               ))}
             </div>
           </section>
         )}
 
-        {/* ── 03 // RESEARCH INSIGHTS ─────────────────────── */}
+        {/* ── RESEARCH INSIGHTS ─────────────────────── */}
         {researchData && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · Research Insights</div>
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; Research Insights</span>
+            </div>
             <h2 className="mf-h2">What I Found</h2>
 
             {Array.isArray(researchData.methods) &&
@@ -212,78 +227,29 @@ export default function MixflowCaseStudy({ project, prev, next }) {
 
             {Array.isArray(researchData.insights) &&
               researchData.insights.length > 0 && (
-                <div className="mf-insights-grid">
+                <div className="mf-stats-grid mf-reveal-stagger">
                   {researchData.insights.map((ins, i) => (
-                    <div className="mf-insight-card" key={i}>
-                      <div className="mf-insight-stat">{ins.stat}</div>
-                      <div className="mf-insight-label">{ins.label}</div>
+                    <div className="mf-stat-card" key={i} style={{ "--i": i }}>
+                      <div className="mf-stat-card__number">{ins.stat}</div>
+                      <div className="mf-stat-card__label">{ins.label}</div>
                     </div>
                   ))}
                 </div>
               )}
 
             {researchData.quote && (
-              <div className="mf-research-quote">
-                <p className="mf-research-quote__text">
+              <blockquote className="mf-quote">
+                <p className="mf-quote__text">
                   &ldquo;{researchData.quote.text}&rdquo;
                 </p>
                 {researchData.quote.author && (
-                  <p className="mf-research-quote__author">
+                  <p className="mf-quote__author">
                     &mdash; {researchData.quote.author}
                   </p>
                 )}
-              </div>
+              </blockquote>
             )}
           </section>
-        )}
-
-        {/* ── 04 // EARLY DESIGN ──────────────────────────── */}
-        {cs.loFiImage && (
-          <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · Early Design</div>
-            <h2 className="mf-h2">Low Fidelity Wireframe</h2>
-
-            <div className="mf-lofi-layout">
-              <div className="mf-lofi-callouts mf-lofi-left">
-                {(cs.loFiImage.leftCallouts || []).map((c, i) => (
-                  <div className="mf-lofi-callout" key={i}>
-                    <div className="mf-lofi-callout__num">0{i + 1}</div>
-                    <div className="mf-lofi-callout__title">{c.title}</div>
-                    <div className="mf-lofi-callout__body">{c.body}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mf-lofi-image-wrap">
-                <img
-                  className="mf-lofi-img"
-                  src={process.env.PUBLIC_URL + cs.loFiImage.image}
-                  alt="Low fidelity wireframe"
-                  onClick={() =>
-                    openLightbox(process.env.PUBLIC_URL + cs.loFiImage.image)
-                  }
-                />
-              </div>
-              <div className="mf-lofi-callouts mf-lofi-right">
-                {(cs.loFiImage.rightCallouts || []).map((c, i) => (
-                  <div className="mf-lofi-callout" key={i}>
-                    <div className="mf-lofi-callout__num">
-                      0{i + (cs.loFiImage.leftCallouts || []).length + 1}
-                    </div>
-                    <div className="mf-lofi-callout__title">{c.title}</div>
-                    <div className="mf-lofi-callout__body">{c.body}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── FIGMA NOTE ──────────────────────────────────── */}
-        {cs.figmaNote && (
-          <div className="mf-figma-note mf-reveal">
-            <span className="mf-figma-label">Figma</span>
-            <p>{cs.figmaNote}</p>
-          </div>
         )}
       </div>
 
@@ -293,8 +259,9 @@ export default function MixflowCaseStudy({ project, prev, next }) {
       <section className="mf-solution">
         <div className="mf-solution__wrap">
           <div className="mf-solution__intro mf-reveal">
-            <div className="mf-section-num mf-section-num--dark">
-              0{++sn} · The Solution
+            <div className="mf-section-label mf-section-label--dark">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; The Solution</span>
             </div>
             <h2 className="mf-solution__title">
               Introducing <span className="mf-accent">{project.name}.</span>
@@ -325,27 +292,58 @@ export default function MixflowCaseStudy({ project, prev, next }) {
             </div>
           )}
 
-          {/* High Fidelity Showcase */}
-          {showcaseImage && (
-            <div className="mf-showcase mf-reveal">
-              <p className="mf-showcase__eyebrow">High Fidelity Design</p>
-              <img
-                className="mf-showcase__img"
-                src={process.env.PUBLIC_URL + showcaseImage}
-                alt={`${project.name} high fidelity design`}
-                onClick={() =>
-                  openLightbox(process.env.PUBLIC_URL + showcaseImage)
-                }
-              />
-              <p className="mf-img-hint">Click image to expand</p>
+          {/* Lo-fi Wireframe */}
+          {cs.loFiImage && (
+            <div className="mf-lofi mf-reveal">
+              <div className="mf-section-label mf-section-label--dark">
+                <span className="mf-section-label__line" />
+                <span className="mf-section-label__text">Early Design</span>
+              </div>
+              <h3 className="mf-lofi__heading">Low Fidelity Wireframe</h3>
+
+              <div className="mf-lofi-layout">
+                <div className="mf-lofi-callouts mf-lofi-left">
+                  {(cs.loFiImage.leftCallouts || []).map((c, i) => (
+                    <div className="mf-lofi-callout" key={i}>
+                      <div className="mf-lofi-callout__num">0{i + 1}</div>
+                      <div className="mf-lofi-callout__title">{c.title}</div>
+                      <div className="mf-lofi-callout__body">{c.body}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mf-lofi-image-wrap">
+                  <img
+                    className="mf-lofi-img"
+                    src={process.env.PUBLIC_URL + cs.loFiImage.image}
+                    alt="Low fidelity wireframe"
+                    onClick={() =>
+                      openLightbox(process.env.PUBLIC_URL + cs.loFiImage.image)
+                    }
+                  />
+                </div>
+                <div className="mf-lofi-callouts mf-lofi-right">
+                  {(cs.loFiImage.rightCallouts || []).map((c, i) => (
+                    <div className="mf-lofi-callout" key={i}>
+                      <div className="mf-lofi-callout__num">
+                        0{i + (cs.loFiImage.leftCallouts || []).length + 1}
+                      </div>
+                      <div className="mf-lofi-callout__title">{c.title}</div>
+                      <div className="mf-lofi-callout__body">{c.body}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Hi-Fi → Final Product */}
+          {/* Hi-Fi to Final */}
           {cs.hiFiToFinal && (
             <div className="mf-hifi-section mf-reveal">
-              <p className="mf-annotated__eyebrow">Design Progression</p>
-              <h3 className="mf-annotated__title">
+              <div className="mf-section-label mf-section-label--dark">
+                <span className="mf-section-label__line" />
+                <span className="mf-section-label__text">Design Progression</span>
+              </div>
+              <h3 className="mf-hifi__heading">
                 High Fidelity &rarr; Final Product
               </h3>
 
@@ -362,9 +360,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
                       )
                     }
                   />
-                  <p className="mf-img-hint">
-                    Click to expand
-                  </p>
+                  <p className="mf-img-hint">Click to expand</p>
                 </div>
                 <div className="mf-hifi-arrow">&rarr;</div>
                 <div className="mf-hifi-panel">
@@ -379,9 +375,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
                       )
                     }
                   />
-                  <p className="mf-img-hint">
-                    Click to expand
-                  </p>
+                  <p className="mf-img-hint">Click to expand</p>
                 </div>
               </div>
 
@@ -415,12 +409,30 @@ export default function MixflowCaseStudy({ project, prev, next }) {
             </div>
           )}
 
+          {/* Showcase Image */}
+          {showcaseImage && (
+            <div className="mf-showcase mf-reveal">
+              <div className="mf-showcase__frame">
+                <img
+                  className="mf-showcase__img"
+                  src={process.env.PUBLIC_URL + showcaseImage}
+                  alt={`${project.name} high fidelity design`}
+                  onClick={() =>
+                    openLightbox(process.env.PUBLIC_URL + showcaseImage)
+                  }
+                />
+              </div>
+              <p className="mf-img-hint">Click image to expand</p>
+            </div>
+          )}
+
           {/* Annotated Screenshots */}
           {annotatedScreenshots.map((s, sIdx) => (
             <div className="mf-annotated mf-reveal" key={`ann-${sIdx}`}>
-              <p className="mf-annotated__eyebrow">
-                {s.eyebrow || "Final Product"}
-              </p>
+              <div className="mf-section-label mf-section-label--dark">
+                <span className="mf-section-label__line" />
+                <span className="mf-section-label__text">{s.eyebrow || "Final Product"}</span>
+              </div>
               <h3 className="mf-annotated__title">{s.title}</h3>
 
               {s.layout === "vertical" ? (
@@ -504,17 +516,28 @@ export default function MixflowCaseStudy({ project, prev, next }) {
               )}
             </div>
           ))}
+
+          {/* Figma Note */}
+          {cs.figmaNote && (
+            <div className="mf-figma-note mf-reveal">
+              <span className="mf-figma-label">Figma</span>
+              <p>{cs.figmaNote}</p>
+            </div>
+          )}
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════
-          BACK TO DARK
+          BACK TO DARK — DECISIONS & OUTCOMES
           ═════════════════════════════════════════════════════ */}
       <div className="mf-wrap">
         {/* ── DESIGN DECISIONS ────────────────────────────── */}
         {decisions.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · Key Decisions</div>
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; Key Decisions</span>
+            </div>
             <h2 className="mf-h2">Design Decisions</h2>
 
             <div className="mf-decision-stack">
@@ -559,12 +582,15 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── KEY OUTCOMES ────────────────────────────────── */}
         {outcomes.length > 0 && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · Results</div>
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; Results</span>
+            </div>
             <h2 className="mf-h2">Key Outcomes</h2>
 
-            <div className="mf-outcomes-grid">
+            <div className="mf-outcomes-grid mf-reveal-stagger">
               {outcomes.map((o, i) => (
-                <div className="mf-outcome-card" key={i}>
+                <div className="mf-outcome-card" key={i} style={{ "--i": i }}>
                   <div className="mf-outcome-title">{o.title}</div>
                   {o.description && (
                     <div className="mf-outcome-desc">{o.description}</div>
@@ -578,9 +604,12 @@ export default function MixflowCaseStudy({ project, prev, next }) {
         {/* ── REFLECTION ──────────────────────────────────── */}
         {cs.reflection && (
           <section className="mf-section mf-reveal">
-            <div className="mf-section-num">0{++sn} · Reflection</div>
+            <div className="mf-section-label">
+              <span className="mf-section-label__line" />
+              <span className="mf-section-label__text">0{++sn} &middot; Reflection</span>
+            </div>
             <h2 className="mf-h2">Reflection &amp; Growth</h2>
-            <blockquote className="mf-reflection-text">
+            <blockquote className="mf-reflection">
               {cs.reflection}
             </blockquote>
           </section>
