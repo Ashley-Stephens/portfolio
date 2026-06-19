@@ -32,6 +32,20 @@ export default function MixflowCaseStudy({ project, prev, next }) {
     );
     const els = pageRef.current?.querySelectorAll(".mf-reveal");
     els?.forEach((el) => observer.observe(el));
+
+    // Force-check after layout settles — catches elements already in viewport
+    // on initial load that the observer may miss due to timing
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        els?.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            el.classList.add("mf-visible");
+          }
+        });
+      });
+    });
+
     return () => observer.disconnect();
   }, []);
 
