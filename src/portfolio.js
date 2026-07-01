@@ -20,7 +20,7 @@ const openSource = {
 
 const resumeSection = {
   title: "Resume",
-  subtitle: "Feel free to download my resume",
+  subtitle: "Experience, skills, and work history.",
   display: true
 };
 
@@ -40,6 +40,150 @@ const projectsPage = {
   subtitle: "Case studies in interaction design, research, and systems thinking.",
   projects: [
     {
+      slug: "violetcraftworks",
+      name: "VioletCraftworks",
+      subtitle: "Cross-Stitch Pattern Shop",
+      category: "End-to-End Product Design & Front-End",
+      year: "2026",
+      role: "Solo Designer & Developer",
+      platform: "Web · Next.js",
+      duration: "Live MVP · still building",
+      tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "SEO", "Next.js"],
+      thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
+      wip: true,
+      featured: true,
+      links: {
+        prototype: "",
+        github: "",
+        live: "https://violetcraftworks.com",
+      },
+
+      heroStatement: "A real cross-stitch shop needed more than an Etsy page could give it.",
+      heroSubtext:
+        "I designed and built the storefront end to end. The live MVP sends shoppers to Etsy to check out, and the structure is ready for direct sales later.",
+
+      caseStudy: {
+        heroImage: "/VioletCraftworks/violetcraftworks_thumb.png",
+
+        mvpNote:
+          "This is a live MVP, and I'm still building it. The current site is a branded storefront that hands shoppers off to Etsy to buy. I'm structuring it so direct Stripe checkout and PDF delivery can be added later without a redesign.",
+
+        overview:
+          "VioletCraftworks is a small shop that sells PDF cross-stitch patterns: keychains, backpack pins, bookmarks, mini hoops, and quick one-night projects. The patterns already sell on Etsy. I'm building a standalone site so the shop has its own brand, shows up in search, and can sell patterns directly down the line. I did all of it: brand direction, UX, UI, content structure, the front-end build, and deployment.",
+
+        roleList: [
+          { title: "Brand direction", body: "Set the name, voice, color, and personality. Cozy and friendly, but not childish." },
+          { title: "UX strategy & IA", body: "Mapped how beginners and repeat stitchers shop, then split the site into a shopping path and a learning path." },
+          { title: "UI design", body: "Designed the pages, product cards, filters, and detail layouts to stay clear on a small catalog." },
+          { title: "Front-end build", body: "Built the whole site in Next.js, TypeScript, and Tailwind." },
+          { title: "Content & SEO structure", body: "Organized products and blog posts as structured files with metadata, a sitemap, and clean URLs." },
+          { title: "Accessibility", body: "Handled type contrast, keyboard interactions, alt text, reduced motion, and clear CTAs." },
+          { title: "Deployment", body: "Shipped it on Netlify." },
+        ],
+
+        problemBullets: [
+          "Etsy is built for listings, not brands. There's no room to tell the shop's story, build trust, or feel like more than a thumbnail in a search result.",
+          "Navigation on Etsy works if you already know what you want. For someone new to cross-stitch, there's no way to filter by difficulty, understand what supplies they need, or find a first project that won't overwhelm them.",
+          "The people most likely to buy were beginners — and Etsy gave them no guidance. The standalone site exists to fix that: a shop that helps new stitchers find the right pattern, not just browse.",
+        ],
+        problemQuote: "I always check who made the pattern before I buy. I want to know the person behind it, not just the listing.",
+
+        goals: [
+          "Give the shop a branded home that reads as more than an Etsy listing.",
+          "Help patterns get found through search.",
+          "Make patterns easy to understand before buying, especially for beginners.",
+          "Keep Etsy as checkout for now, but build so direct sales can be added later.",
+        ],
+        constraints: [
+          "Solo build. One person on design, code, content, and deploy.",
+          "Small catalog, so a full database is overkill for the MVP.",
+          "Checkout stays on Etsy for now, so the site has to hand shoppers off cleanly.",
+          "Has to stay cheap to run and easy to expand.",
+        ],
+
+        users: [
+          { tag: "Beginners", body: "New to cross-stitch. Want cute, small projects and plain explanations of supplies and difficulty." },
+          { tag: "Hobbyist finishers", body: "Want quick wins they can finish in one sitting, like keychains, bookmarks, and pins." },
+          { tag: "Repeat stitchers", body: "Know the craft. Shop by theme, size, and project type, and want to scan fast." },
+        ],
+
+        strategy:
+          "The site splits two mindsets: people who came to shop, and people who came to learn. The navigation follows that split. One path holds the catalog, filters, and product details. The other holds the Beginner Hub and blog. Filters match how people pick a cross-stitch pattern: size, theme, color, project type, and whether it suits a beginner. Each product page answers the buying questions up front, like size, color count, DMC details, difficulty, and what the finished piece is for, then sends the shopper to Etsy to check out.",
+
+        decisions: [
+          {
+            title: "Split shopping from learning",
+            problem: "Beginners and experienced stitchers want different things. Mixing shop and education in one flow slows both down.",
+            solution: "Two clear paths in the nav: shop (catalog, filters, products) and learn (Beginner Hub, blog).",
+            rationale: "Someone ready to buy shouldn't wade through tutorials, and a nervous beginner shouldn't hit a wall of products with no context.",
+            impact: "Each visitor gets a route that matches why they came.",
+          },
+          {
+            title: "Filters built around stitching behavior",
+            problem: "Generic shop filters like price and newest don't match how people choose patterns.",
+            solution: "Filters for size, theme, color, project type, and beginner suitability.",
+            rationale: "These are the questions stitchers ask. A beginner filters for beginner-friendly; a repeat buyer filters by theme or project type.",
+            impact: "Shoppers narrow the catalog to the few patterns that fit what they want to make.",
+          },
+          {
+            title: "Product pages that answer the buying questions",
+            problem: "A pattern PDF is abstract. Shoppers can't tell difficulty or supplies from a thumbnail.",
+            solution: "Each product page lists size, color count, DMC details, difficulty, use case, and a direct Etsy CTA.",
+            rationale: "If the page answers can I make this, and is it what I want, the shopper buys with confidence instead of bouncing.",
+            impact: "Cuts the guesswork that makes people leave a pattern listing.",
+          },
+          {
+            title: "Beginner education built into the site",
+            problem: "Cross-stitch vocabulary scares beginners off before they buy.",
+            solution: "A Beginner Hub and blog explain fabric counts, DMC thread, reading a pattern, and finishing, and product pages link out to the basics.",
+            rationale: "Education lowers the barrier and doubles as SEO content that brings new people in.",
+            impact: "Beginners can answer their own questions without leaving the site to search.",
+          },
+        ],
+
+        visualDirection: {
+          intro:
+            "The look is cozy and friendly without being childish. Warm cream surfaces, soft blush backgrounds, and a stitched violet brand color keep it gentle and handmade. The brighter butter accent is saved for calls to action, while a deep plum handles text and outlines so the shop still feels clear and readable.",
+          swatches: [
+            { name: "Brand Violet", hex: "#8D68B8" },
+            { name: "Warm Cream", hex: "#F8F2E8" },
+            { name: "Soft Blush", hex: "#FBF3F8" },
+            { name: "Butter CTA", hex: "#FFF1BF" },
+            { name: "Deep Plum", hex: "#4E3B63" },
+          ],
+        },
+
+        ia: [
+          { group: "Shop", items: ["Catalog with search, filters, and sorting", "Product detail pages"] },
+          { group: "Project types", items: ["Keychains", "Backpack pins", "Bookmarks", "Mini hoops", "One-night stitches"] },
+          { group: "Learn", items: ["Beginner Hub", "Blog posts"] },
+          { group: "Trust & info", items: ["FAQ", "About", "Contact", "Legal & accessibility"] },
+          { group: "Technical", items: ["Sitemap", "Robots", "Per-page metadata"] },
+        ],
+
+        implementation: [
+          { title: "Stack", body: "Next.js App Router, TypeScript, and Tailwind, deployed on Netlify." },
+          { title: "Content as data", body: "Products and posts live in structured content files, not a database. The catalog is small, so files keep it simple to edit and fast to ship. The shape is built to swap in a database later without reworking the UI." },
+          { title: "Accessibility", body: "Readable type, keyboard-friendly interactions, alt text, color contrast, reduced-motion support, and CTAs that stand out." },
+          { title: "SEO", body: "Per-page metadata, a sitemap, robots, and clean URLs, so patterns and posts can be found in search." },
+        ],
+
+        future: [
+          "Direct checkout with Stripe and automatic PDF delivery, so the shop no longer depends on Etsy.",
+          "Move products from content files to a database or CMS as the catalog grows.",
+          "Accounts and a download library for repeat buyers.",
+          "More Beginner Hub content to pull in search traffic.",
+          "Reviews and richer product photography for trust.",
+        ],
+
+        reflection:
+          "Designing for yourself is a trap. The moment I stopped assuming I knew what shoppers needed and started watching where they got stuck, the site got sharper.",
+      },
+
+      nextSlug: "mixflow",
+    },
+
+    {
       slug: "mixflow",
       name: "Mixflow",
       subtitle: "Music Playback UX",
@@ -57,7 +201,7 @@ const projectsPage = {
       heroSubtext: "Redesigning shuffle to restore trust and surface forgotten music.",
 
       caseStudy: {
-        heroImage: "/default_cover.png",
+        heroImage: "/default_cover.jpg",
         showcaseImage: "/high-fidelity.png",
 
         overview:
@@ -343,7 +487,6 @@ const projectsPage = {
           "Four iterations taught me to cut early and often. Every feature we removed made the product more usable. The chip input came from a user muttering 'I just want to type stuff in.' The best design direction often arrives as frustration, not feedback.",
       },
 
-      nextSlug: "mixflow",
     },
   ],
 };

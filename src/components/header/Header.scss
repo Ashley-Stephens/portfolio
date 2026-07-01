@@ -17,15 +17,31 @@
 }
 
 .dark-menu li a:hover {
-  background-color: rgba(82, 201, 122, 0.18) !important;
+  background-color: rgba(90, 125, 219, 0.18) !important;
 }
 
 .header {
-  background-color: $darkBackground;
+  background-color: rgba(15, 21, 32, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(168, 182, 214, 0.18);
   color: $textColorDark;
   max-width: 100%;
   padding: 15px 20px;
   margin: 0px auto;
+}
+
+.header--solid {
+  background-color: #0F1520;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Solid fallback for browsers without backdrop-filter support */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header {
+    background-color: $darkBackground;
+  }
 }
 
 .header ul {
@@ -43,14 +59,11 @@
   text-decoration: none;
    transition: background-color 150ms ease;
 }
-.header {
-  background-color: $darkBackground;
-  color: $textColorDark;
-}
 
 .header li a:hover {
-  background-color: rgba(82, 201, 122, 0.18);
+  background-color: rgba(90, 125, 219, 0.22);
   color: $textColorDark;
+  border-radius: 8px;
 }
 
 /* hamburger lines white */
@@ -82,8 +95,8 @@
 
 .logo:hover .logo-name {
   text-shadow:
-    0 0 14px rgba(82, 201, 122, 0.75),
-    0 0 28px rgba(82, 201, 122, 0.35);
+    0 0 14px rgba(90, 125, 219, 0.68),
+    0 0 28px rgba(90, 125, 219, 0.28);
 }
 
 .header .logo-name {

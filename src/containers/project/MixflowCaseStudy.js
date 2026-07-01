@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import "./MixflowCaseStudy.scss";
 
@@ -10,8 +10,6 @@ function toArray(x) {
 export default function MixflowCaseStudy({ project, prev, next }) {
   const [lightboxSrc, setLightboxSrc] = useState(null);
   const [lightboxZoomed, setLightboxZoomed] = useState(false);
-  const pageRef = useRef(null);
-
   const openLightbox = (src) => {
     setLightboxSrc(src);
     setLightboxZoomed(false);
@@ -21,32 +19,8 @@ export default function MixflowCaseStudy({ project, prev, next }) {
     setLightboxZoomed(false);
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("mf-visible");
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    const els = pageRef.current?.querySelectorAll(".mf-reveal");
-    els?.forEach((el) => observer.observe(el));
-
-    // Force-check after layout settles — catches elements already in viewport
-    // on initial load that the observer may miss due to timing
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        els?.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            el.classList.add("mf-visible");
-          }
-        });
-      });
-    });
-
-    return () => observer.disconnect();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTop = 0;
   }, []);
 
   const cs = project.caseStudy || {};
@@ -67,7 +41,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
   let sn = 0;
 
   return (
-    <div className="mf-page" data-theme={theme} ref={pageRef}>
+    <div className="mf-page" data-theme={theme}>
       {/* ── HERO ──────────────────────────────────────────── */}
       <section className="mf-hero">
         <div className="mf-hero__inner">

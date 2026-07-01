@@ -8,27 +8,68 @@ const HERO_TEXT = "Hey, I'm Ashley";
 
 const featured = [
   {
+    slug: "violetcraftworks",
+    title: "VioletCraftworks · Cross-Stitch Pattern Shop",
+    desc: "Solo-built storefront for a real PDF-pattern shop. Designed and coded end to end in Next.js.",
+    thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
+    tag: "End-to-End Product",
+    wip: true,
+  },
+  {
     slug: "mixflow",
-    title: "Mixflow — Music Playback UX",
+    title: "Mixflow · Music Playback UX",
     desc: "Redesigned shuffle to restore user trust and bring forgotten tracks back to life.",
     thumb: "/Mixflow.png",
     tag: "Interaction Design",
   },
+];
+
+const strengthsIntro =
+  "I do my best work when a product needs to feel simpler to use without throwing out the real constraints behind it.";
+
+const strengths = [
+  { title: "Making the vague concrete", body: "Taking a half-formed idea and turning it into a flow someone can follow." },
+  { title: "Friendly without the clutter", body: "Designing interfaces that stay approachable as more gets added to them." },
+  { title: "Design that survives the build", body: "Writing the front end myself, so the shipped site matches what was in Figma." },
+  { title: "Edge cases up front", body: "Handling accessibility, empty states, and content limits while designing, not after." },
+  { title: "AI & agentic workflows", body: "Using LLMs, Claude, and agentic tools to move faster, automate repetitive work, and build smarter products." },
+];
+
+const capabilities = [
   {
-    slug: "shelfsaver",
-    title: "LeftoverChef — AI Meal Planner",
-    desc: "Turned leftover anxiety into a cooking plan. Made sustainability feel personal, not preachy.",
-    thumb: "/LeftoverChef.png",
-    tag: "End-to-End Design",
+    group: "Strategy & UX",
+    items: [
+      { n: "01", title: "Research synthesis", body: "Turn interviews and notes into the few requirements that drive the design." },
+      { n: "02", title: "Information architecture", body: "Organize content and navigation so people find things without stopping to think." },
+      { n: "03", title: "User flows", body: "Map the path from first tap to done, then cut the steps that don't earn their place." },
+    ],
+  },
+  {
+    group: "Interface design",
+    items: [
+      { n: "04", title: "Wireframes & prototypes", body: "Move from rough to high fidelity in Figma, testing the idea before it gets polished." },
+      { n: "05", title: "Visual systems", body: "Set type, color, and spacing as a system so the product stays consistent as it grows." },
+      { n: "06", title: "Accessible UI", body: "Contrast, keyboard support, and clear states built in while designing, not patched later." },
+    ],
+  },
+  {
+    group: "Front-end",
+    items: [
+      { n: "07", title: "React & Next.js", body: "Build the design in real code instead of handing off a flat file." },
+      { n: "08", title: "Responsive layouts", body: "Make it hold up from a phone to a wide monitor." },
+      { n: "09", title: "SEO & performance", body: "Clean markup, metadata, and fast pages so the work gets found and loads fast." },
+    ],
+  },
+  {
+    group: "Testing & Validation",
+    items: [
+      { n: "10", title: "Usability testing", body: "Put real tasks in front of real users and fix what breaks before it ships." },
+      { n: "11", title: "A/B testing", body: "Run controlled variants on copy, layouts, and CTAs to let data pick the winner." },
+      { n: "12", title: "Iterative testing", body: "Test early and often across prototype rounds so changes are cheap instead of costly." },
+    ],
   },
 ];
 
-const skills = [
-  { label: "UX Research", sub: ["Interviews", "Surveys", "Usability Testing"] },
-  { label: "Interaction Design", sub: ["Wireframes", "Prototyping", "Figma"] },
-  { label: "Information Architecture", sub: ["Flows", "Systems", "IA"] },
-  { label: "Front-End", sub: ["React", "HTML / CSS / JS", "SCSS"] },
-];
 
 const Main = () => {
   const heroImg = process.env.PUBLIC_URL + "/ashley.png";
@@ -70,7 +111,7 @@ const Main = () => {
           <div className="hp-hero-left">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-line" />
-              UX / UI Designer · 2025
+              UX / UI Designer · Front-End Developer
             </div>
 
             <h1 className="hp-h1">
@@ -81,7 +122,7 @@ const Main = () => {
             <div className="hp-role-tag">Human-centered design</div>
 
             <p className="hp-desc">
-              Designing clear interfaces backed by research and systems thinking — from wireframe to shipped product.
+              Designing clear interfaces backed by research and systems thinking, from wireframe to shipped product.
             </p>
 
             <div className="hp-actions">
@@ -116,7 +157,7 @@ const Main = () => {
 
           <div className="card-grid">
             {featured.map((p) => (
-              <div key={p.slug} className="work-card">
+              <Link key={p.slug} className="work-card" to={`/projects/${p.slug}`}>
                 <div className="work-thumb">
                   <img
                     src={process.env.PUBLIC_URL + p.thumb}
@@ -124,37 +165,69 @@ const Main = () => {
                   />
                 </div>
                 <div className="work-body">
-                  <div className="work-tag">{p.tag}</div>
+                  <div className="work-tag">
+                    {p.tag}
+                    {p.wip && <span className="work-wip">Live MVP</span>}
+                  </div>
                   <div className="work-title">{p.title}</div>
                   <div className="work-desc">{p.desc}</div>
-                  <Link className="work-link" to={`/projects/${p.slug}`}>
-                    View case study →
-                  </Link>
+                  <span className="work-link">View case study →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
 
-        {/* SKILLS */}
+        {/* WHERE I'M STRONGEST */}
         <section className="hp-section hp-reveal">
           <div className="hp-section-label">
             <span className="hp-section-label-line" />
-            <span>02 · Capabilities</span>
+            <span>02 · Where I'm strongest</span>
           </div>
-          <h2 className="hp-h2">What I bring</h2>
+          <div className="hp-strength-head">
+            <h2 className="hp-h2 hp-strength-head__title">Where I&apos;m strongest</h2>
+            <p className="hp-strength-intro">{strengthsIntro}</p>
+          </div>
 
-          <div className="hp-skills-grid">
-            {skills.map((s) => (
-              <div key={s.label} className="hp-skill">
-                <div className="hp-skill-label">{s.label}</div>
-                <div className="hp-skill-sub">
-                  {s.sub.map((line, i) => <span key={i}>{line}</span>)}
+          <div className="hp-strength-grid">
+            {strengths.map((s) => (
+              <div key={s.title} className="hp-strength">
+                <span className="hp-strength-rule" />
+                <div className="hp-strength-title">{s.title}</div>
+                <div className="hp-strength-body">{s.body}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CAPABILITIES */}
+        <section className="hp-section hp-reveal">
+          <div className="hp-section-label">
+            <span className="hp-section-label-line" />
+            <span>03 · Capabilities</span>
+          </div>
+          <h2 className="hp-h2">My approach</h2>
+
+          <div className="hp-cap">
+            {capabilities.map((g) => (
+              <div key={g.group} className="hp-cap-group">
+                <div className="hp-cap-group-label">{g.group}</div>
+                <div className="hp-cap-items">
+                  {g.items.map((it) => (
+                    <div key={it.n} className="hp-cap-item">
+                      <span className="hp-cap-num">{it.n}</span>
+                      <div className="hp-cap-text">
+                        <div className="hp-cap-title">{it.title}</div>
+                        <div className="hp-cap-body">{it.body}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
         </section>
+
       </main>
 
       <Footer />

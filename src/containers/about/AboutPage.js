@@ -9,7 +9,7 @@ const experience = [
     role: "Independent Designer & Shop Owner",
     company: "Self-employed",
     period: "Oct 2024 – Present",
-    detail: "Founded a digital design shop creating original cross-stitch patterns. 300+ sales: designed, marketed, and iterated on products based on real customer demand.",
+    detail: "Founded a digital design shop creating original cross-stitch patterns. 400+ sales: designed, marketed, and iterated on products based on real customer demand.",
   },
   {
     role: "Software Design Intern",

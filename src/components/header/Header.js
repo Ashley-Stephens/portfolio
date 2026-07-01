@@ -1,13 +1,16 @@
 import React from "react";
 import Headroom from "react-headroom";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { greeting } from "../../portfolio";
 
 function Header() {
+   const location = useLocation();
+   const isProjectDetail = /^\/projects\/[^/]+$/.test(location.pathname);
+
    return (
       <Headroom>
-         <header className="header">
+         <header className={`header${isProjectDetail ? " header--solid" : ""}`}>
             <Link to="/#home" className="logo">
                <span className="logo-name">{greeting.username}</span>
             </Link>

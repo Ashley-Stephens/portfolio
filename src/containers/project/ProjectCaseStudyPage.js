@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import MixflowCaseStudy from "./MixflowCaseStudy";
+import VioletCraftworksCaseStudy from "./VioletCraftworksCaseStudy";
 import { projectsPage } from "../../portfolio";
 import "./ProjectCaseStudyPage.scss";
 
@@ -18,6 +19,11 @@ export default function ProjectCaseStudyPage() {
   const openLightbox = (src) => { setLightboxSrc(src); setLightboxZoomed(false); };
   const closeLightbox = () => { setLightboxSrc(null); setLightboxZoomed(false); };
   const { slug } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
   const projects = projectsPage?.projects || [];
   const idx = projects.findIndex((p) => p.slug === slug);
   const project = idx >= 0 ? projects[idx] : null;
@@ -55,6 +61,16 @@ export default function ProjectCaseStudyPage() {
 
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+
+  if (project.slug === "violetcraftworks") {
+    return (
+      <>
+        <Header />
+        <VioletCraftworksCaseStudy project={project} prev={prev} next={next} />
+        <Footer />
+      </>
+    );
+  }
 
   if (project.slug === "mixflow" || project.slug === "shelfsaver") {
     return (
@@ -459,8 +475,10 @@ export default function ProjectCaseStudyPage() {
               <div className="csDecisionStack">
                 {decisions.map((d, i) => (
                   <div className="csDecisionCard" key={i}>
-                    <div className="csDecisionNumber">Decision {i + 1}</div>
-                    <h3 className="csDecisionTitle">{d.title}</h3>
+                    <div className="csDecisionHeader">
+                      <div className="csDecisionNumber">Decision {i + 1}</div>
+                      <h3 className="csDecisionTitle">{d.title}</h3>
+                    </div>
 
                     <div className="csDecisionGrid">
                       {d.problem && (

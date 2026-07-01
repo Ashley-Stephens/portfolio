@@ -1,4 +1,13 @@
 .about-page {
+  --about-accent: #5A7DDB;
+  --about-accent-soft: rgba(90, 125, 219, 0.08);
+  --about-accent-border: rgba(90, 125, 219, 0.24);
+  --about-ink: #0F1520;
+  --about-paper: #F4F1EA;
+  --about-paper-dim: rgba(244, 241, 234, 0.74);
+  --about-border: rgba(168, 182, 214, 0.16);
+  background: var(--about-ink);
+  color: var(--about-paper);
   padding: 6rem 1.5rem 5rem;
   display: flex;
   justify-content: center;
@@ -48,8 +57,8 @@
   margin: 1.4rem 0 2rem;
   padding: 10px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(167, 139, 250, 0.28);
-  background: rgba(167, 139, 250, 0.07);
+  border: 1px solid var(--about-accent-border);
+  background: var(--about-accent-soft);
   width: fit-content;
 }
 
@@ -58,11 +67,11 @@
   font-weight: 800;
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: #c4b5fd;
+  color: #C9D7F4;
   padding: 3px 7px;
   border-radius: 6px;
-  border: 1px solid rgba(196, 181, 253, 0.35);
-  background: rgba(196, 181, 253, 0.10);
+  border: 1px solid rgba(201, 215, 244, 0.35);
+  background: rgba(201, 215, 244, 0.10);
   white-space: nowrap;
 }
 
@@ -100,13 +109,13 @@
 .about-exp-card {
   padding: 16px 18px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--about-border);
+  background: rgba(244, 241, 234, 0.03);
   transition: border-color 160ms ease;
 }
 
 .about-exp-card:hover {
-  border-color: rgba(167, 139, 250, 0.30);
+  border-color: rgba(90, 125, 219, 0.30);
 }
 
 .about-exp-header {
@@ -153,8 +162,8 @@
 .about-tool {
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--about-border);
+  background: rgba(244, 241, 234, 0.04);
   font-size: 13px;
   font-weight: 500;
   opacity: 0.85;
@@ -183,12 +192,12 @@
 }
 
 .about-primary {
-  background: rgba(136, 91, 213, 0.85);
-  border: 1px solid rgba(136, 91, 213, 0.9);
+  background: rgba(90, 125, 219, 0.85);
+  border: 1px solid rgba(90, 125, 219, 0.92);
 }
 
 .about-primary:hover {
-  background: rgba(136, 91, 213, 1);
+  background: rgba(70, 104, 194, 1);
   transform: translateY(-1px);
 }
 
