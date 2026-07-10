@@ -57,7 +57,7 @@ export default function ProjectsPage() {
                   <div className="project-card__body">
                     <div className="project-card__meta">
                       <span className="project-card__category">{p.category || "UX Design"}</span>
-                      {p.wip && <span className="project-card__wip">Live MVP</span>}
+                      {p.wip && <span className="project-card__wip">Live</span>}
                       {p.year && <span className="project-card__year">{p.year}</span>}
                     </div>
 

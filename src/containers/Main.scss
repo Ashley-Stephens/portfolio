@@ -397,8 +397,8 @@ $accent: #5A7DDB;
 
 .hp-strength-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px 34px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 28px 24px;
 }
 
 .hp-strength {
