@@ -19,7 +19,8 @@
       "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/repeat.png\" \"C:/Users/viole/Documents/listening insights/images/repeat.png\")",
       "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/volume.png\" \"C:/Users/viole/Documents/listening insights/images/volume.png\")",
       "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/noshuffle.png\" \"C:/Users/viole/Documents/listening insights/images/noshuffle.png\")",
-      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/leastshuffle.png\" \"C:/Users/viole/Documents/listening insights/images/leastshuffle.png\")"
+      "Bash(cp \"C:/Users/viole/Documents/Spoofify/frontend/img/leastshuffle.png\" \"C:/Users/viole/Documents/listening insights/images/leastshuffle.png\")",
+      "Bash(git add *)"
     ]
   }
 }

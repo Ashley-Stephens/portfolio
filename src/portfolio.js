@@ -47,8 +47,8 @@ const projectsPage = {
       year: "2026",
       role: "Solo Designer & Developer",
       platform: "Web · Next.js",
-      duration: "Live MVP · still building",
-      tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "SEO", "Next.js"],
+      duration: "Live · actively building",
+      tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "Cloudflare Workers", "Next.js · TypeScript"],
       thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
       wip: true,
       featured: true,
@@ -60,90 +60,95 @@ const projectsPage = {
 
       heroStatement: "A real cross-stitch shop needed more than an Etsy page could give it.",
       heroSubtext:
-        "I designed and built the storefront end to end. The live MVP sends shoppers to Etsy to check out, and the structure is ready for direct sales later.",
+        "I designed and built the storefront end to end. Shoppers can buy patterns direct via Stripe or through Etsy. The site handles checkout, PDF delivery, filtering, a beginner hub, blog, and a growing SEO layer.",
 
       caseStudy: {
         heroImage: "/VioletCraftworks/violetcraftworks_thumb.png",
 
-        mvpNote:
-          "This is a live MVP, and I'm still building it. The current site is a branded storefront that hands shoppers off to Etsy to buy. I'm structuring it so direct Stripe checkout and PDF delivery can be added later without a redesign.",
-
         overview:
-          "VioletCraftworks is a small shop that sells PDF cross-stitch patterns: keychains, backpack pins, bookmarks, mini hoops, and quick one-night projects. The patterns already sell on Etsy. I'm building a standalone site so the shop has its own brand, shows up in search, and can sell patterns directly down the line. I did all of it: brand direction, UX, UI, content structure, the front-end build, and deployment.",
+          "VioletCraftworks started as an Etsy shop selling PDF cross-stitch patterns. Etsy handled checkout and brought in buyers, but the storefront couldn't teach beginners, tell the brand's story, or control how shoppers discovered patterns. I built a standalone site that does all three while keeping Etsy as a sales channel alongside direct Stripe checkout. The project spans roughly five months of active work, from first wireframe to the current production site, with ongoing content and feature additions.",
 
         roleList: [
-          { title: "Brand direction", body: "Set the name, voice, color, and personality. Cozy and friendly, but not childish." },
-          { title: "UX strategy & IA", body: "Mapped how beginners and repeat stitchers shop, then split the site into a shopping path and a learning path." },
-          { title: "UI design", body: "Designed the pages, product cards, filters, and detail layouts to stay clear on a small catalog." },
-          { title: "Front-end build", body: "Built the whole site in Next.js, TypeScript, and Tailwind." },
-          { title: "Content & SEO structure", body: "Organized products and blog posts as structured files with metadata, a sitemap, and clean URLs." },
-          { title: "Accessibility", body: "Handled type contrast, keyboard interactions, alt text, reduced motion, and clear CTAs." },
-          { title: "Deployment", body: "Shipped it on Netlify." },
+          { title: "Product & UX", body: "Brand direction, user research, information architecture, and the two-path navigation model." },
+          { title: "Design & content", body: "UI design, product cards, filter interface, type and color system, product copy, blog content." },
+          { title: "Engineering & ops", body: "Full front-end build, payment integration, edge deployment, database setup, secure file delivery, and CI validation." },
         ],
 
+        evidence: {
+          intro: "No formal usability study. Design decisions came from selling patterns on Etsy, reading customer messages, watching how cross-stitch communities discuss purchases, and analyzing competing shops.",
+          sources: [
+            { label: "Seller experience", body: "Over a year of Etsy sales surfaced recurring customer questions: how hard is this, what supplies do I need, and how big is the finished piece. Those questions shaped the product-page information hierarchy." },
+            { label: "Community patterns", body: "Cross-stitch forums and social groups show beginners asking the same three things before every purchase. Independent shops that answered those questions in the listing had stronger conversion." },
+            { label: "Competitive review", body: "Compared Etsy-only sellers to independent pattern shops. Shops with their own sites had stronger brand recognition and repeat buyers. Shops without difficulty ratings or supply lists had more confused customer messages." },
+            { label: "Post-launch analytics", body: "PostHog session recordings and filter-usage data confirmed which categories shoppers reach for first and where they hesitate." },
+          ],
+        },
+
+        problemStatement: "Etsy brought in buyers and handled payment, but three things kept the shop from growing past a certain point.",
         problemBullets: [
-          "Etsy is built for listings, not brands. There's no room to tell the shop's story, build trust, or feel like more than a thumbnail in a search result.",
-          "Navigation on Etsy works if you already know what you want. For someone new to cross-stitch, there's no way to filter by difficulty, understand what supplies they need, or find a first project that won't overwhelm them.",
-          "The people most likely to buy were beginners — and Etsy gave them no guidance. The standalone site exists to fix that: a shop that helps new stitchers find the right pattern, not just browse.",
+          "Etsy structures every shop the same way. There's no room for brand identity, storytelling, or trust signals beyond the listing itself.",
+          "Cross-stitch shoppers filter by difficulty, project type, and size. Etsy's category system doesn't map to those criteria, so beginners can't narrow results to patterns they can finish.",
+          "Beginners were the most likely new customers, and they had the most questions. Etsy gave them a product grid with no guidance.",
         ],
-        problemQuote: "I always check who made the pattern before I buy. I want to know the person behind it, not just the listing.",
+        problemInsight: "The consistent signal across customer messages and community posts: shoppers check who made the pattern and want context before buying. A thumbnail in a search result doesn't provide that.",
+        evidenceLine: "These patterns came from over a year of Etsy sales, recurring customer questions, cross-stitch community observation, competitive analysis of independent pattern shops, and post-launch PostHog analytics.",
 
         goals: [
-          "Give the shop a branded home that reads as more than an Etsy listing.",
-          "Help patterns get found through search.",
-          "Make patterns easy to understand before buying, especially for beginners.",
-          "Keep Etsy as checkout for now, but build so direct sales can be added later.",
+          "Build a branded storefront distinct from the Etsy listing.",
+          "Help shoppers evaluate patterns before buying, especially beginners unfamiliar with cross-stitch terminology.",
+          "Support both Etsy and direct Stripe checkout from one product catalog.",
+          "Get patterns indexed in search with structured, crawlable content.",
         ],
         constraints: [
-          "Solo build. One person on design, code, content, and deploy.",
-          "Small catalog, so a full database is overkill for the MVP.",
-          "Checkout stays on Etsy for now, so the site has to hand shoppers off cleanly.",
-          "Has to stay cheap to run and easy to expand.",
+          "Solo build: one person on design, code, content, and deployment.",
+          "Small catalog (~22 patterns). A database or CMS adds complexity without a matching benefit at this scale.",
+          "Checkout session creation and price lookup must stay server-side. The client never determines the charge amount.",
+          "Monthly operating cost near zero. No per-seat SaaS, no managed database bill.",
         ],
 
         users: [
-          { tag: "Beginners", body: "New to cross-stitch. Want cute, small projects and plain explanations of supplies and difficulty." },
-          { tag: "Hobbyist finishers", body: "Want quick wins they can finish in one sitting, like keychains, bookmarks, and pins." },
-          { tag: "Repeat stitchers", body: "Know the craft. Shop by theme, size, and project type, and want to scan fast." },
+          { tag: "Needs help choosing", body: "New to cross-stitch. Doesn't know fabric counts or DMC numbers. Wants small, finishable projects and plain language about what's involved." },
+          { tag: "Wants something quick", body: "Knows the basics. Looking for keychains, bookmarks, or pins they can finish in a sitting. Filters by project type and size." },
+          { tag: "Knows what they like", body: "Experienced stitcher. Shops by theme, color, or format. Wants to scan fast and skip beginner content." },
         ],
 
         strategy:
-          "The site splits two mindsets: people who came to shop, and people who came to learn. The navigation follows that split. One path holds the catalog, filters, and product details. The other holds the Beginner Hub and blog. Filters match how people pick a cross-stitch pattern: size, theme, color, project type, and whether it suits a beginner. Each product page answers the buying questions up front, like size, color count, DMC details, difficulty, and what the finished piece is for, then sends the shopper to Etsy to check out.",
+          "Two groups visit the shop: people ready to buy and people who need help choosing their first project. The navigation follows that split. One path holds the catalog, filters, and product detail pages. The other holds a beginner hub, guides, and blog content. Product pages serve both groups by answering the buying questions up front (difficulty, size, stitch count, supplies) and offering two checkout options: buy direct through Stripe or purchase on Etsy.",
 
         decisions: [
           {
-            title: "Split shopping from learning",
-            problem: "Beginners and experienced stitchers want different things. Mixing shop and education in one flow slows both down.",
-            solution: "Two clear paths in the nav: shop (catalog, filters, products) and learn (Beginner Hub, blog).",
-            rationale: "Someone ready to buy shouldn't wade through tutorials, and a nervous beginner shouldn't hit a wall of products with no context.",
-            impact: "Each visitor gets a route that matches why they came.",
+            title: "Two-path navigation",
+            problem: "Beginners and experienced stitchers want different things. Mixing product browsing and educational content in one flow slows both groups down.",
+            solution: "Shop and Learn as distinct navigation paths. Shop holds the catalog, filters, and product pages. Learn holds the beginner hub, blog, and guides.",
+            rationale: "Someone ready to buy shouldn't scroll past tutorials. A beginner shouldn't hit a grid of unfamiliar products with no context.",
+            outcome: "Cross-stitch community forums consistently show two distinct visitor types. PostHog session recordings confirmed the split: returning buyers go straight to filters, first-time visitors explore the beginner hub first.",
           },
           {
-            title: "Filters built around stitching behavior",
-            problem: "Generic shop filters like price and newest don't match how people choose patterns.",
-            solution: "Filters for size, theme, color, project type, and beginner suitability.",
-            rationale: "These are the questions stitchers ask. A beginner filters for beginner-friendly; a repeat buyer filters by theme or project type.",
-            impact: "Shoppers narrow the catalog to the few patterns that fit what they want to make.",
+            title: "Filters built for stitching behavior",
+            problem: "Generic e-commerce filters (price, newest, bestselling) don't match how people choose a cross-stitch pattern.",
+            solution: "Filters for difficulty, project type, size, and theme. Difficulty is the most prominent filter because it's the first question beginners ask.",
+            rationale: "With ~22 patterns, heavy filtering could feel like overkill. But patterns vary across 5+ attributes that matter to buyers, and competitive analysis showed that independent shops without difficulty filters had more confused customer messages. A small catalog with clear facets is faster to browse than one with only a search box.",
+            outcome: "PostHog filter-usage data shows difficulty and project type as the most-used facets, confirming the hierarchy. Session recordings caught the iteration: I originally placed filters below the product grid, but first-time visitors clicked a difficulty filter before scrolling past the first row. Filters moved up.",
           },
           {
-            title: "Product pages that answer the buying questions",
-            problem: "A pattern PDF is abstract. Shoppers can't tell difficulty or supplies from a thumbnail.",
-            solution: "Each product page lists size, color count, DMC details, difficulty, use case, and a direct Etsy CTA.",
-            rationale: "If the page answers can I make this, and is it what I want, the shopper buys with confidence instead of bouncing.",
-            impact: "Cuts the guesswork that makes people leave a pattern listing.",
+            title: "Dual checkout: Etsy and direct",
+            problem: "Etsy has built-in buyer trust and handles payment disputes. But it takes a cut, limits branding, and owns the customer relationship. Dropping Etsy would sacrifice established buyers. Offering only Etsy would keep the shop dependent on one platform.",
+            solution: "Every product page shows two purchase options: Buy Direct (Stripe) and Shop on Etsy. Both lead to the same pattern. Stripe is positioned first. Etsy acts as a trust fallback for buyers who prefer a marketplace.",
+            rationale: "A year of Etsy sales showed strong repeat-buyer loyalty to the platform. Forcing those customers off Etsy risks losing them. At the same time, search traffic landing on the standalone site shouldn't have to leave to complete a purchase. One typed product catalog serves both channels with no duplication.",
+            outcome: "Both checkout paths are live and tested end to end. Stripe sessions are created server-side; the client never sees secret keys or price IDs. Etsy links carry UTM parameters so traffic source is trackable across both rails.",
           },
           {
-            title: "Beginner education built into the site",
-            problem: "Cross-stitch vocabulary scares beginners off before they buy.",
-            solution: "A Beginner Hub and blog explain fabric counts, DMC thread, reading a pattern, and finishing, and product pages link out to the basics.",
-            rationale: "Education lowers the barrier and doubles as SEO content that brings new people in.",
-            impact: "Beginners can answer their own questions without leaving the site to search.",
+            title: "Product pages that answer buying questions",
+            problem: "A cross-stitch pattern is a PDF. From a thumbnail, a shopper can't tell the difficulty, required supplies, finished size, or what the piece is for.",
+            solution: "Every product page shows stitch count, fabric size, color count, DMC thread list, difficulty rating, and suggested use. These details appear above the fold, before the purchase buttons.",
+            rationale: "The most common Etsy customer messages asked three things: how hard is this, what supplies do I need, and how big is the finished piece. Those three questions directly shaped the product-page information hierarchy.",
+            outcome: "Product pages link to beginner-hub articles where terminology needs explanation, connecting the shop path to the learn path. Structured data (Product schema) validates cleanly, and all product pages are indexed.",
           },
         ],
 
         visualDirection: {
           intro:
-            "The look is cozy and friendly without being childish. Warm cream surfaces, soft blush backgrounds, and a stitched violet brand color keep it gentle and handmade. The brighter butter accent is saved for calls to action, while a deep plum handles text and outlines so the shop still feels clear and readable.",
+            "The look is cozy and handmade without being childish. Warm cream backgrounds, soft blush accents, and a stitched violet brand color keep it gentle. A brighter butter accent marks calls to action. Deep plum handles text and outlines for readability. The type hierarchy uses one serif for headings and one sans-serif for body, with generous line height to keep dense product details scannable.",
           swatches: [
             { name: "Brand Violet", hex: "#8D68B8" },
             { name: "Warm Cream", hex: "#F8F2E8" },
@@ -153,31 +158,54 @@ const projectsPage = {
           ],
         },
 
-        ia: [
-          { group: "Shop", items: ["Catalog with search, filters, and sorting", "Product detail pages"] },
-          { group: "Project types", items: ["Keychains", "Backpack pins", "Bookmarks", "Mini hoops", "One-night stitches"] },
-          { group: "Learn", items: ["Beginner Hub", "Blog posts"] },
-          { group: "Trust & info", items: ["FAQ", "About", "Contact", "Legal & accessibility"] },
-          { group: "Technical", items: ["Sitemap", "Robots", "Per-page metadata"] },
+        technicalDecisions: [
+          {
+            title: "Typed content files instead of a CMS",
+            context: "Solo build, ~22 products, one content author. A headless CMS or database adds hosting cost, API complexity, and a per-seat dependency that doesn't earn its weight at this scale. Monthly operating cost needed to stay near zero.",
+            decision: "Products, blog posts, categories, and freebies live in TypeScript files with strict types. Helper modules enforce visibility, SEO rules, and featuring logic at the read layer.",
+            tradeoff: "Adding a product means editing a file and pushing a commit. That works for one author. If the catalog grows past ~100 items or gains a second editor, the content layer moves to a database or CMS. The UI reads through the same helper functions either way, so the migration is a backend change.",
+          },
+          {
+            title: "Server-side checkout and webhook fulfillment",
+            context: "Stripe requires checkout sessions be created with a secret API key. The client should never determine the charge amount or access restricted keys. Both Etsy and direct checkout need to coexist from a single product catalog, so the typed content files serve as the shared source of truth for prices and product data.",
+            decision: "A server-side API route creates the Stripe Checkout Session with a price lookup from typed product data. After payment, Stripe sends a webhook. The server verifies the webhook signature, writes an order record to D1, and mints a one-time expiring signed URL pointing to the PDF in R2 storage.",
+            tradeoff: "Webhook-only fulfillment means a brief delay before the download link is ready. The tradeoff is reliability: if the buyer closes their browser mid-checkout, the order still fulfills correctly.",
+          },
+          {
+            title: "Build-time content validation",
+            context: "With typed content files and no CMS validation layer, a missing field, broken image path, or duplicate slug could ship to production unnoticed. Solo build means no second pair of eyes on content changes.",
+            decision: "Vitest runs content checks in CI. The build fails on missing required fields, dead image paths, orphan blog posts, duplicate slugs, and fabricated review data.",
+            tradeoff: "Every content change runs through CI. Adds ~30 seconds to deploys. Catches errors that would otherwise surface as blank pages or broken images in production.",
+          },
+          {
+            title: "Edge deployment on Cloudflare Workers",
+            context: "The site needs fast response times, near-zero monthly cost, and a deploy process that doesn't require manual infrastructure management. No per-seat SaaS, no managed database bill.",
+            decision: "Deployed on Cloudflare Workers via OpenNext adapter. D1 (SQLite at the edge) stores cart and order data. R2 (object storage) holds pattern PDFs behind signed URLs. Deploys happen on git push to main.",
+            tradeoff: "Workers use an isolate model instead of containers, avoiding container cold-start overhead. The constraint is Workers have execution limits (CPU time, memory) that wouldn't suit a compute-heavy application, but an e-commerce storefront fits within them. Current monthly infrastructure cost is effectively zero on Cloudflare's free tier.",
+          },
         ],
 
-        implementation: [
-          { title: "Stack", body: "Next.js App Router, TypeScript, and Tailwind, deployed on Netlify." },
-          { title: "Content as data", body: "Products and posts live in structured content files, not a database. The catalog is small, so files keep it simple to edit and fast to ship. The shape is built to swap in a database later without reworking the UI." },
-          { title: "Accessibility", body: "Readable type, keyboard-friendly interactions, alt text, color contrast, reduced-motion support, and CTAs that stand out." },
-          { title: "SEO", body: "Per-page metadata, a sitemap, robots, and clean URLs, so patterns and posts can be found in search." },
-        ],
+        results: {
+          intro: "The site is live with paying customers on both checkout paths. Traffic is early-stage, so behavioral conclusions are limited. Here is what I can measure so far.",
+          items: [
+            { label: "Product", body: "22 patterns live across both Etsy and direct checkout. Single content source serves both channels with no duplication." },
+            { label: "Checkout", body: "End-to-end purchase tested on both Stripe and Etsy paths. Webhook fulfillment delivers PDF download links without depending on browser state." },
+            { label: "Search", body: "All product and blog pages indexed. Structured data (Product, Article, FAQPage, Organization) validates cleanly." },
+            { label: "Quality", body: "CI catches content errors before deploy. No broken images, missing metadata, or orphan pages have reached production since the validation suite was added." },
+            { label: "Accessibility", body: "Keyboard navigation works through the filter drawer, product cards, and checkout flow. Focus moves into the drawer on open and returns to the trigger on close. Color contrast meets WCAG AA." },
+            { label: "Cost", body: "Monthly infrastructure cost is effectively zero on Cloudflare's free tier." },
+          ],
+        },
 
         future: [
-          "Direct checkout with Stripe and automatic PDF delivery, so the shop no longer depends on Etsy.",
-          "Move products from content files to a database or CMS as the catalog grows.",
-          "Accounts and a download library for repeat buyers.",
-          "More Beginner Hub content to pull in search traffic.",
-          "Reviews and richer product photography for trust.",
+          "Buyer accounts with a personal download library for repeat purchases.",
+          "More blog and beginner-hub content to build an owned search acquisition channel.",
+          "Customer reviews and richer product photography.",
+          "Freebie gallery expansion and email list capture.",
         ],
 
         reflection:
-          "Designing for yourself is a trap. The moment I stopped assuming I knew what shoppers needed and started watching where they got stuck, the site got sharper.",
+          "Early in the project I assumed beginners would browse the full catalog and then use filters to narrow down. PostHog recordings showed the opposite: most first-time visitors clicked a category or difficulty filter before scrolling past the first row. I moved the filter controls higher and made difficulty the default open facet. That assumption was wrong, and the analytics caught it within the first two weeks of real traffic.",
       },
 
       nextSlug: "mixflow",

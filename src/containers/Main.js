@@ -167,7 +167,7 @@ const Main = () => {
                 <div className="work-body">
                   <div className="work-tag">
                     {p.tag}
-                    {p.wip && <span className="work-wip">Live MVP</span>}
+                    {p.wip && <span className="work-wip">Live</span>}
                   </div>
                   <div className="work-title">{p.title}</div>
                   <div className="work-desc">{p.desc}</div>
