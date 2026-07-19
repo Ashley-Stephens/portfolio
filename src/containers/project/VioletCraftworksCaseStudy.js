@@ -70,7 +70,6 @@ export default function VioletCraftworksCaseStudy({ project, prev, next }) {
   const liveUrl = project.links?.live || "";
   const roleList = toArray(cs.roleList);
   const problemBullets = toArray(cs.problemBullets);
-  const users = toArray(cs.users);
   const decisions = toArray(cs.decisions);
   const technicalDecisions = toArray(cs.technicalDecisions);
   const future = toArray(cs.future);
