@@ -137,8 +137,10 @@ export default function DuoScene({
       const pFill = new THREE.DirectionalLight(0xffffff, 0.7); pFill.position.set(0.1, 0.2, 1.5);  pScene.add(pFill);
       pScene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
-      // Filmstrip: 3 slides × 480×1040, top-anchored real images
-      const SW = 480, SH = 1040;
+      // Filmstrip: 3 slides at native source resolution (1290×2796) so the
+      // phone screen is sharp. 3×1290 = 3870 fits the 4096 WebGL max-texture
+      // floor. Uploaded to the GPU once at load — cheap at render time.
+      const SW = 1290, SH = 2796;
       const strip = document.createElement("canvas");
       strip.width = SW * 3; strip.height = SH;
       const tex = new THREE.CanvasTexture(strip);
@@ -192,8 +194,9 @@ export default function DuoScene({
           else if (pageT < 0.62) off = 1/3;
           else if (pageT < 0.78) off = lrp(1/3, 2/3, eIO(clamp(0.62, 0.78, pageT)));
           else off = 2/3;
-          tex.offset.x    = off;
-          tex.needsUpdate = true;
+          // offset is a uniform — no needsUpdate, which would re-upload the
+          // whole filmstrip to the GPU every scroll frame
+          tex.offset.x = off;
         }
       }
       applyPhone(pState.p);
