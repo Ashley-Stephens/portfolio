@@ -49,6 +49,7 @@ export default function DuoScene({
       lr.setPixelRatio(Math.min(Math.max(window.devicePixelRatio, 2), 3));
       lr.toneMapping         = THREE.ACESFilmicToneMapping;
       lr.toneMappingExposure = 0.92;
+      lr.setClearColor(0x000000, 0);
 
       const lScene = new THREE.Scene();
       const lPmrem = new THREE.PMREMGenerator(lr);
