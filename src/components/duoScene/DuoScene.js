@@ -33,14 +33,6 @@ export default function DuoScene({
 
       gsap.registerPlugin(ScrollTrigger);
 
-      // GLTFParser picks ImageBitmapLoader vs TextureLoader in its constructor by
-      // checking `typeof createImageBitmap`. Setting the global to undefined (not
-      // delete, which is a no-op for prototype-defined props) forces the fallback
-      // TextureLoader path (img.src) and avoids blob-URL fetch failures in prod.
-      const _cib = window.createImageBitmap;
-      window.createImageBitmap = undefined;
-      cleanup.push(() => { window.createImageBitmap = _cib; });
-
       const draco = new DRACOLoader();
       draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
       const loader = new GLTFLoader();

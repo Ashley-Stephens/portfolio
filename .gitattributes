@@ -6,3 +6,10 @@
 *.pdf binary
 *.webp binary
 *.woff binary
+*.glb binary
+*.gltf binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff2 binary
