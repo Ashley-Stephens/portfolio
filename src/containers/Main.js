@@ -13,7 +13,6 @@ const featured = [
     desc: "Solo-built storefront for a real PDF-pattern shop. Designed and coded end to end in Next.js.",
     thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
     tag: "End-to-End Product",
-    wip: true,
   },
   {
     slug: "mixflow",

@@ -1,0 +1,89 @@
+.duo-scene {
+  position: relative;
+  height: 600vh;
+}
+
+.duo-scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.duo-scene__laptop-wrap {
+  flex: 0 0 80%;
+  height: 100%;
+  position: relative;
+}
+
+.duo-scene__laptop-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+// Phone is smaller, bottom-right, slightly overlaps laptop's right edge
+.duo-scene__phone-wrap {
+  flex: 0 0 32%;
+  height: 88%;
+  margin-left: -22%;
+  position: relative;
+  z-index: 1;
+  align-self: flex-end;
+  overflow: hidden;
+}
+
+.duo-scene__phone-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0; // JS sets to 1 once phone starts rising; prevents black rect at t=0
+}
+
+.duo-scene--fallback {
+  height: auto;
+  margin: 28px 0 8px;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duo-scene {
+    height: auto;
+  }
+  .duo-scene__stage {
+    position: static;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 860px) {
+  .duo-scene {
+    height: auto;
+  }
+  .duo-scene__stage {
+    position: static;
+    flex-direction: column;
+    height: auto;
+  }
+  .duo-scene__laptop-wrap {
+    flex: none;
+    width: 100%;
+    height: 50vh;
+  }
+  .duo-scene__phone-wrap {
+    flex: none;
+    width: 45%;
+    height: 55vh;
+    margin-left: 0;
+    align-self: center;
+    padding-bottom: 0;
+  }
+}
