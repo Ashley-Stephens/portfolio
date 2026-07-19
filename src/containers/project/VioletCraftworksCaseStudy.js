@@ -1,6 +1,13 @@
 import React, { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
+import DuoScene from "../../components/duoScene/DuoScene";
 import "./VioletCraftworksCaseStudy.scss";
+
+const PHONE_SLIDES = [
+  process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (1).png",
+  process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (2).png",
+  process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (3).png",
+];
 
 function toArray(x) {
   if (!x) return [];
@@ -254,37 +261,6 @@ export default function VioletCraftworksCaseStudy({ project, prev, next }) {
         )}
 
 
-        {users.length > 0 && (
-          <section className="vc-section vc-reveal">
-            <div className="vc-section-label">
-              <span className="vc-section-label__line" />
-              <span className="vc-section-label__text">{num()} &middot; Shopping Modes</span>
-            </div>
-            <div className="vc-users-intro">
-              <h2 className="vc-h2 vc-h2--users">Who visits and why</h2>
-              <p className="vc-sub vc-sub--users">
-                Three buying patterns drive the interface decisions.
-              </p>
-            </div>
-            <div className="vc-users-layout">
-              <div className="vc-users-figure">
-                <img
-                  className="vc-users-figure__img"
-                  src={process.env.PUBLIC_URL + "/VioletCraftworks/user-image.png"}
-                  alt="Pixel art stitcher character"
-                />
-              </div>
-              <div className="vc-users-grid">
-                {users.map((u, i) => (
-                  <div className="vc-user-card" key={i}>
-                    <div className="vc-user-card__tag">{u.tag}</div>
-                    <div className="vc-user-card__body">{u.body}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {cs.strategy && (
           <section className="vc-section vc-reveal">
@@ -531,41 +507,13 @@ export default function VioletCraftworksCaseStudy({ project, prev, next }) {
             <span className="vc-section-label__text">{num()} &middot; Final Product</span>
           </div>
           <h2 className="vc-h2">The shop, live</h2>
-          <div className="vc-device-spread">
-            <button
-              className="vc-device-spread__laptop-btn"
-              type="button"
-              onClick={() => openLightbox(process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-laptop-mvp.png")}
-            >
-              <img
-                className="vc-device-spread__laptop"
-                src={process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-laptop-mvp.png"}
-                alt="VioletCraftworks home page on laptop"
-              />
-            </button>
-            <button
-              className="vc-device-spread__mobile-btn"
-              type="button"
-              onClick={() => openLightbox(process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-mobile-mvp.png")}
-            >
-              <img
-                className="vc-device-spread__mobile"
-                src={process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-mobile-mvp.png"}
-                alt="VioletCraftworks home page on mobile"
-              />
-            </button>
-          </div>
-          <button
-            className="vc-img-btn"
-            type="button"
-            onClick={() => openLightbox(process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-shop-image.png")}
-          >
-            <img
-              className="vc-case-img"
-              src={process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-shop-image.png"}
-              alt="VioletCraftworks shop page showing the current pattern catalog"
-            />
-          </button>
+          <DuoScene
+            laptopModelSrc={process.env.PUBLIC_URL + "/models/laptop-draco.glb"}
+            laptopScreenSrc={process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-computer-img.png"}
+            phoneModelSrc={process.env.PUBLIC_URL + "/models/phone.glb"}
+            phoneSlides={PHONE_SLIDES}
+            fallbackImageSrc={process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-laptop-mvp.png"}
+          />
         </section>
 
         {resultItems.length > 0 && (

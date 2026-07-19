@@ -34,6 +34,11 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-left">
           <span className="footer-copy">© {new Date().getFullYear()} Ashley</span>
+          <span className="footer-credit">
+            Laptop model by{" "}
+            <a href="https://sketchfab.com/timblewee" target="_blank" rel="noreferrer">timblewee</a>
+            {" "}(CC-BY)
+          </span>
         </div>
 
         <div className="footer-right">

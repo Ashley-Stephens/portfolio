@@ -1,0 +1,44 @@
+.phone-scene {
+  position: relative;
+  height: 400vh;
+}
+
+.phone-scene__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.phone-scene__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.phone-scene--fallback {
+  height: auto;
+  margin: 28px 0 8px;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-scene {
+    height: auto;
+  }
+  .phone-scene__stage {
+    position: static;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 860px) {
+  .phone-scene {
+    height: 280vh;
+  }
+}

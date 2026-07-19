@@ -56,7 +56,11 @@
   color: var(--vc-ink);
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  /* overflow-x: hidden pairs with a non-"visible" overflow-y per spec, which
+     turns this into a scroll container and breaks position:sticky for
+     descendants (.laptop-scene__stage). overflow-x: clip avoids that pairing
+     rule while still preventing horizontal scroll. */
+  overflow-x: clip;
 }
 
 /* ─── Beat the global `.dark-mode p/li/span/h { color:#fff }` rule ──
@@ -1414,38 +1418,6 @@
 .vc-img-btn:hover .vc-case-img { transform: translateY(-3px); }
 .vc-img-btn--static:hover .vc-case-img { transform: none; }
 
-.vc-device-spread {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  margin: 28px 0 8px;
-}
-
-.vc-device-spread__laptop-btn,
-.vc-device-spread__mobile-btn {
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: zoom-in;
-  display: block;
-}
-
-.vc-device-spread__laptop-btn { flex: 1 1 auto; }
-.vc-device-spread__laptop { width: 100%; height: auto; display: block; }
-
-.vc-device-spread__mobile-btn {
-  flex: 0 0 auto;
-  width: 24%;
-  margin-left: -7%;
-  margin-bottom: 3%;
-}
-.vc-device-spread__mobile { width: 100%; height: auto; display: block; }
-
-@media (max-width: 860px) {
-  .vc-device-spread { flex-direction: column; align-items: center; }
-  .vc-device-spread__laptop-btn { width: 100%; }
-  .vc-device-spread__mobile-btn { width: 52%; margin-left: 0; margin-bottom: 0; margin-top: 16px; }
-}
 
 /* ═══ LIGHTBOX ══════════════════════════════════════════════════ */
 

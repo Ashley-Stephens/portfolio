@@ -50,7 +50,6 @@ const projectsPage = {
       duration: "Live · actively building",
       tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "Cloudflare Workers", "Next.js · TypeScript"],
       thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
-      wip: true,
       featured: true,
       links: {
         prototype: "",

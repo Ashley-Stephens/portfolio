@@ -28,5 +28,12 @@
       "runtimeArgs": ["-m", "http.server", "4321", "--directory", "C:/Users/viole/Documents/listening insights"],
       "port": 4321
     }
+  ,
+    {
+      "name": "mockup",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/viole/Documents/portfolio/mockup/_server.js"],
+      "port": 8778
+    }
   ]
 }
