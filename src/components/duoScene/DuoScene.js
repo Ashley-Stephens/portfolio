@@ -324,6 +324,7 @@ export default function DuoScene({
     })();
 
     return () => { disposed = true; cleanup.forEach(fn => fn()); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [laptopModelSrc, laptopScreenSrc, phoneModelSrc]);
 
   if (failed) {
