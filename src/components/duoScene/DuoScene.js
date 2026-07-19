@@ -137,9 +137,8 @@ export default function DuoScene({
       const pFill = new THREE.DirectionalLight(0xffffff, 0.7); pFill.position.set(0.1, 0.2, 1.5);  pScene.add(pFill);
       pScene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
-      // Filmstrip: 3 slides at full source resolution (1290×2796).
-      // 3×1290 = 3870 stays under the 4096 min WebGL max-texture-size.
-      const SW = 1290, SH = 2796;
+      // Filmstrip: 3 slides × 480×1040, top-anchored real images
+      const SW = 480, SH = 1040;
       const strip = document.createElement("canvas");
       strip.width = SW * 3; strip.height = SH;
       const tex = new THREE.CanvasTexture(strip);
@@ -155,8 +154,6 @@ export default function DuoScene({
           const img = new Image(); img.onload = () => res(img); img.onerror = rej; img.src = src;
         }))).then(imgs => {
           const ctx = strip.getContext("2d");
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = "high";
           imgs.forEach((img, i) => {
             ctx.drawImage(img, i * SW, 0, SW, img.naturalHeight * (SW / img.naturalWidth));
           });
