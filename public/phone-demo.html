@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Phone Animation — Demo</title>
+<!-- GSAP + ScrollTrigger (same version used by the portfolio) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+  }
+}
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: #09080e;
+  color: #e6e4f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: clip; /* clip not hidden — hidden creates scroll container and breaks sticky */
+}
+/* 500vh scroll track — phone scene pins for 100vh inside */
+.scroll-track { position: relative; height: 500vh; }
+.scene {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+}
+#c {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; display: block;
+}
+/* subtle ambient glow behind phone */
+.orb {
+  position: absolute; width: 540px; height: 540px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(90,125,219,0.13), transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.3);
+  pointer-events: none; transition: transform 1.1s ease, opacity 0.7s;
+  opacity: 0.25;
+}
+.orb.active { transform: translate(-50%,-50%) scale(1.5); opacity: 0.5; }
+/* phase label */
+.hud {
+  position: absolute; top: 26px; left: 50%; transform: translateX(-50%);
+  text-align: center; pointer-events: none; z-index: 10;
+}
+.hud-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #4a4860; display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.hud-tag::before, .hud-tag::after { content: ''; width: 18px; height: 1px; background: #1e1c2c; }
+.hud-phase { font-size: 12px; font-weight: 500; color: #8a88a8; }
+.hud-phase span { color: #5a7ddb; }
+/* right-side timeline */
+.tl {
+  position: absolute; right: clamp(18px,4vw,52px); top: 50%;
+  transform: translateY(-50%); pointer-events: none; z-index: 10;
+}
+.tl-rail { position: relative; width: 2px; height: 200px; background: #1e1c2c; border-radius: 1px; margin-left: 12px; }
+.tl-bar { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(to bottom,#5a7ddb,#3a5aaa); border-radius: 1px; }
+.tl-marks { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.tl-mark { position: relative; display: flex; align-items: center; }
+.tl-dot { width: 7px; height: 7px; border-radius: 50%; background: #1e1c2c; margin-left: -2.5px; transition: background .3s, box-shadow .3s; flex-shrink: 0; }
+.tl-dot.on { background: #5a7ddb; box-shadow: 0 0 7px rgba(90,125,219,.5); }
+.tl-info { position: absolute; left: 12px; white-space: nowrap; }
+.tl-pct { font-size: 9px; font-family: monospace; color: #4a4860; }
+.tl-pct.on { color: #5a7ddb; }
+.tl-desc { font-size: 8px; color: #4a4860; display: block; }
+/* scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  pointer-events: none; transition: opacity .5s;
+}
+.scroll-hint.gone { opacity: 0; }
+.sh-text { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #4a4860; }
+.sh-line { width: 1px; height: 32px; background: linear-gradient(to bottom,transparent,#4a4860); position: relative; }
+.sh-line::after {
+  content: ''; position: absolute; bottom: 0; left: -3px;
+  width: 7px; height: 7px;
+  border-right: 1.5px solid #4a4860; border-bottom: 1.5px solid #4a4860;
+  transform: rotate(45deg) translate(-2px,-2px);
+}
+/* bottom label */
+.foot {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 9px; color: #4a4860; letter-spacing: .04em; text-align: center;
+  line-height: 1.8; pointer-events: none; white-space: nowrap;
+}
+.foot b { color: #5a7ddb; font-weight: 500; }
+/* loading overlay */
+#loading {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  background: #09080e; z-index: 100; transition: opacity .6s ease;
+}
+#loading.fade { opacity: 0; pointer-events: none; }
+.spin {
+  width: 26px; height: 26px; border: 2px solid #1e1c2c;
+  border-top-color: #5a7ddb; border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#loading p { font-size: 11px; color: #8a88a8; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<div class="scroll-track" id="track">
+  <div class="scene" id="scene">
+    <canvas id="c"></canvas>
+    <div class="orb" id="orb"></div>
+
+    <div id="loading"><div class="spin"></div><p>Loading phone model…</p></div>
+
+    <div class="hud">
+      <div class="hud-tag">Phone Animation Demo</div>
+      <div class="hud-phase" id="hphase"><span>↓ Rise</span> — back facing, entering frame</div>
+    </div>
+
+    <div class="tl">
+      <div class="tl-rail">
+        <div class="tl-bar" id="tlbar"></div>
+        <div class="tl-marks">
+          <div class="tl-mark"><div class="tl-dot on" id="d0"></div><div class="tl-info"><span class="tl-pct on">0%</span><span class="tl-desc">Start</span></div></div>
+          <div class="tl-mark"><div class="tl-dot" id="d1"></div><div class="tl-info"><span class="tl-pct" id="p1">15%</span><span class="tl-desc">Side angle</span></div></div>
+          <div class="tl-mark"><div class="tl-dot" id="d2"></div><div class="tl-info"><span class="tl-pct" id="p2">40%</span><span class="tl-desc">Front</span></div></div>
+          <div class="tl-mark"><div class="tl-dot" id="d3"></div><div class="tl-info"><span class="tl-pct" id="p3">60%</span><span class="tl-desc">Screen on</span></div></div>
+          <div class="tl-mark"><div class="tl-dot" id="d4"></div><div class="tl-info"><span class="tl-pct" id="p4">100%</span><span class="tl-desc">End</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" id="shint">
+      <span class="sh-text">Scroll</span>
+      <div class="sh-line"></div>
+    </div>
+    <div class="foot">Standalone demo &nbsp;·&nbsp; <b>phone.glb</b> via Three.js &nbsp;·&nbsp; codebase untouched</div>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader }      from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader }     from 'three/addons/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const gsap          = window.gsap;
+const ScrollTrigger = window.ScrollTrigger;
+gsap.registerPlugin(ScrollTrigger);
+
+// ── Screen slides — swap paths here to change phone content ────────
+const SLIDES = [
+  '/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (1).png',
+  '/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (2).png',
+  '/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (3).png',
+];
+
+// ── Three.js setup ────────────────────────────────────────────────
+const canvas   = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
+renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.92;
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+pmrem.dispose();
+
+const camera = new THREE.PerspectiveCamera(36, 1, 0.01, 100);
+const rig    = new THREE.Group();
+scene.add(rig);
+
+const key = new THREE.DirectionalLight(0xfff2e6, 2.0);
+key.position.set(0.4, 0.6, 0.5);
+scene.add(key);
+const rim = new THREE.DirectionalLight(0xbcd4ff, 1.4);
+rim.position.set(-0.5, 0.3, -0.4);
+scene.add(rim);
+const fill = new THREE.DirectionalLight(0xffffff, 0.7);
+fill.position.set(0.1, 0.2, 1.5);
+scene.add(fill);
+scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+// ── Filmstrip texture (3 slides × 480×1040, top-anchored) ────────
+const SW = 480, SH = 1040;
+const strip = document.createElement('canvas');
+strip.width = SW * 3; strip.height = SH;
+
+const tex = new THREE.CanvasTexture(strip);
+tex.colorSpace = THREE.SRGBColorSpace;
+tex.flipY      = false;
+tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
+tex.repeat.set(1/3, 1);
+tex.offset.set(0, 0);
+tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+// Load slide images in parallel; draw top-anchored (bottom clips naturally)
+Promise.all(SLIDES.map(src => new Promise((res, rej) => {
+  const img = new Image();
+  img.onload = () => res(img);
+  img.onerror = rej;
+  img.src = src;
+}))).then(imgs => {
+  const ctx = strip.getContext('2d');
+  imgs.forEach((img, i) => {
+    const scale = SW / img.naturalWidth;
+    ctx.drawImage(img, i * SW, 0, SW, img.naturalHeight * scale);
+  });
+  tex.needsUpdate = true;
+});
+
+// ── Easing helpers ────────────────────────────────────────────────
+// Mirror laptop: simple smoothstep + clamp
+const clamp  = (a, b, t) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+const smooth = t => t * t * (3 - 2 * t);
+const lrp    = (a, b, t) => a + (b - a) * t;
+const eIO    = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+
+let screenMat = null;
+
+// ── Animation (state.p goes 0 → 1 via GSAP ScrollTrigger) ────────
+const state = { p: 0 };
+
+function apply(p) {
+  // Phase timing
+  const rise    = smooth(clamp(0.00, 0.15, p));  // back-facing rise
+  const rotate  = smooth(clamp(0.15, 0.40, p));  // side → front
+  const reveal  = smooth(clamp(0.40, 0.60, p));  // screen fade-in
+  const pageT   = clamp(0.60, 1.00, p);          // page slides (raw, transitions handle own easing)
+
+  // Rotation: 0 = back to camera, π = front to camera
+  let rotY = lrp(0.07, Math.PI * 0.28, rise);   // back → left-side during rise
+  if (p >= 0.15) rotY = lrp(Math.PI * 0.28, Math.PI - 0.06, eIO(rotate)); // side → front
+  if (p >= 0.40) rotY = Math.PI - 0.06;
+
+  const rotX = lrp(0.15, 0.0, smooth(clamp(0.0, 0.30, p)));
+  const posY = lrp(-1.3, 0.0, smooth(clamp(0.0, 0.15, p)));
+
+  rig.rotation.y = rotY;
+  rig.rotation.x = rotX;
+  rig.position.y = posY;
+
+  camera.position.set(0, 0.3, 3.0);
+  camera.lookAt(0, 0.1, 0);
+
+  // Phone "off" → "power on": stay dark until front is facing camera (p=0.40),
+  // then exposure + screen opacity rise together so cameras on back are never lit.
+  // Exposure rises with the phone so back/sides are visible during rise & turn.
+  // Screen snaps on at p=0.42 (opaque) so cameras never show through the front.
+  renderer.toneMappingExposure = lrp(0.0, 0.92, smooth(clamp(0.05, 0.42, p)));
+
+  if (screenMat) {
+    // FrontSide mesh — not rendered while back faces camera.
+    // Black from rotation start; content appears at p=0.46.
+    const opacity = p >= 0.15 ? 1 : 0;
+    screenMat.opacity     = opacity;
+    screenMat.transparent = opacity < 1;
+
+    // Black screen until p=0.46, then show content
+    const showContent = p >= 0.46;
+    const c = showContent ? 1 : 0;
+    screenMat.color.setRGB(c, c, c);
+
+    // Page slides: 0→1→2
+    let off = 0;
+    if (pageT < 0.30) {
+      off = 0;
+    } else if (pageT < 0.46) {
+      off = lrp(0, 1/3, eIO(clamp(0.30, 0.46, pageT)));
+    } else if (pageT < 0.62) {
+      off = 1/3;
+    } else if (pageT < 0.78) {
+      off = lrp(1/3, 2/3, eIO(clamp(0.62, 0.78, pageT)));
+    } else {
+      off = 2/3;
+    }
+    tex.offset.x    = off;
+    tex.needsUpdate = true;
+  }
+}
+apply(0);
+
+// ── Load model ────────────────────────────────────────────────────
+const draco = new DRACOLoader();
+draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+const loader = new GLTFLoader();
+loader.setDRACOLoader(draco);
+
+loader.load(
+  '/models/phone.glb',
+  (gltf) => {
+    const model = gltf.scene;
+
+    const box  = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    // Scale first, then re-center after scale so bbox center lands at rig origin
+    model.scale.setScalar(0.9 / Math.max(size.x, size.z));
+    const box2    = new THREE.Box3().setFromObject(model);
+    const center2 = box2.getCenter(new THREE.Vector3());
+    model.position.sub(center2);
+    rig.add(model);
+
+    // Find screen mesh, remap UVs from local position (local coords: X=width, Z=height)
+    let screenMesh = null;
+    model.traverse(o => {
+      if (!o.isMesh) return;
+      const n = o.name.toLowerCase();
+      if (!screenMesh && (n.includes('screen') || n.includes('display') || n.includes('lcd')))
+        screenMesh = o;
+    });
+
+    if (screenMesh) {
+      const geo = screenMesh.geometry;
+      const pos = geo.attributes.position;
+      let mnX=Infinity, mxX=-Infinity, mnZ=Infinity, mxZ=-Infinity;
+      for (let i = 0; i < pos.count; i++) {
+        const x=pos.getX(i), z=pos.getZ(i);
+        if(x<mnX)mnX=x; if(x>mxX)mxX=x;
+        if(z<mnZ)mnZ=z; if(z>mxZ)mxZ=z;
+      }
+      const rX=mxX-mnX, rZ=mxZ-mnZ;
+      const uvBuf = new Float32Array(pos.count*2);
+      for (let i = 0; i < pos.count; i++) {
+        uvBuf[i*2]   = 1 - (pos.getX(i)-mnX)/rX;  // flip U: local +X faces camera-left at rotY=π
+        uvBuf[i*2+1] = 1-(pos.getZ(i)-mnZ)/rZ;
+      }
+      geo.setAttribute('uv', new THREE.BufferAttribute(uvBuf, 2));
+
+      screenMat = new THREE.MeshBasicMaterial({
+        map: tex, toneMapped: false,
+        opacity: 0, transparent: true,
+        polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4,
+      });
+      screenMesh.material = screenMat;
+    }
+
+    // Only sphere lenses physically protrude through the phone front face;
+    // hide those — back cover, module, apple logo stay for the rise/turn.
+    const HIDE = /^(Sphere\d*_Lens|CameraModuleGlass)/i;
+    model.traverse(o => {
+      if (o.isMesh && HIDE.test(o.name)) o.visible = false;
+    });
+
+    const loading = document.getElementById('loading');
+    loading.classList.add('fade');
+    setTimeout(() => loading.remove(), 600);
+
+    apply(state.p);
+  },
+  undefined,
+  err => {
+    console.error('[PhoneDemo] Load error:', err);
+    document.getElementById('loading').innerHTML =
+      '<p style="color:#f06060;font-size:12px;">Failed to load phone.glb</p>';
+  }
+);
+
+// ── GSAP ScrollTrigger (mirrors LaptopScene.js exactly) ──────────
+const tween = gsap.to(state, {
+  p: 1,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: document.getElementById('track'),
+    start: 'top top',
+    end:   'bottom bottom',
+    scrub: 0.6,
+  },
+  onUpdate: () => apply(state.p),
+});
+
+// Refresh after images load (same pattern as LaptopScene)
+const refresh = () => ScrollTrigger.refresh();
+window.addEventListener('load', refresh);
+setTimeout(refresh, 1500);
+
+// ── Resize (mirrors LaptopScene: use clientWidth/Height) ──────────
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas);
+resize();
+
+// ── Render loop — only when visible ──────────────────────────────
+let running = true;
+const io = new IntersectionObserver(
+  entries => { running = entries[0]?.isIntersecting ?? true; },
+  { threshold: 0.01 }
+);
+io.observe(document.getElementById('scene'));
+
+renderer.setAnimationLoop(() => {
+  if (running) renderer.render(scene, camera);
+});
+
+// Expose for browser-pane testing (RAF is throttled there)
+window._demo = {
+  go: (p) => { apply(p); renderer.render(scene, camera); },
+  meshNames: () => { const n=[]; scene.traverse(o=>{ if(o.isMesh) n.push({name:o.name,vis:o.visible}); }); return n; },
+  info: (p) => {
+    apply(p);
+    return {
+      rigY: rig.position.y,
+      rigRotY: rig.rotation.y,
+      rigRotX: rig.rotation.x,
+      camPos: camera.position.toArray(),
+      sceneChildren: scene.children.length,
+      rigChildren: rig.children.length,
+      screenMatOpacity: screenMat ? screenMat.opacity : null,
+      screenMatTransparent: screenMat ? screenMat.transparent : null,
+    };
+  }
+};
+
+// ── UI updates ────────────────────────────────────────────────────
+const tlbar  = document.getElementById('tlbar');
+const orb    = document.getElementById('orb');
+const shint  = document.getElementById('shint');
+const hphase = document.getElementById('hphase');
+const dots   = [0,1,2,3,4].map(i => document.getElementById('d'+i));
+const MS     = [0, 0.15, 0.40, 0.60, 1.0];
+const LABELS = [
+  '<span>↓ Rise</span> — back facing, entering frame',
+  '<span>↻ Rotate</span> — turning toward the viewer',
+  '<span>✦ Front</span> — screen face toward camera',
+  '<span>⇢ Pages</span> — sliding through screens',
+];
+
+function updateUI(p) {
+  tlbar.style.height = (p * 100) + '%';
+  shint.classList.toggle('gone', p > 0.03);
+  orb.classList.toggle('active', p >= 0.40);
+  MS.forEach((m, i) => dots[i]?.classList.toggle('on', p >= m - 0.001));
+  const ph = p < 0.15 ? 0 : p < 0.40 ? 1 : p < 0.60 ? 2 : 3;
+  if (hphase) hphase.innerHTML = LABELS[ph];
+}
+
+// Wire into the main tween's onUpdate
+tween.vars.onUpdate = () => { apply(state.p); updateUI(state.p); };
+ScrollTrigger.refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!--
+  GLB inspector (throwaway) — drop your model in as mockup/laptop.glb, open this file.
+  Dumps the scene graph (node names, types, mesh bounding boxes, world positions)
+  so we can identify the lid/screen meshes + hinge axis before wiring the animation.
+  Also renders the model with orbit so you can eyeball it. Delete with the mockup folder.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GLB inspector</title>
+<style>
+  * { margin:0; box-sizing:border-box; }
+  body { background:#0b0b0f; color:#dfe; font:12px/1.5 ui-monospace, monospace; }
+  #wrap { display:grid; grid-template-columns: 1fr 380px; height:100vh; }
+  canvas { display:block; width:100%; height:100%; }
+  #panel { overflow:auto; padding:12px 14px; border-left:1px solid #222; background:#101014; }
+  #panel h1 { font-size:13px; color:#9ad; margin-bottom:8px; }
+  pre { white-space:pre-wrap; word-break:break-word; }
+  .err { color:#f88; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="c"></canvas>
+  <div id="panel"><h1>laptop.glb — scene graph</h1><pre id="out">loading ./laptop.glb …</pre></div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const out = document.getElementById("out");
+const log = (s) => { out.textContent += "\n" + s; };
+
+const canvas = document.getElementById("c");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.add(new THREE.DirectionalLight(0xffffff, 2).translateY(5).translateX(3));
+const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
+camera.position.set(2, 1.5, 3);
+const controls = new OrbitControls(camera, canvas);
+
+const draco = new DRACOLoader();
+draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
+const loader = new GLTFLoader();
+loader.setDRACOLoader(draco);
+
+loader.load("./laptop.glb", (gltf) => {
+  const root = gltf.scene;
+  scene.add(root);
+  window.__gltf = gltf; window.__root = root; window.__THREE = THREE;
+
+  // frame the model
+  const box = new THREE.Box3().setFromObject(root);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  controls.target.copy(center);
+  camera.position.copy(center).add(new THREE.Vector3(size.x, size.y, size.z).multiplyScalar(1.4));
+  controls.update();
+
+  out.textContent = "laptop.glb loaded ✓";
+  log("overall size  x:"+size.x.toFixed(3)+" y:"+size.y.toFixed(3)+" z:"+size.z.toFixed(3));
+  log("overall center x:"+center.x.toFixed(3)+" y:"+center.y.toFixed(3)+" z:"+center.z.toFixed(3));
+  log("meshes / animations: "+ (gltf.animations?.length||0) +" clip(s)");
+  gltf.animations?.forEach(a => log("  clip: "+a.name+" ("+a.duration.toFixed(2)+"s)"));
+  log("\n— node tree —");
+
+  const wpos = new THREE.Vector3();
+  const traverse = (o, d=0) => {
+    const pad = "  ".repeat(d);
+    let line = pad + (o.name || "(unnamed)") + " [" + o.type + "]";
+    if (o.isMesh) {
+      const b = new THREE.Box3().setFromObject(o); const s = b.getSize(new THREE.Vector3());
+      o.getWorldPosition(wpos);
+      line += "  mesh size("+s.x.toFixed(2)+","+s.y.toFixed(2)+","+s.z.toFixed(2)+")"
+            + " wpos("+wpos.x.toFixed(2)+","+wpos.y.toFixed(2)+","+wpos.z.toFixed(2)+")"
+            + " mat:"+(o.material?.name||o.material?.type||"?");
+    }
+    log(line);
+    o.children.forEach(c => traverse(c, d+1));
+  };
+  traverse(root);
+}, (p) => {
+  if (p.total) out.textContent = "loading ./laptop.glb … "+Math.round(p.loaded/p.total*100)+"%";
+}, (err) => {
+  out.innerHTML = '<span class="err">FAILED to load ./laptop.glb\n'
+    + (err?.message||err) + '\n\nChecklist:\n'
+    + '• file is named exactly laptop.glb, in the mockup/ folder\n'
+    + '• it is .glb (binary), not a .gltf + textures zip\n'
+    + '• opened via a server if draco-compressed (npx serve mockup)</span>';
+});
+
+function resize(){ const w=canvas.clientWidth,h=canvas.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(canvas); resize();
+renderer.setAnimationLoop(()=>{ controls.update(); renderer.render(scene,camera); });
+</script>
+</body>
+</html>
