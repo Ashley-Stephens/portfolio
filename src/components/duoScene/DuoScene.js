@@ -33,6 +33,13 @@ export default function DuoScene({
 
       gsap.registerPlugin(ScrollTrigger);
 
+      // GLTFParser checks createImageBitmap at texture-load-time (async, after file
+      // download). Deleting it here forces TextureLoader (img.src) instead of
+      // ImageBitmapLoader (fetch), which avoids blob-URL fetch failures in production.
+      const _cib = window.createImageBitmap;
+      delete window.createImageBitmap;
+      cleanup.push(() => { if (_cib) window.createImageBitmap = _cib; });
+
       const draco = new DRACOLoader();
       draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
       const loader = new GLTFLoader();
