@@ -31,8 +31,8 @@
   ,
     {
       "name": "mockup",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["C:/Users/viole/Documents/portfolio/mockup/_server.js"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "C:/Users/viole/Documents/portfolio/mockup", "run", "serve"],
       "port": 8778
     }
   ]

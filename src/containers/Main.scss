@@ -149,36 +149,75 @@ $accent: #5A7DDB;
   justify-content: center;
   padding: 13px 28px;
   border-radius: 10px;
+  border: none;
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 130ms ease, box-shadow 130ms ease, opacity 130ms ease;
+  transition: box-shadow 0.15s, transform 0.15s;
   letter-spacing: 0.01em;
+  overflow: hidden;
+  will-change: box-shadow, transform;
 }
 
 .hp-btn-primary {
   background: $accent;
   color: #0F1520;
-  border: none;
-  box-shadow: 0 4px 20px rgba($accent, 0.35);
+  box-shadow:
+    rgba(15, 21, 50, 0.28) 0 2px 4px,
+    rgba(15, 21, 50, 0.18) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+
+  &:focus {
+    box-shadow:
+      rgba(28, 48, 120, 0.9) 0 0 0 1.5px inset,
+      rgba(15, 21, 50, 0.38) 0 2px 4px,
+      rgba(15, 21, 50, 0.28) 0 7px 13px -3px,
+      rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+  }
 
   &:hover {
+    box-shadow:
+      rgba(15, 21, 50, 0.34) 0 4px 8px,
+      rgba(15, 21, 50, 0.24) 0 7px 13px -3px,
+      rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba($accent, 0.45);
+  }
+
+  &:active {
+    box-shadow: rgba(28, 48, 120, 0.9) 0 3px 7px inset;
+    transform: translateY(2px);
   }
 }
 
 .hp-btn-ghost {
-  background: rgba(244, 241, 234, 0.06);
+  background: rgba(244, 241, 234, 0.07);
   color: var(--hp-ink);
-  border: 1px solid rgba(168, 182, 214, 0.22);
+  box-shadow:
+    rgba(0, 0, 0, 0.28) 0 2px 4px,
+    rgba(0, 0, 0, 0.18) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
+
+  &:focus {
+    box-shadow:
+      rgba(168, 182, 214, 0.28) 0 0 0 1.5px inset,
+      rgba(0, 0, 0, 0.35) 0 2px 4px,
+      rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+      rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
+  }
 
   &:hover {
+    box-shadow:
+      rgba(0, 0, 0, 0.32) 0 4px 8px,
+      rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+      rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
     transform: translateY(-2px);
-    background: rgba(244, 241, 234, 0.1);
-    border-color: rgba(168, 182, 214, 0.36);
+  }
+
+  &:active {
+    box-shadow: rgba(168, 182, 214, 0.28) 0 3px 7px inset;
+    transform: translateY(2px);
   }
 }
 
@@ -488,6 +527,350 @@ $accent: #5A7DDB;
   line-height: 1.6;
   color: var(--hp-dim);
   max-width: 56ch;
+}
+
+/* ─── home-wrap modifier (after editorial sections) ──── */
+.home-wrap--mid {
+  padding-top: 64px;
+}
+
+/* ─── VioletCraftworks editorial (warm dark plum) ─────── */
+$vc-bg:     #1C0F26;
+$vc-ink:    #EDE8F8;
+$vc-dim:    rgba(237, 232, 248, 0.58);
+$vc-accent: #C49AFF;
+$vc-border: rgba(196, 154, 255, 0.22);
+
+.vc-editorial {
+  background: $vc-bg;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -12%;
+    width: 58%;
+    height: 160%;
+    background: radial-gradient(
+      ellipse at 50% 50%,
+      rgba(180, 80, 200, 0.18),
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+}
+
+.vc-inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 96px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.vc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $vc-accent;
+  margin-bottom: 20px;
+}
+
+.vc-eyebrow-num { opacity: 0.55; }
+
+.vc-eyebrow-sep {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: $vc-accent;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+.vc-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: $vc-ink;
+  margin: 0 0 12px;
+}
+
+.hp-vc-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $vc-accent;
+  opacity: 0.75;
+  margin: 0 0 24px;
+}
+
+.vc-desc {
+  font-size: 16px;
+  line-height: 1.72;
+  color: $vc-dim;
+  max-width: 46ch;
+  margin: 0 0 28px;
+}
+
+.vc-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.vc-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $vc-accent;
+  border: 1px solid $vc-border;
+  padding: 5px 11px;
+  border-radius: 4px;
+  background: rgba(107, 79, 170, 0.05);
+}
+
+.vc-cta {
+  display: inline-flex;
+  align-items: center;
+  color: $vc-ink;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: opacity 120ms ease, transform 120ms ease;
+
+  &:hover { opacity: 0.65; transform: translateX(3px); }
+}
+
+.vc-media { position: relative; }
+
+.vc-img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  box-shadow:
+    0 32px 80px rgba(80, 20, 100, 0.45),
+    0 8px 24px rgba(80, 20, 100, 0.25);
+}
+
+.vc-img-note {
+  margin: 12px 0 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba($vc-accent, 0.45);
+  text-align: right;
+}
+
+/* ─── Mixflow editorial (dark navy) ──────────────────── */
+$mf-bg:     #080B16;
+$mf-ink:    #E8EBF5;
+$mf-dim:    rgba(232, 235, 245, 0.58);
+$mf-accent: #5A7DDB;
+
+.mf-editorial {
+  background: $mf-bg;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -8%;
+    width: 55%;
+    height: 140%;
+    background: radial-gradient(
+      ellipse at 40% 50%,
+      rgba(90, 125, 219, 0.1),
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+}
+
+.mf-inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 96px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.mf-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $mf-accent;
+  margin-bottom: 20px;
+}
+
+.mf-eyebrow-num { opacity: 0.55; }
+
+.mf-eyebrow-sep {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: $mf-accent;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+.mf-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: $mf-ink;
+  margin: 0 0 12px;
+}
+
+.mf-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $mf-accent;
+  opacity: 0.75;
+  margin: 0 0 24px;
+}
+
+.mf-desc {
+  font-size: 16px;
+  line-height: 1.72;
+  color: $mf-dim;
+  max-width: 44ch;
+  margin: 0 0 32px;
+}
+
+.mf-cta {
+  display: inline-flex;
+  align-items: center;
+  color: $mf-accent;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: opacity 120ms ease, transform 120ms ease;
+
+  &:hover { opacity: 0.7; transform: translateX(3px); }
+}
+
+.mf-media {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.mf-vinyl-slot {
+  flex-shrink: 0;
+  width: 200px;
+  overflow: hidden;
+  align-self: center;
+  position: relative;
+  z-index: 1;
+}
+
+.mf-img {
+  flex: 1;
+  display: block;
+  min-width: 0;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 14px;
+  position: relative;
+  z-index: 2;
+  margin-left: -20px;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.mf-vinyl {
+  flex-shrink: 0;
+  width: 420px;
+  aspect-ratio: 1 / 1;
+  margin-left: 0;
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1 / 1;
+  background-image: url('https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Music-PNG/Gramophone_Vinyl_LP_Record_PNG_Transparent_Clip_Art_Image.png?m=1462983196');
+  background-size: 106% 106%;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow:
+    0 0 60px 12px rgba(90, 125, 219, 0.12),
+    0 0 100px 24px rgba(0, 0, 0, 0.5);
+  animation: mfSpin 6s linear infinite;
+}
+
+.mf-vinyl-label {
+  position: absolute;
+  top: 33%;
+  left: 33%;
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(110, 145, 240, 0.5),
+    rgba(20, 30, 70, 0.9) 65%
+  );
+  box-shadow:
+    inset 0 0 0 2px rgba(90, 125, 219, 0.35),
+    0 0 14px rgba(90, 125, 219, 0.25);
+}
+
+@keyframes mfSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Responsive: editorial sections ─────────────────── */
+@media (max-width: 900px) {
+  .vc-inner,
+  .mf-inner {
+    grid-template-columns: 1fr;
+    padding: 64px 24px;
+    gap: 40px;
+  }
+
+  .vc-title,
+  .mf-title { font-size: 44px; }
+}
+
+@media (max-width: 500px) {
+  .vc-inner,
+  .mf-inner { padding: 48px 20px; }
+
+  .vc-title,
+  .mf-title { font-size: 36px; }
 }
 
 /* ─── How I design (ordered steps) ───────────────────── */

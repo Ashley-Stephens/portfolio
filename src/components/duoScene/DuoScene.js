@@ -3,12 +3,21 @@ import "./DuoScene.scss";
 
 const LID_OPEN_FRAC = 0.3;
 
+// Canvases are drawn FRAME× larger than their layout box (see DuoScene.scss)
+// so the devices aren't clipped. Widening the fov by the same factor keeps the
+// camera and its rays put — the frame just captures more of them, so the
+// devices render at exactly the same on-screen size.
+const FRAME = 1.6;
+const widenFov = deg =>
+  (Math.atan(FRAME * Math.tan((deg * Math.PI) / 360)) * 360) / Math.PI;
+
 export default function DuoScene({
   laptopModelSrc,
   laptopScreenSrc,
   phoneModelSrc,
   phoneSlides,
   fallbackImageSrc,
+  autoplay,
 }) {
   const trackRef     = useRef(null);
   const laptopCanvas = useRef(null);
@@ -56,7 +65,7 @@ export default function DuoScene({
       lScene.environment = lPmrem.fromScene(new RoomEnvironment(), 0.04).texture;
       lPmrem.dispose();
 
-      const lCamera = new THREE.PerspectiveCamera(36, 1, 0.01, 100);
+      const lCamera = new THREE.PerspectiveCamera(widenFov(autoplay ? 18 : 36), 1, 0.01, 100);
       const lRig    = new THREE.Group();
       lScene.add(lRig);
 
@@ -71,13 +80,12 @@ export default function DuoScene({
         const enter  = smooth(clamp(0.0, 0.08, p));
         const lidP   = smooth(clamp(0.08, 0.72, p));
         const turn   = smooth(clamp(0.08, 0.85, p));
-        const settle = smooth(clamp(0.72, 1.0,  p));
         if (lMixer) lMixer.setTime(lidP * LID_OPEN_FRAC * lClipDur);
         lRig.rotation.y = THREE.MathUtils.lerp(-0.5, -0.22, turn);
         lRig.rotation.x = THREE.MathUtils.lerp(0.12, -0.02, turn);
         lRig.position.y = THREE.MathUtils.lerp(-0.08, 0.05, enter);
         lRig.scale.setScalar(THREE.MathUtils.lerp(0.94, 1.0, enter));
-        lCamera.position.set(0, 0.4, THREE.MathUtils.lerp(2.7, 3.0, settle));
+        lCamera.position.set(0, 0.4, 2.7);
         lCamera.lookAt(0, 0.22, 0);
       }
       applyLaptop(lState.p);
@@ -128,7 +136,7 @@ export default function DuoScene({
       pScene.environment = pPmrem.fromScene(new RoomEnvironment(), 0.04).texture;
       pPmrem.dispose();
 
-      const pCamera = new THREE.PerspectiveCamera(36, 1, 0.01, 100);
+      const pCamera = new THREE.PerspectiveCamera(widenFov(autoplay ? 18 : 36), 1, 0.01, 100);
       const pRig    = new THREE.Group();
       pScene.add(pRig);
 
@@ -178,7 +186,7 @@ export default function DuoScene({
         pRig.rotation.y = rotY;
         pRig.rotation.x = lrp(0.15, 0.0, smooth(clamp(0.0, 0.30, p)));
         pRig.position.y = lrp(-2.0, 0.0, smooth(clamp(0.0, 0.15, p)));
-        pCamera.position.set(0, 0.3, 5.5);
+        pCamera.position.set(0, 0.3, autoplay ? 5.5 : 5.5);
         pCamera.lookAt(0, 0.1, 0);
         pr.toneMappingExposure = lrp(0.45, 0.92, smooth(clamp(0.0, 0.35, p)));
 
@@ -247,11 +255,30 @@ export default function DuoScene({
         applyPhone(pState.p);
       }, undefined, () => { if (!disposed) setFailed(true); });
 
-      // ── Shared scroll trigger (one timeline, two progress windows) ────────
-      // t: 0..1 over the 600vh track
-      // Laptop: 0..0.38 → laptop p 0..1 (done opening when phone begins)
-      // Phone:  0.30..1.00 → phone p 0..1 (rises while laptop is ~79% done)
-      if (!reduce) {
+      // ── Drive animation progress ──────────────────────────────────────────
+      const updateProgress = (t) => {
+        if (autoplay) {
+          lState.p = Math.min(1, t / 0.35);
+          pState.p = Math.max(0, (t - 0.30) / 0.70);
+        } else {
+          lState.p = Math.min(1, t / 0.38);
+          pState.p = Math.max(0, (t - 0.30) / 0.70);
+        }
+        applyLaptop(lState.p);
+        applyPhone(pState.p);
+        if (phoneCanvas.current) {
+          phoneCanvas.current.style.opacity = (autoplay ? t >= 0.38 : t >= 0.28) ? '1' : '0';
+        }
+      };
+
+      if (autoplay && !reduce) {
+        const shared = { t: 0 };
+        const tw = gsap.to(shared, {
+          t: 1, duration: 14, delay: 0.6, ease: "power2.inOut",
+          onUpdate: () => updateProgress(shared.t),
+        });
+        cleanup.push(() => tw.kill());
+      } else if (!autoplay && !reduce) {
         const shared = { t: 0 };
         const tw = gsap.to(shared, {
           t: 1, ease: "none",
@@ -259,17 +286,7 @@ export default function DuoScene({
             trigger: trackRef.current,
             start: "top top", end: "bottom bottom", scrub: 0.6,
           },
-          onUpdate: () => {
-            const t = shared.t;
-            lState.p = Math.min(1, t / 0.38);
-            pState.p = Math.max(0, (t - 0.30) / 0.70);
-            applyLaptop(lState.p);
-            applyPhone(pState.p);
-            // Hide phone canvas until it starts rising so no black rectangle sits idle
-            if (phoneCanvas.current) {
-              phoneCanvas.current.style.opacity = t >= 0.28 ? '1' : '0';
-            }
-          },
+          onUpdate: () => updateProgress(shared.t),
         });
         const st = tw.scrollTrigger;
         const refresh = () => ScrollTrigger.refresh();
@@ -329,7 +346,7 @@ export default function DuoScene({
 
     return () => { disposed = true; cleanup.forEach(fn => fn()); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [laptopModelSrc, laptopScreenSrc, phoneModelSrc]);
+  }, [laptopModelSrc, laptopScreenSrc, phoneModelSrc, autoplay]);
 
   if (failed) {
     return fallbackImageSrc ? (
@@ -340,7 +357,7 @@ export default function DuoScene({
   }
 
   return (
-    <div className="duo-scene" ref={trackRef}>
+    <div className={`duo-scene${autoplay ? ' duo-scene--autoplay' : ''}`} ref={trackRef}>
       <div className="duo-scene__stage">
         <div className="duo-scene__laptop-wrap">
           <canvas className="duo-scene__laptop-canvas" ref={laptopCanvas} />

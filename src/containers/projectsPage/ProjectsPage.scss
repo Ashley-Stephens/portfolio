@@ -259,17 +259,30 @@
   font-size: 15px;
   padding: 12px 20px;
   border-radius: 12px;
-  border: 1px solid var(--projects-accent-border);
-  background: rgba(90, 125, 219, 0.18);
+  border: none;
+  background: rgba(90, 125, 219, 0.85);
   align-self: flex-start;
-  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  overflow: hidden;
+  will-change: box-shadow, transform;
+  transition: box-shadow 0.15s, transform 0.15s;
+  box-shadow:
+    rgba(15, 21, 50, 0.28) 0 2px 4px,
+    rgba(15, 21, 50, 0.18) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
 }
 
 .project-card__cta:hover {
-  background: rgba(90, 125, 219, 0.28);
-  border-color: rgba(90, 125, 219, 0.42);
-  transform: translateY(-1px);
+  box-shadow:
+    rgba(15, 21, 50, 0.34) 0 4px 8px,
+    rgba(15, 21, 50, 0.24) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+  transform: translateY(-2px);
   color: #ffffff;
+}
+
+.project-card__cta:active {
+  box-shadow: rgba(28, 48, 120, 0.9) 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 /* ─── Responsive ────────────────────────────────────────────────── */

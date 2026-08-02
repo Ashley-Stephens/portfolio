@@ -26,7 +26,7 @@ const resumeSection = {
 
 const contactInfo = {
   title: emoji("Contact Me"),
-  subtitle: "Discuss a project or just want to say hi? My inbox is open for all.",
+  subtitle: "Discuss a project or just want to say hi? Reach out anytime.",
   number: "",
   email_address: "ashleystephens.ajs@gmail.com"
 };
@@ -37,7 +37,7 @@ const isHireable = true;
 
 const projectsPage = {
   title: "Work",
-  subtitle: "Case studies in interaction design, research, and systems thinking.",
+  subtitle: "Case studies in interaction design, research, and front-end development.",
   projects: [
     {
       slug: "violetcraftworks",
@@ -47,7 +47,8 @@ const projectsPage = {
       year: "2026",
       role: "Solo Designer & Developer",
       platform: "Web · Next.js",
-      duration: "Live · actively building",
+      duration: "Live since July 2026",
+      wip: true,
       tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "Cloudflare Workers", "Next.js · TypeScript"],
       thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
       featured: true,
@@ -57,97 +58,140 @@ const projectsPage = {
         live: "https://violetcraftworks.com",
       },
 
-      heroStatement: "A real cross-stitch shop needed more than an Etsy page could give it.",
+      heroStatement:
+        "A real cross-stitch shop needed more than an Etsy page could give it.",
       heroSubtext:
-        "I designed and built the storefront end to end. Shoppers can buy patterns direct via Stripe or through Etsy. The site handles checkout, PDF delivery, filtering, a beginner hub, blog, and a growing SEO layer.",
+        "I designed and built a standalone storefront with stitching-specific filters, a beginner learning hub, and direct Stripe checkout. Etsy stays open for buyers who prefer it.",
 
       caseStudy: {
         heroImage: "/VioletCraftworks/violetcraftworks_thumb.png",
 
-        overview:
-          "VioletCraftworks started as an Etsy shop selling PDF cross-stitch patterns. Etsy handled checkout and brought in buyers, but the storefront couldn't teach beginners, tell the brand's story, or control how shoppers discovered patterns. I built a standalone site that does all three while keeping Etsy as a sales channel alongside direct Stripe checkout. The project spans roughly five months of active work, from first wireframe to the current production site, with ongoing content and feature additions.",
+        timeline: [
+          { phase: "Research and planning", period: "March–April 2026" },
+          { phase: "Design and MVP build", period: "April–June 2026" },
+          { phase: "MVP launch (Etsy checkout only)", period: "July 1, 2026" },
+          { phase: "Direct Stripe checkout added", period: "July 2026" },
+          { phase: "Current phase", period: "Early traffic, measurement, iteration" },
+        ],
+
+        goals: [
+          "Build an owned brand and discovery experience outside Etsy.",
+          "Help buyers evaluate pattern difficulty, size, and supplies before purchasing.",
+          "Give beginners a guided path into cross-stitching.",
+          "Add a direct purchase channel without removing Etsy.",
+          "Create a content and technical foundation that grows with the catalog.",
+        ],
+        goalsNote:
+          "The site launched without an established traffic channel. Initial success meant production readiness, discoverability, and reliable fulfillment, not direct-sales volume.",
+
+        scopeCuts: {
+          items: [
+            "Customer accounts",
+            "Wishlists and saved favorites",
+            "On-site reviews",
+            "Full-text search",
+            "Personalized recommendations",
+            "A content management system",
+            "Automated difficulty scoring",
+          ],
+          rationale:
+            "I prioritized product discovery, purchase confidence, and reliable fulfillment before retention features. With low traffic, accounts and personalization add complexity without solving the immediate problem: getting buyers to find and trust the shop.",
+        },
 
         roleList: [
-          { title: "Product & UX", body: "Brand direction, user research, information architecture, and the two-path navigation model." },
-          { title: "Design & content", body: "UI design, product cards, filter interface, type and color system, product copy, blog content." },
-          { title: "Engineering & ops", body: "Full front-end build, payment integration, edge deployment, database setup, secure file delivery, and CI validation." },
+          {
+            title: "Product & UX",
+            body: "Studied buyer questions through Etsy messages and stitching community posts. Defined the information architecture and the Shop/Learn navigation split.",
+          },
+          {
+            title: "Visual design & content",
+            body: "Type and color system, product cards, filter interface, product copy, and blog content.",
+          },
+          {
+            title: "Engineering",
+            body: "Next.js front end on Cloudflare Workers. Stripe checkout, D1 order storage, R2 file delivery, and CI content-integrity checks.",
+          },
+        ],
+
+        problemHeadline: [
+          "Etsy drove traffic in.",
+          "The storefront couldn't explain the shop.",
+        ],
+        problemStatement:
+          "Etsy handled payment and brought in buyers, but the storefront compressed the shop into a search result. Buyers picked patterns from thumbnails without knowing the difficulty, stitch count, or finished size. Beginners had no guidance on where to start.",
+        problemInsight:
+          "Across roughly 30 Etsy customer conversations from October 2024 onward and a handful of stitching community threads, the same questions kept appearing: who designed this pattern, and can I trust the quality? Etsy's storefront gave the shop no space to answer.",
+        problemStats: [
+          {
+            value: "30",
+            label: "buyer conversations",
+            caption: "reviewed since Oct 2024",
+          },
+          {
+            value: "3",
+            label: "questions asked on repeat",
+            caption: "difficulty, materials, finished size",
+          },
+          {
+            value: "1",
+            label: "layer the storefront lacked",
+            caption: "room to explain, not just sell",
+          },
         ],
 
         evidence: {
-          intro: "No formal usability study. Design decisions came from selling patterns on Etsy, reading customer messages, watching how cross-stitch communities discuss purchases, and analyzing competing shops.",
-          sources: [
-            { label: "Seller experience", body: "Over a year of Etsy sales surfaced recurring customer questions: how hard is this, what supplies do I need, and how big is the finished piece. Those questions shaped the product-page information hierarchy." },
-            { label: "Community patterns", body: "Cross-stitch forums and social groups show beginners asking the same three things before every purchase. Independent shops that answered those questions in the listing had stronger conversion." },
-            { label: "Competitive review", body: "Compared Etsy-only sellers to independent pattern shops. Shops with their own sites had stronger brand recognition and repeat buyers. Shops without difficulty ratings or supply lists had more confused customer messages." },
-            { label: "Post-launch analytics", body: "PostHog session recordings and filter-usage data confirmed which categories shoppers reach for first and where they hesitate." },
+          intro:
+            "I reviewed approximately 30 Etsy customer conversations from October 2024 to mid-2026, a handful of relevant stitching community discussions, and PostHog recordings after launch. These sources were directional rather than representative because traffic and direct feedback were limited.",
+          items: [
+            "~30 Etsy customer conversations (Oct 2024–Jul 2026)",
+            "A handful of stitching community threads",
+            "PostHog session recordings after launch",
+            "Etsy product and sales history",
           ],
         },
 
-        problemStatement: "Etsy brought in buyers and handled payment, but three things kept the shop from growing past a certain point.",
-        problemBullets: [
-          "Etsy structures every shop the same way. There's no room for brand identity, storytelling, or trust signals beyond the listing itself.",
-          "Cross-stitch shoppers filter by difficulty, project type, and size. Etsy's category system doesn't map to those criteria, so beginners can't narrow results to patterns they can finish.",
-          "Beginners were the most likely new customers, and they had the most questions. Etsy gave them a product grid with no guidance.",
-        ],
-        problemInsight: "The consistent signal across customer messages and community posts: shoppers check who made the pattern and want context before buying. A thumbnail in a search result doesn't provide that.",
-        evidenceLine: "These patterns came from over a year of Etsy sales, recurring customer questions, cross-stitch community observation, competitive analysis of independent pattern shops, and post-launch PostHog analytics.",
-
-        goals: [
-          "Build a branded storefront distinct from the Etsy listing.",
-          "Help shoppers evaluate patterns before buying, especially beginners unfamiliar with cross-stitch terminology.",
-          "Support both Etsy and direct Stripe checkout from one product catalog.",
-          "Get patterns indexed in search with structured, crawlable content.",
-        ],
-        constraints: [
-          "Solo build: one person on design, code, content, and deployment.",
-          "Small catalog (~22 patterns). A database or CMS adds complexity without a matching benefit at this scale.",
-          "Checkout session creation and price lookup must stay server-side. The client never determines the charge amount.",
-          "Monthly operating cost near zero. No per-seat SaaS, no managed database bill.",
-        ],
-
-        users: [
-          { tag: "Needs help choosing", body: "New to cross-stitch. Doesn't know fabric counts or DMC numbers. Wants small, finishable projects and plain language about what's involved." },
-          { tag: "Wants something quick", body: "Knows the basics. Looking for keychains, bookmarks, or pins they can finish in a sitting. Filters by project type and size." },
-          { tag: "Knows what they like", body: "Experienced stitcher. Shops by theme, color, or format. Wants to scan fast and skip beginner content." },
-        ],
-
         strategy:
-          "Two groups visit the shop: people ready to buy and people who need help choosing their first project. The navigation follows that split. One path holds the catalog, filters, and product detail pages. The other holds a beginner hub, guides, and blog content. Product pages serve both groups by answering the buying questions up front (difficulty, size, stitch count, supplies) and offering two checkout options: buy direct through Stripe or purchase on Etsy.",
+          "I organized the navigation around two common visitor intents: direct browsing when someone knows what they want (Shop), and guided discovery when they need help evaluating a project (Learn). Product pages bridge both with buying specs and links to beginner content.",
 
         decisions: [
           {
-            title: "Two-path navigation",
-            problem: "Beginners and experienced stitchers want different things. Mixing product browsing and educational content in one flow slows both groups down.",
-            solution: "Shop and Learn as distinct navigation paths. Shop holds the catalog, filters, and product pages. Learn holds the beginner hub, blog, and guides.",
-            rationale: "Someone ready to buy shouldn't scroll past tutorials. A beginner shouldn't hit a grid of unfamiliar products with no context.",
-            outcome: "Cross-stitch community forums consistently show two distinct visitor types. PostHog session recordings confirmed the split: returning buyers go straight to filters, first-time visitors explore the beginner hub first.",
+            title: "Split browsing from guided discovery",
+            problem:
+              "The first version used one navigation path for both product browsing and beginner content. Repeat buyers scrolled past tutorials to find patterns. Beginners hit a grid of unfamiliar products with no context.",
+            solution:
+              "I separated Shop and Learn into distinct paths. Shop holds the catalog and filters. Learn holds a beginner hub, guides, and blog content. Product pages connect both with links to beginner articles.",
+            rationale:
+              "PostHog recordings showed two browsing patterns. Some visitors moved straight to the catalog. Others explored learning content before viewing products. The sample is too small to confirm this as a stable segmentation, but I saw it often enough to justify the split.",
+            outcome:
+              "Repeat visitors reach filters in one click. Beginners can build confidence before shopping. I plan to validate the model with moderated sessions once traffic grows.",
           },
           {
-            title: "Filters built for stitching behavior",
-            problem: "Generic e-commerce filters (price, newest, bestselling) don't match how people choose a cross-stitch pattern.",
-            solution: "Filters for difficulty, project type, size, and theme. Difficulty is the most prominent filter because it's the first question beginners ask.",
-            rationale: "With ~22 patterns, heavy filtering could feel like overkill. But patterns vary across 5+ attributes that matter to buyers, and competitive analysis showed that independent shops without difficulty filters had more confused customer messages. A small catalog with clear facets is faster to browse than one with only a search box.",
-            outcome: "PostHog filter-usage data shows difficulty and project type as the most-used facets, confirming the hierarchy. Session recordings caught the iteration: I originally placed filters below the product grid, but first-time visitors clicked a difficulty filter before scrolling past the first row. Filters moved up.",
+            title: "Filters built for how stitchers shop",
+            problem:
+              "Standard e-commerce filters (price, newest, bestselling) don't match how people choose a cross-stitch pattern. Buyers ask about difficulty first.",
+            solution:
+              "Filters for difficulty, project type, size, and theme. Difficulty is the most prominent because it was one of the most repeated pre-purchase questions in the customer conversations I reviewed.",
+            rationale:
+              "22 patterns is a small catalog for filtering, but those patterns span five or more attributes that matter to buyers. A small catalog with clear facets is faster than a search box. I placed filters below the product grid at first. PostHog recordings showed visitors reaching for a difficulty filter before scrolling past the first row, so I moved them up.",
+            outcome:
+              "In recorded filter interactions so far, difficulty and project type appear most often. The sample is too small to rank them reliably.",
           },
           {
-            title: "Dual checkout: Etsy and direct",
-            problem: "Etsy has built-in buyer trust and handles payment disputes. But it takes a cut, limits branding, and owns the customer relationship. Dropping Etsy would sacrifice established buyers. Offering only Etsy would keep the shop dependent on one platform.",
-            solution: "Every product page shows two purchase options: Buy Direct (Stripe) and Shop on Etsy. Both lead to the same pattern. Stripe is positioned first. Etsy acts as a trust fallback for buyers who prefer a marketplace.",
-            rationale: "A year of Etsy sales showed strong repeat-buyer loyalty to the platform. Forcing those customers off Etsy risks losing them. At the same time, search traffic landing on the standalone site shouldn't have to leave to complete a purchase. One typed product catalog serves both channels with no duplication.",
-            outcome: "Both checkout paths are live and tested end to end. Stripe sessions are created server-side; the client never sees secret keys or price IDs. Etsy links carry UTM parameters so traffic source is trackable across both rails.",
-          },
-          {
-            title: "Product pages that answer buying questions",
-            problem: "A cross-stitch pattern is a PDF. From a thumbnail, a shopper can't tell the difficulty, required supplies, finished size, or what the piece is for.",
-            solution: "Every product page shows stitch count, fabric size, color count, DMC thread list, difficulty rating, and suggested use. These details appear above the fold, before the purchase buttons.",
-            rationale: "The most common Etsy customer messages asked three things: how hard is this, what supplies do I need, and how big is the finished piece. Those three questions directly shaped the product-page information hierarchy.",
-            outcome: "Product pages link to beginner-hub articles where terminology needs explanation, connecting the shop path to the learn path. Structured data (Product schema) validates cleanly, and all product pages are indexed.",
+            title: "Give buyers the specs they need, then let them choose where to pay",
+            problem:
+              "A cross-stitch pattern is a PDF. From a thumbnail, you can't tell the difficulty, supplies needed, or finished size. The MVP launched with Etsy as the only checkout path. I added direct Stripe checkout after the site was live.",
+            solution:
+              "Product pages show stitch count, fabric size, color count, difficulty, and supply list above the fold. Two purchase options sit below: Buy Direct with Stripe and Shop on Etsy.",
+            rationale:
+              "Across the ~30 customer conversations I reviewed, buyers asked the same three questions more than any others: how hard is it, what do I need, and how big is the finished piece? Those shaped the page hierarchy. Etsy stays because 9 buyers have purchased more than once there. Stripe gives the shop a direct revenue path without platform dependency.",
+            outcome:
+              "Both checkout paths are live. At least one organic Stripe purchase has completed end to end. Product pages link to beginner-hub articles, connecting the Shop and Learn paths.",
           },
         ],
 
         visualDirection: {
           intro:
-            "The look is cozy and handmade without being childish. Warm cream backgrounds, soft blush accents, and a stitched violet brand color keep it gentle. A brighter butter accent marks calls to action. Deep plum handles text and outlines for readability. The type hierarchy uses one serif for headings and one sans-serif for body, with generous line height to keep dense product details scannable.",
+            "Most cross-stitch shops use clip-art aesthetics or default marketplace templates. I wanted something warm and grounded in the craft: cream backgrounds, blush accents, a stitched-violet brand color. Butter yellow marks calls to action. Deep plum provides text contrast against the light backgrounds.",
           swatches: [
             { name: "Brand Violet", hex: "#8D68B8" },
             { name: "Warm Cream", hex: "#F8F2E8" },
@@ -160,51 +204,64 @@ const projectsPage = {
         technicalDecisions: [
           {
             title: "Typed content files instead of a CMS",
-            context: "Solo build, ~22 products, one content author. A headless CMS or database adds hosting cost, API complexity, and a per-seat dependency that doesn't earn its weight at this scale. Monthly operating cost needed to stay near zero.",
-            decision: "Products, blog posts, categories, and freebies live in TypeScript files with strict types. Helper modules enforce visibility, SEO rules, and featuring logic at the read layer.",
-            tradeoff: "Adding a product means editing a file and pushing a commit. That works for one author. If the catalog grows past ~100 items or gains a second editor, the content layer moves to a database or CMS. The UI reads through the same helper functions either way, so the migration is a backend change.",
+            context:
+              "One author, 22 products. A headless CMS adds hosting cost and API requests that don't earn their weight at this scale.",
+            decision:
+              "Products, blog posts, categories, and freebies live in TypeScript files with strict types. Helper modules enforce visibility rules, SEO metadata, and featuring logic.",
+            tradeoff:
+              "Adding a product means editing a file and deploying. If the catalog passes 100 items or gains a second editor, I move the content layer to a database. The UI reads through the same helpers either way.",
           },
           {
             title: "Server-side checkout and webhook fulfillment",
-            context: "Stripe requires checkout sessions be created with a secret API key. The client should never determine the charge amount or access restricted keys. Both Etsy and direct checkout need to coexist from a single product catalog, so the typed content files serve as the shared source of truth for prices and product data.",
-            decision: "A server-side API route creates the Stripe Checkout Session with a price lookup from typed product data. After payment, Stripe sends a webhook. The server verifies the webhook signature, writes an order record to D1, and mints a one-time expiring signed URL pointing to the PDF in R2 storage.",
-            tradeoff: "Webhook-only fulfillment means a brief delay before the download link is ready. The tradeoff is reliability: if the buyer closes their browser mid-checkout, the order still fulfills correctly.",
-          },
-          {
-            title: "Build-time content validation",
-            context: "With typed content files and no CMS validation layer, a missing field, broken image path, or duplicate slug could ship to production unnoticed. Solo build means no second pair of eyes on content changes.",
-            decision: "Vitest runs content checks in CI. The build fails on missing required fields, dead image paths, orphan blog posts, duplicate slugs, and fabricated review data.",
-            tradeoff: "Every content change runs through CI. Adds ~30 seconds to deploys. Catches errors that would otherwise surface as blank pages or broken images in production.",
-          },
-          {
-            title: "Edge deployment on Cloudflare Workers",
-            context: "The site needs fast response times, near-zero monthly cost, and a deploy process that doesn't require manual infrastructure management. No per-seat SaaS, no managed database bill.",
-            decision: "Deployed on Cloudflare Workers via OpenNext adapter. D1 (SQLite at the edge) stores cart and order data. R2 (object storage) holds pattern PDFs behind signed URLs. Deploys happen on git push to main.",
-            tradeoff: "Workers use an isolate model instead of containers, avoiding container cold-start overhead. The constraint is Workers have execution limits (CPU time, memory) that wouldn't suit a compute-heavy application, but an e-commerce storefront fits within them. Current monthly infrastructure cost is effectively zero on Cloudflare's free tier.",
+            context:
+              "Stripe requires checkout sessions created with a secret key. The client should never set the charge amount.",
+            decision:
+              "A server-side API route creates the Stripe Checkout Session from typed product data. After payment, a webhook verifies the Stripe signature, writes an order to D1, and generates a signed R2 download URL.",
+            tradeoff:
+              "A brief delay before the download link is ready. The upside: if the buyer closes their browser mid-checkout, the order still fulfills.",
           },
         ],
 
+        technicalSummary:
+          "Vitest runs content-integrity checks in CI. Missing metadata, broken image paths, duplicate slugs, and orphaned posts fail the build before deploy. The site runs on Cloudflare Workers with D1 for order storage and R2 for signed PDF delivery.",
+
         results: {
-          intro: "The site is live with paying customers on both checkout paths. Traffic is early-stage, so behavioral conclusions are limited. Here is what I can measure so far.",
+          intro:
+            "VioletCraftworks launched July 1, 2026. Both checkout paths are live and have processed real purchases. Traffic is early-stage, so behavioral signals are directional, not conclusive.",
           items: [
-            { label: "Product", body: "22 patterns live across both Etsy and direct checkout. Single content source serves both channels with no duplication." },
-            { label: "Checkout", body: "End-to-end purchase tested on both Stripe and Etsy paths. Webhook fulfillment delivers PDF download links without depending on browser state." },
-            { label: "Search", body: "All product and blog pages indexed. Structured data (Product, Article, FAQPage, Organization) validates cleanly." },
-            { label: "Quality", body: "CI catches content errors before deploy. No broken images, missing metadata, or orphan pages have reached production since the validation suite was added." },
-            { label: "Accessibility", body: "Keyboard navigation works through the filter drawer, product cards, and checkout flow. Focus moves into the drawer on open and returns to the trigger on close. Color contrast meets WCAG AA." },
-            { label: "Cost", body: "Monthly infrastructure cost is effectively zero on Cloudflare's free tier." },
+            {
+              label: "Catalog",
+              body: "22 patterns published across Etsy and direct checkout from a single typed content source.",
+            },
+            {
+              label: "Checkout",
+              body: "Stripe checkout, webhook verification, order storage, and signed PDF delivery are live. At least one organic Stripe purchase has completed. Etsy remains active with 9 repeat buyers.",
+            },
+            {
+              label: "Discoverability",
+              body: "All product and blog pages are indexed as of July 2026. Structured data for Product, Article, FAQPage, and Organization validates without errors.",
+            },
+            {
+              label: "Build quality",
+              body: "CI blocks deploys on missing metadata, broken image paths, duplicate slugs, and orphaned posts.",
+            },
+            {
+              label: "Accessibility",
+              body: "Keyboard navigation works through the filter drawer, product cards, and checkout flow. Color contrast meets WCAG AA.",
+            },
+            {
+              label: "Early signals",
+              body: "In PostHog recordings collected so far, difficulty and project-type filters are the most-used facets. Visitors split between catalog-first and learning-first browsing. The sample is too small to treat these as stable patterns.",
+            },
+            {
+              label: "Infrastructure",
+              body: "Runs on Cloudflare's free tier.",
+            },
           ],
         },
 
-        future: [
-          "Buyer accounts with a personal download library for repeat purchases.",
-          "More blog and beginner-hub content to build an owned search acquisition channel.",
-          "Customer reviews and richer product photography.",
-          "Freebie gallery expansion and email list capture.",
-        ],
-
         reflection:
-          "Early in the project I assumed beginners would browse the full catalog and then use filters to narrow down. PostHog recordings showed the opposite: most first-time visitors clicked a category or difficulty filter before scrolling past the first row. I moved the filter controls higher and made difficulty the default open facet. That assumption was wrong, and the analytics caught it within the first two weeks of real traffic.",
+          "Working alone let me iterate fast, but no one challenged my assumptions. PostHog filled part of that gap. I placed filters below the product grid, expecting beginners to browse the catalog first. In the recordings, visitors reached for difficulty filters before scrolling. I moved filters up.\n\nThe site can't produce meaningful conversion evidence until more visitors find product pages. Acquisition is the largest unresolved risk.\n\nMy next step: five moderated sessions with beginner or returning stitchers. Each participant picks a first project and walks through what information built or broke their confidence. The results will tell me whether the Learn path reduces enough uncertainty, or whether product pages should absorb more of that guidance.",
       },
 
       nextSlug: "mixflow",
@@ -225,19 +282,19 @@ const projectsPage = {
       links: { prototype: "", github: "", live: "" },
 
       heroStatement: "Millions of songs, yet the same few keep playing.",
-      heroSubtext: "Redesigning shuffle to restore trust and surface forgotten music.",
+      heroSubtext: "Shuffle kept playing the same songs. We redesigned it so the rest of the library gets heard.",
 
       caseStudy: {
         heroImage: "/default_cover.jpg",
         showcaseImage: "/high-fidelity.png",
 
         overview:
-          "Mixflow is a music player centered on a core problem: shuffle feels broken. Users kept hearing the same songs on repeat while large portions of their library went untouched. I led UX research, UI design in Figma, and front-end development across a team of five.",
+          "Mixflow is a music player built around one problem: shuffle feels broken. Users kept hearing the same songs on repeat while large portions of their library went untouched. I led UX research, UI design in Figma, and front-end development across a team of five.",
 
         problemSectionIcon: "!",
         problemBullets: [
           "Shuffle repeated the same songs constantly. Users felt the algorithm had favorites and couldn't do anything about it",
-          "Most of the library never surfaced. Users had 200+ songs and heard the same 10 — and had no visibility into why",
+          "Most of the library never played. Users had 200+ songs and heard the same 10 — and couldn't tell why",
           "Playlists grew unchecked. Users rarely deleted songs because they had no way to see which ones they'd stopped caring about",
         ],
         problemQuote: "Shuffle doesn't feel random. It feels like it has favorites.",
@@ -248,7 +305,7 @@ const projectsPage = {
             { stat: "\"Shuffle has favorites\"", label: "— said unprompted by multiple interviewees. Repetition wasn't occasional. It was the default experience every single session." },
             { stat: "Invisible libraries", label: "Users with 200+ songs couldn't name what they'd actually listened to. Most had never thought about their listening habits until we asked." },
             { stat: "Playlists never get cleaned", label: "Interviewees almost never deleted songs. Libraries grew indefinitely because users had no play data to tell them what they'd outgrown." },
-            { stat: "No control, no trust", label: "Without any visibility into how shuffle worked, users felt powerless. They'd skip obsessively rather than change a mode they didn't know existed." },
+            { stat: "No control, no trust", label: "Users couldn't see how shuffle picked songs. Most just kept hitting skip instead of changing a mode they didn't know existed." },
           ],
           quote: {
             text: "I have like 300 songs in there and keep hearing the same 10. I don't even know why I keep adding stuff.",
@@ -268,7 +325,7 @@ const projectsPage = {
           leftCallouts: [
             {
               title: "Listening Habits Page",
-              body: "Interviews revealed a second problem beneath shuffle: users had no idea what they actually listened to. They couldn't name their most-played songs. A dedicated habits view gives users a mirror into their own behavior — which in turn builds a reason to care about fixing shuffle.",
+              body: "Interviews turned up a second problem: users had no idea what they actually listened to. They couldn't name their most-played songs. A dedicated habits view shows them that data, which gives them a reason to care about how shuffle works.",
             },
             {
               title: "Activity Over Time",
@@ -282,13 +339,13 @@ const projectsPage = {
             },
             {
               title: "Repetition Breakdown",
-              body: "Bucketing songs by play count (Once / 2-5x / 6+) validates what users already suspected: shuffle has favorites. It also surfaces the playlist cleanup opportunity — songs played 6+ times are candidates to remove, helping users keep their library intentional without forcing them to.",
+              body: "Bucketing songs by play count (Once / 2-5x / 6+) confirms what users already suspected: shuffle has favorites. Songs in the 6+ bucket are natural candidates to remove, which helps users clean up their library without pressuring them to.",
             },
           ],
         },
 
         figmaNote:
-          "Designed end-to-end in Figma, from wireframes through a high-fidelity prototype covering shuffle mode selection, queue visualization, and playlist management.",
+          "Designed in Figma from wireframes through a high-fidelity prototype covering shuffle mode selection, queue visualization, and playlist management.",
 
         shuffleModes: [
           { icon: "/shuffle.png",      name: "Default",      desc: "Standard shuffle. No bias toward play count." },
@@ -310,7 +367,7 @@ const projectsPage = {
               },
               {
                 title: "30-Day Activity Chart",
-                body: "Visualizing listening patterns over time lets users spot their own habits. When behavior becomes visible, users start making sense of why shuffle kept repeating the same music — and what to do about it.",
+                body: "A time-based chart lets users spot their own listening patterns — heavy weeks, quiet stretches, shifts in taste. Once they can see when and how much they listen, shuffle's repetition problem starts making more sense.",
               },
               {
                 title: "Top Artists Breakdown",
@@ -320,11 +377,11 @@ const projectsPage = {
             bottomCallouts: [
               {
                 title: "Library Coverage Donut",
-                body: "34% played vs 66% unplayed is the core problem in one chart. A single visual reframes the issue from 'shuffle feels broken' to 'most of my library has never been touched' — no onboarding copy needed.",
+                body: "34% played vs 66% unplayed tells the whole story. The chart turns 'shuffle feels broken' into something specific: most of my library has never been played. No explanation needed.",
               },
               {
                 title: "Repetition Rate Segmentation",
-                body: "Play counts broken into Once / 2-5x / 6+ validates what interviewees already suspected. Songs in the 6+ bucket become natural playlist cleanup candidates — surfaced without forcing any action.",
+                body: "Play counts broken into Once / 2-5x / 6+ confirms what interviewees already suspected. Songs in the 6+ bucket are obvious candidates to remove — shown to the user, but never forced.",
               },
               {
                 title: "Queue Always in View",
@@ -345,27 +402,27 @@ const projectsPage = {
           {
             title: "Least Played Rediscovery",
             problem: "Songs added months ago were functionally invisible. The algorithm always gravitated toward familiar tracks.",
-            solution: "A dedicated Least Played mode that deliberately surfaces low-play-count tracks to bring forgotten songs back.",
-            rationale: "Users valued rediscovery but never sought it actively. Building it in as a named mode removed the friction entirely.",
-            impact: "Forgotten songs resurfaced naturally without the user needing to search, reorganize, or do anything.",
+            solution: "A dedicated Least Played mode that pulls low-play-count tracks back into the queue.",
+            rationale: "Users wanted to hear forgotten songs but never went looking for them. A named mode puts that option one tap away.",
+            impact: "Songs that hadn't played in months started showing up again without the user doing anything.",
           },
           {
             title: "Playlist Cleanup Prompts",
             problem: "Users with large libraries still heard the same 15 tracks. More songs in a playlist didn't mean more variety.",
-            solution: "Optional, dismissible prompts that surface rarely-played tracks with a one-tap remove option.",
+            solution: "Optional, dismissible prompts that flag rarely-played tracks with a one-tap remove option.",
             rationale: "Never forced. Users keep songs 'just in case.' The prompt assists without judging.",
-            impact: "Users who engaged described their playlists as feeling intentional and trustworthy again.",
+            impact: "Users who tried it said their playlists felt like theirs again — not just a pile of songs they forgot about.",
           },
         ],
 
         outcomes: [
           { title: "Named Shuffle Modes", description: "Default · Most Played · Least Played · No Shuffle, each tied to a real listening pattern from research." },
-          { title: "Built-In Rediscovery", description: "Forgotten tracks surface naturally without manual effort." },
-          { title: "Research-Driven Features", description: "Every feature traces back to a user requirement from interviews and scenarios." },
+          { title: "Built-In Rediscovery", description: "Low-play-count tracks show up in the queue without the user doing anything." },
+          { title: "Research-Driven Features", description: "Named modes, the habits dashboard, and cleanup prompts all came directly from interview findings." },
         ],
 
         reflection:
-          "Invisible systems erode trust. The moment shuffle had a name and a visible logic, users felt in control, even before anything else changed. The best insights came from listening, not brainstorming.",
+          "Once shuffle had a name and a visible logic, users felt in control — even before anything else changed. The shuffle-mode idea didn't come from brainstorming. It came from watching people skip the same five songs and not knowing why.",
       },
 
       nextSlug: "shelfsaver",
@@ -390,7 +447,7 @@ const projectsPage = {
       },
 
       heroStatement: "What do I make with this half-empty fridge?",
-      heroSubtext: "Reducing food waste one leftover at a time, through better UX, not guilt.",
+      heroSubtext: "Turning a half-empty fridge into dinner, without the guilt trip.",
 
       caseStudy: {
         heroImage: "",
@@ -408,7 +465,7 @@ const projectsPage = {
             {
               title: "Checklist → Illustrated Equipment Cards",
               what: "Equipment selection changed from a plain checkbox list to visual toggle cards with icons per appliance.",
-              why: "Checkboxes require reading every label sequentially. Illustrated cards are scannable at a glance and reduce cognitive effort when making multiple selections. Active state contrast also improves accessibility.",
+              why: "Checkboxes require reading every label in order. Illustrated cards are scannable at a glance and easier to pick from when selecting more than one. Active-state contrast also helps accessibility.",
             },
             {
               title: "Static Info Block → Impact Score",
@@ -418,18 +475,18 @@ const projectsPage = {
             {
               title: "Text List → Visual Recipe Cards",
               what: "Recipe results evolved from a text-based list into image-forward cards with food photography.",
-              why: "Users made decisions based on visual appetite appeal, not recipe names. Food photos carry meaning instantly and reduced time-to-selection while making the experience feel rewarding rather than functional.",
+              why: "Users picked recipes by how the food looked, not by the recipe name. Photos let them decide faster and made browsing feel like choosing, not working.",
             },
           ],
         },
 
         overview:
-          "The average household throws away around 30% of the food it buys. LeftoverChef addresses that at the moment it actually happens: when someone opens the fridge, sees partial ingredients, and defaults to takeout. I designed the end-to-end experience across four prototype iterations: ingredient entry, equipment selection, AI recipe generation, and a personal Impact Score that makes sustainability feel rewarding instead of preachy.",
+          "The average household throws away around 30% of the food it buys. LeftoverChef addresses that at the moment it actually happens: when someone opens the fridge, sees partial ingredients, and defaults to takeout. I designed the full flow across four prototype iterations: ingredient entry, equipment selection, AI recipe generation, and a personal Impact Score that makes sustainability feel rewarding instead of preachy.",
 
         problemBullets: [
           "People have partial ingredients (half a block of tofu, wilting spinach, leftover rice) but no idea what to cook with the combination",
           "Existing recipe apps require a full pantry; they don't help when you're working with scraps",
-          "Food waste feels abstract until it's personal. Users had no feedback loop connecting their choices to real environmental or financial impact",
+          "Food waste feels abstract until it hits your wallet. Users had no way to see how their cooking choices added up — what they saved, what they wasted",
         ],
         problemQuote: "I throw out so much food every week. I know it's wasteful but I never know what to actually make with what's left.",
 
@@ -438,7 +495,7 @@ const projectsPage = {
           insights: [
             { stat: "3 interviews", label: "revealed a consistent pattern: partial ingredients sit unused until they go bad, then get tossed" },
             { stat: "Top drop-off", label: "happened at ingredient entry. Users abandoned a structured form before ever reaching recipe results" },
-            { stat: "4 iterations", label: "each round exposed a new friction point, from entry to equipment mismatch to disconnected sustainability messaging" },
+            { stat: "4 iterations", label: "each round turned up a different problem: entry was too slow, recipes didn't match available appliances, and the sustainability section read like a PSA" },
           ],
           quote: {
             text: "I know I have stuff in my fridge. I just don't know what I can actually make with it. So I just order pizza.",
@@ -485,8 +542,8 @@ const projectsPage = {
             title: "Chip-Based Ingredient Input",
             problem: "A structured form at the start caused users to abandon the flow before ever reaching recipe results.",
             solution: "A single text input that builds a real-time chip list. Type 'onion, rice, eggs' and see your pantry appear instantly.",
-            rationale: "If the first interaction requires effort, users leave. The chip pattern is familiar, fast, and satisfying.",
-            impact: "Step 1 completion improved significantly. Users described the input as 'satisfying to use.'",
+            rationale: "If the first step feels like a form, users leave. Chips are familiar and fast — type a word, see a tag.",
+            impact: "Drop-off at Step 1 fell after the switch. Users described the input as 'satisfying to use.'",
           },
           {
             title: "Equipment Toggle Cards",
@@ -499,19 +556,19 @@ const projectsPage = {
             title: "Impact Score Gamification",
             problem: "A sustainability info panel was completely ignored. It read as a PSA, not a product feature.",
             solution: "A personal dashboard showing CO₂ prevented, money saved, and ingredient badges earned per session.",
-            rationale: "'Your impact' feels earned. 'Global crisis' feels preachy. Reframing sustainability as personal progress drives engagement.",
+            rationale: "'Your impact' feels earned. 'Global crisis' feels preachy. When the score is about what you did, people actually check it.",
             impact: "The Impact Score became one of the most-revisited screens. Users checked it even when they weren't actively cooking.",
           },
         ],
 
         outcomes: [
-          { title: "Frictionless Entry", description: "Chip input turned ingredient logging from a form into a 10-second natural interaction." },
+          { title: "Frictionless Entry", description: "Chip input turned ingredient entry from a form into a 10-second task." },
           { title: "Equipment-Smart Recipes", description: "AI only suggests meals users can actually make. Zero post-generation frustration." },
-          { title: "Sustainability Gamified", description: "Personal stats and badges drove return visits beyond active cooking sessions." },
+          { title: "Sustainability Gamified", description: "Users came back to check their Impact Score even when they weren't cooking." },
         ],
 
         reflection:
-          "Four iterations taught me to cut early and often. Every feature we removed made the product more usable. The chip input came from a user muttering 'I just want to type stuff in.' The best design direction often arrives as frustration, not feedback.",
+          "Four iterations taught me to cut early and often. Every feature we removed made the product more usable. The chip input came from a user muttering 'I just want to type stuff in' — that one complaint reshaped the whole entry flow.",
       },
 
     },

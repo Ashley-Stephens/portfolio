@@ -20,41 +20,54 @@
    justify-content: center;
    padding: 10px 14px;
    border-radius: 12px;
+   border: none;
    font-weight: 600;
    text-decoration: none;
    cursor: pointer;
-   transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, opacity 140ms ease;
+   overflow: hidden;
+   will-change: box-shadow, transform;
+   transition: box-shadow 0.15s, transform 0.15s;
 }
 
 /* Primary: Download */
 .resume-download{
    background: rgba(255,255,255,0.92);
    color: rgba(0,0,0,0.88);
-   border: 1px solid rgba(255,255,255,0.92);
+   box-shadow:
+     rgba(0, 0, 0, 0.28) 0 2px 4px,
+     rgba(0, 0, 0, 0.18) 0 7px 13px -3px,
+     rgba(180, 180, 200, 0.8) 0 -3px 0 inset;
 }
 
 .resume-download:hover{
-   background: rgba(255,255,255,1);
-   transform: translateY(-1px);
+   box-shadow:
+     rgba(0, 0, 0, 0.32) 0 4px 8px,
+     rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+     rgba(180, 180, 200, 0.8) 0 -3px 0 inset;
+   transform: translateY(-2px);
 }
 
 /* Secondary: Open in new tab */
 .resume-open{
    background: rgba(255,255,255,0.10);
    color: rgba(255,255,255,0.96);
-   border: 1px solid rgba(255,255,255,0.28);
+   box-shadow:
+     rgba(0, 0, 0, 0.28) 0 2px 4px,
+     rgba(0, 0, 0, 0.18) 0 7px 13px -3px,
+     rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
 }
 
 .resume-open:hover{
-   background: rgba(255,255,255,0.16);
-   border-color: rgba(255,255,255,0.40);
-   transform: translateY(-1px);
+   box-shadow:
+     rgba(0, 0, 0, 0.32) 0 4px 8px,
+     rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+     rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
+   transform: translateY(-2px);
 }
 
 .resume-download:active,
 .resume-open:active{
-   transform: translateY(0);
-   opacity: 0.9;
+   transform: translateY(2px);
 }
 
 .resume-download:focus-visible,
