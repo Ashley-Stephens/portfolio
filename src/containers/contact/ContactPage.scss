@@ -75,7 +75,7 @@
 
 .contact-btn {
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: none;
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.96);
   padding: 0.65rem 0.95rem;
@@ -84,27 +84,56 @@
   font-size: 0.95rem;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
-}
-
-.contact-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.32);
-}
-
-.contact-btn:active {
-  transform: translateY(0);
+  overflow: hidden;
+  will-change: box-shadow, transform;
+  transition: box-shadow 0.15s, transform 0.15s;
+  box-shadow:
+    rgba(0, 0, 0, 0.28) 0 2px 4px,
+    rgba(0, 0, 0, 0.18) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.25) 0 -3px 0 inset;
 }
 
 .contact-btn:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.38);
-  outline-offset: 2px;
+  box-shadow:
+    rgba(168, 182, 214, 0.25) 0 0 0 1.5px inset,
+    rgba(0, 0, 0, 0.35) 0 2px 4px,
+    rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.25) 0 -3px 0 inset;
+}
+
+.contact-btn:hover {
+  box-shadow:
+    rgba(0, 0, 0, 0.32) 0 4px 8px,
+    rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.25) 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.contact-btn:active {
+  box-shadow: rgba(168, 182, 214, 0.25) 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .contact-btn--primary {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(90, 125, 219, 0.85);
+  color: #0F1520;
+  box-shadow:
+    rgba(15, 21, 50, 0.28) 0 2px 4px,
+    rgba(15, 21, 50, 0.18) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+}
+
+.contact-btn--primary:hover {
+  box-shadow:
+    rgba(15, 21, 50, 0.34) 0 4px 8px,
+    rgba(15, 21, 50, 0.24) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.contact-btn--primary:active {
+  box-shadow: rgba(28, 48, 120, 0.9) 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .contact-btn--secondary {

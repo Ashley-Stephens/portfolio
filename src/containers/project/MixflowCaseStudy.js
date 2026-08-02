@@ -38,7 +38,6 @@ export default function MixflowCaseStudy({ project, prev, next }) {
   const annotatedScreenshots = toArray(cs.annotatedScreenshots);
 
   const theme = project.slug === "shelfsaver" ? "shelfsaver" : "mixflow";
-  let sn = 0;
 
   return (
     <div className="mf-page" data-theme={theme}>
@@ -142,7 +141,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; The Story</span>
+              <span className="mf-section-label__text">The Story</span>
             </div>
             <h2 className="mf-h2">Understanding the Problem</h2>
 
@@ -174,7 +173,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; The Process</span>
+              <span className="mf-section-label__text">The Process</span>
             </div>
             <h2 className="mf-h2">How I Approached It</h2>
 
@@ -200,7 +199,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; Research Insights</span>
+              <span className="mf-section-label__text">Research Insights</span>
             </div>
             <h2 className="mf-h2">What I Found</h2>
 
@@ -249,7 +248,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <div className="mf-solution__intro mf-reveal">
             <div className="mf-section-label mf-section-label--dark">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; The Solution</span>
+              <span className="mf-section-label__text">The Solution</span>
             </div>
             <h2 className="mf-solution__title">
               Introducing <span className="mf-accent">{project.name}.</span>
@@ -524,7 +523,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; Key Decisions</span>
+              <span className="mf-section-label__text">Key Decisions</span>
             </div>
             <h2 className="mf-h2">Design Decisions</h2>
 
@@ -572,7 +571,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; Results</span>
+              <span className="mf-section-label__text">Results</span>
             </div>
             <h2 className="mf-h2">Key Outcomes</h2>
 
@@ -594,7 +593,7 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           <section className="mf-section mf-reveal">
             <div className="mf-section-label">
               <span className="mf-section-label__line" />
-              <span className="mf-section-label__text">0{++sn} &middot; Reflection</span>
+              <span className="mf-section-label__text">Reflection</span>
             </div>
             <h2 className="mf-h2">Reflection &amp; Growth</h2>
             <blockquote className="mf-reflection">

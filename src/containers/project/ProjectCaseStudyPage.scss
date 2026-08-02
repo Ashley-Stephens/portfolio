@@ -1160,32 +1160,56 @@
   padding: 12px 20px;
   border-radius: 999px;
   text-decoration: none;
-  color: #ffffff;               /* ← was missing — caused purple-on-blue unreadable text */
+  color: #ffffff;
   font-weight: 600;
   font-size: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: none;
   background: rgba(255, 255, 255, 0.07);
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
   white-space: nowrap;
+  overflow: hidden;
+  will-change: box-shadow, transform;
+  transition: box-shadow 0.15s, transform 0.15s;
+  box-shadow:
+    rgba(0, 0, 0, 0.28) 0 2px 4px,
+    rgba(0, 0, 0, 0.18) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
 }
 
 .csPill:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.13);
-  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow:
+    rgba(0, 0, 0, 0.32) 0 4px 8px,
+    rgba(0, 0, 0, 0.22) 0 7px 13px -3px,
+    rgba(168, 182, 214, 0.28) 0 -3px 0 inset;
+  transform: translateY(-2px);
   color: #ffffff;
+}
+
+.csPill:active {
+  box-shadow: rgba(168, 182, 214, 0.28) 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .csPill.primary {
-  background: rgba(90, 125, 219, 0.18);
-  border-color: rgba(90, 125, 219, 0.40);
-  color: #DCE5F7;
+  background: rgba(90, 125, 219, 0.85);
+  color: #ffffff;
+  box-shadow:
+    rgba(15, 21, 50, 0.28) 0 2px 4px,
+    rgba(15, 21, 50, 0.18) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
 }
 
 .csPill.primary:hover {
-  background: rgba(90, 125, 219, 0.30);
-  border-color: rgba(90, 125, 219, 0.55);
+  box-shadow:
+    rgba(15, 21, 50, 0.34) 0 4px 8px,
+    rgba(15, 21, 50, 0.24) 0 7px 13px -3px,
+    rgba(28, 48, 120, 0.9) 0 -3px 0 inset;
+  transform: translateY(-2px);
   color: #ffffff;
+}
+
+.csPill.primary:active {
+  box-shadow: rgba(28, 48, 120, 0.9) 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 .csPill.disabled {
