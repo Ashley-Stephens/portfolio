@@ -75,7 +75,6 @@ export default function VioletCraftworksCaseStudy({ project, prev, next }) {
 
 
   const laptopScreenSrc = process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks-computer-img.png";
-  const phoneScreenSrc = process.env.PUBLIC_URL + "/VioletCraftworks/violetcraftworks.com_(iPhone 14 Pro Max) (1).png";
 
   return (
     <div className="vc-page">
