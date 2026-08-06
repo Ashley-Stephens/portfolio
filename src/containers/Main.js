@@ -128,8 +128,6 @@ const Main = () => {
           <div className="vc-inner">
             <div className="vc-content">
               <div className="vc-eyebrow">
-                <span className="vc-eyebrow-num">01</span>
-                <span className="vc-eyebrow-sep" aria-hidden="true" />
                 End-to-End Product
               </div>
 
@@ -142,7 +140,7 @@ const Main = () => {
               </p>
 
               <div className="vc-pills">
-                <span className="vc-pill">↑ Live product</span>
+                <span className="vc-pill">Live product</span>
                 <span className="vc-pill">Responsive</span>
                 <span className="vc-pill">Designed by me</span>
                 <span className="vc-pill">Built by me</span>
@@ -182,8 +180,6 @@ const Main = () => {
 
             <div className="mf-content">
               <div className="mf-eyebrow">
-                <span className="mf-eyebrow-num">02</span>
-                <span className="mf-eyebrow-sep" aria-hidden="true" />
                 Interaction Design
               </div>
 
