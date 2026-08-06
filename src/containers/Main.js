@@ -106,7 +106,7 @@ const Main = () => {
               <div className="hp-role-tag">Human-centered design</div>
 
               <p className="hp-desc">
-                I turn research into interfaces people can use — then build them in code.
+                I turn research into interfaces people can use, then build them in code.
               </p>
 
               <div className="hp-actions">
