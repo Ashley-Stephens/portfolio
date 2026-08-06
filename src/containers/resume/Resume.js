@@ -4,7 +4,7 @@ import Footer from "../../components/footer/Footer";
 import "./Resume.scss";
 
 function Resume() {
-   const resumeUrl = process.env.PUBLIC_URL + "/AshleyStephens_Resume.pdf";
+   const resumeUrl = process.env.PUBLIC_URL + "/AshleyStephens_Resume.pdf?v=20260805";
 
    return (
       <>
