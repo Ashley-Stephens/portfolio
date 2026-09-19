@@ -6,17 +6,6 @@ import "./Main.scss";
 
 const HERO_TEXT = "Hey, I'm Ashley";
 
-const strengthsIntro =
-  "I do my best work when a product needs to feel simpler to use without throwing out the real constraints behind it.";
-
-const strengths = [
-  { title: "Making the vague concrete", body: "Taking a half-formed idea and turning it into a flow someone can follow." },
-  { title: "Friendly without the clutter", body: "Designing interfaces that stay approachable as more gets added to them." },
-  { title: "Design that survives the build", body: "Writing the front end myself, so the shipped site matches what was in Figma." },
-  { title: "Edge cases up front", body: "Handling accessibility, empty states, and content limits while designing, not after." },
-  { title: "AI & agentic workflows", body: "Using LLMs, Claude, and agentic tools to move faster, automate repetitive work, and build smarter products." },
-];
-
 const capabilities = [
   {
     group: "Strategy & UX",
