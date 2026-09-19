@@ -196,7 +196,6 @@ const Main = () => {
                   <div className="hp-cap-items">
                     {g.items.map((it) => (
                       <div key={it.n} className="hp-cap-item">
-                        <span className="hp-cap-num">{it.n}</span>
                         <div className="hp-cap-text">
                           <div className="hp-cap-title">{it.title}</div>
                           <div className="hp-cap-body">{it.body}</div>
