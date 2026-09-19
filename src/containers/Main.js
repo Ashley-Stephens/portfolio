@@ -187,7 +187,7 @@ const Main = () => {
         <div className="home-wrap home-wrap--mid">
 
           <section className="hp-section hp-reveal">
-            <h2 className="hp-h2">My approach</h2>
+            <h2 className="hp-h2">My Approach</h2>
 
             <div className="hp-cap">
               {capabilities.map((g) => (
