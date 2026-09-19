@@ -187,6 +187,16 @@ const Main = () => {
         <div className="home-wrap home-wrap--mid">
 
           <section className="hp-section hp-reveal">
+            <div className="hp-section-label">
+              <span>Where I'm strongest</span>
+            </div>
+            <div className="hp-strength-head">
+              <h2 className="hp-h2 hp-strength-head__title">Where I&apos;m strongest</h2>
+            </div>
+
+          </section>
+
+          <section className="hp-section hp-reveal">
             <h2 className="hp-h2">My approach</h2>
 
             <div className="hp-cap">
