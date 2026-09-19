@@ -60,13 +60,6 @@ export default function MixflowCaseStudy({ project, prev, next }) {
               <p className="mf-hero__subtext">{project.heroSubtext}</p>
             )}
 
-            {Array.isArray(project.tags) && project.tags.length > 0 && (
-              <div className="mf-hero__tags">
-                {project.tags.map((t) => (
-                  <span className="mf-tag" key={t}>{t}</span>
-                ))}
-              </div>
-            )}
 
             {prototypeUrl && (
               <a
@@ -648,8 +641,8 @@ export default function MixflowCaseStudy({ project, prev, next }) {
           />
           <p className="mf-lightbox__hint">
             {lightboxZoomed
-              ? "Click image to zoom out · Click outside to close"
-              : "Click image to zoom in · Click outside to close"}
+              ? "Click image to zoom out, click outside to close"
+              : "Click image to zoom in, click outside to close"}
           </p>
         </div>
       )}

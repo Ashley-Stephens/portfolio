@@ -92,7 +92,7 @@ export default function ProjectCaseStudyPage() {
           {/* ── HERO ─────────────────────────────────────────── */}
           <section className={`csHero ${!heroImage && !heroLogo ? "csHeroNoImage" : ""}`}>
             <div className="csHeroLeft">
-              <p className="csEyebrow">{project.category || "UX Design"} · {project.year || ""}</p>
+              <p className="csEyebrow">{project.category || "UX Design"}, {project.year || ""}</p>
 
               <h1 className="csHeroTitle">{project.name}</h1>
               {project.subtitle && (
@@ -303,7 +303,7 @@ export default function ProjectCaseStudyPage() {
                     alt="High fidelity design"
                     onClick={() => openLightbox(process.env.PUBLIC_URL + cs.hiFiToFinal.hiFi)}
                   />
-                  <p className="csImgHint">Click to expand · Click again to zoom</p>
+                  <p className="csImgHint">Click to expand, click again to zoom</p>
                 </div>
                 <div className="csHiFiArrow">→</div>
                 <div className="csHiFiPanel">
@@ -314,7 +314,7 @@ export default function ProjectCaseStudyPage() {
                     alt="Final product"
                     onClick={() => openLightbox(process.env.PUBLIC_URL + cs.hiFiToFinal.final)}
                   />
-                  <p className="csImgHint">Click to expand · Click again to zoom</p>
+                  <p className="csImgHint">Click to expand, click again to zoom</p>
                 </div>
               </div>
 
@@ -568,7 +568,7 @@ export default function ProjectCaseStudyPage() {
             onClick={(e) => { e.stopPropagation(); setLightboxZoomed(!lightboxZoomed); }}
           />
           <p className="csLightboxHint">
-            {lightboxZoomed ? "Click image to zoom out · Click outside to close" : "Click image to zoom in · Click outside to close"}
+            {lightboxZoomed ? "Click image to zoom out, click outside to close" : "Click image to zoom in, click outside to close"}
           </p>
         </div>
       )}

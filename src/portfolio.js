@@ -46,10 +46,9 @@ const projectsPage = {
       category: "End-to-End Product Design & Front-End",
       year: "2026",
       role: "Solo Designer & Developer",
-      platform: "Web · Next.js",
-      duration: "Live since July 2026",
+      platform: "Web, Next.js",
+      duration: "July 2026",
       wip: true,
-      tags: ["E-Commerce UX", "Information Architecture", "Accessibility", "Cloudflare Workers", "Next.js · TypeScript"],
       thumb: "/VioletCraftworks/violetcraftworks_thumb.png",
       featured: true,
       links: {
@@ -273,11 +272,10 @@ const projectsPage = {
       subtitle: "Music Playback UX",
       category: "Interaction Design",
       year: "2025",
-      role: "UX Researcher · UI Designer · Lead Front-End",
+      role: "UX Researcher, UI Designer, Lead Front-End",
       team: "Team of 5",
       platform: "Web App",
       duration: "12 weeks",
-      tags: ["UX Research", "Interaction Design", "Figma", "Prototyping"],
       thumb: "/Mixflow.png",
       links: { prototype: "", github: "", live: "" },
 
@@ -416,7 +414,7 @@ const projectsPage = {
         ],
 
         outcomes: [
-          { title: "Named Shuffle Modes", description: "Default · Most Played · Least Played · No Shuffle, each tied to a real listening pattern from research." },
+          { title: "Named Shuffle Modes", description: "Default, Most Played, Least Played, No Shuffle, each tied to a real listening pattern from research." },
           { title: "Built-In Rediscovery", description: "Low-play-count tracks show up in the queue without the user doing anything." },
           { title: "Research-Driven Features", description: "Named modes, the habits dashboard, and cleanup prompts all came directly from interview findings." },
         ],
@@ -434,11 +432,10 @@ const projectsPage = {
       subtitle: "AI Meal Planner",
       category: "End-to-End Product Design",
       year: "2025",
-      role: "UX Designer · UI Designer · Front-End Developer",
+      role: "UX Designer, UI Designer, Front-End Developer",
       team: "Team of 4",
       platform: "Web App",
-      duration: "10 weeks · 4 prototype iterations",
-      tags: ["UX Research", "End-to-End Design", "Figma", "Prototyping"],
+      duration: "10 weeks, 4 prototype iterations",
       thumb: "/LeftoverChef.png",
       links: {
         prototype: "",

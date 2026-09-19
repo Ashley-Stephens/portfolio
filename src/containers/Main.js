@@ -94,8 +94,7 @@ const Main = () => {
           <section className="hp-hero">
             <div className="hp-hero-left">
               <div className="hp-eyebrow">
-                <span className="hp-eyebrow-line" />
-                UX / UI Designer · Front-End Developer
+                UX / UI Designer and Front-End Developer
               </div>
 
               <h1 className="hp-h1">
@@ -140,7 +139,6 @@ const Main = () => {
               </p>
 
               <div className="vc-pills">
-                <span className="vc-pill">Live product</span>
                 <span className="vc-pill">Responsive</span>
                 <span className="vc-pill">Designed by me</span>
                 <span className="vc-pill">Built by me</span>
@@ -157,7 +155,7 @@ const Main = () => {
                 src={vcThumb}
                 alt="VioletCraftworks interface"
               />
-              <p className="vc-img-note">Next.js · React · 2026</p>
+              <p className="vc-img-note">Next.js, React, 2026</p>
             </div>
           </div>
         </section>
@@ -204,7 +202,6 @@ const Main = () => {
 
           <section className="hp-section hp-reveal">
             <div className="hp-section-label">
-              <span className="hp-section-label-line" />
               <span>Where I'm strongest</span>
             </div>
             <div className="hp-strength-head">
@@ -225,7 +222,6 @@ const Main = () => {
 
           <section className="hp-section hp-reveal">
             <div className="hp-section-label">
-              <span className="hp-section-label-line" />
               <span>Capabilities</span>
             </div>
             <h2 className="hp-h2">My approach</h2>

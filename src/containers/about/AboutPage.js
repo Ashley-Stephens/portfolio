@@ -67,7 +67,7 @@ export default function AboutPage() {
             <div className="about-cert">
               <span className="about-cert-badge">Certified</span>
               <span className="about-cert-text">
-                Google UX Design Specialization &nbsp;·&nbsp; Issued Aug 2025
+                Google UX Design Specialization, Issued Aug 2025
               </span>
             </div>
 

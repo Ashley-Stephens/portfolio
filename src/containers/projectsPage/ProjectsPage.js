@@ -5,8 +5,6 @@ import Footer from "../../components/footer/Footer";
 import { projectsPage } from "../../portfolio";
 import "./ProjectsPage.scss";
 
-const PROCESS_STEPS = ["Discover", "Define", "Design", "Deliver"];
-
 function getThumb(p) {
   if (p.thumb) return p.thumb;
   if (p.slug === "mixflow") return "/Mixflow.png";
@@ -57,7 +55,7 @@ export default function ProjectsPage() {
                   <div className="project-card__body">
                     <div className="project-card__meta">
                       <span className="project-card__category">{p.category || "UX Design"}</span>
-                      {p.wip && <span className="project-card__wip">Live</span>}
+
                       {p.year && <span className="project-card__year">{p.year}</span>}
                     </div>
 
@@ -91,26 +89,6 @@ export default function ProjectsPage() {
                       )}
                     </div>
 
-                    {/* Tags */}
-                    {Array.isArray(p.tags) && p.tags.length > 0 && (
-                      <div className="project-card__tags">
-                        {p.tags.map((t) => (
-                          <span key={t} className="project-card__tag">{t}</span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Process steps */}
-                    <div className="project-card__process">
-                      {PROCESS_STEPS.map((s, i) => (
-                        <React.Fragment key={s}>
-                          <span className="project-card__process-step">{s}</span>
-                          {i < PROCESS_STEPS.length - 1 && (
-                            <span className="project-card__process-arrow">→</span>
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
 
                     <Link className="project-card__cta" to={`/projects/${p.slug}`}>
                       View Case Study →
