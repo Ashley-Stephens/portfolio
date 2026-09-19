@@ -102,8 +102,6 @@ const Main = () => {
                 <span className={`typewriter-cursor${cursorDone ? " blink" : ""}`}>|</span>
               </h1>
 
-              <div className="hp-role-tag">Human-centered design</div>
-
               <p className="hp-desc">
                 I turn research into interfaces people can use, then build them in code.
               </p>
@@ -155,7 +153,6 @@ const Main = () => {
                 src={vcThumb}
                 alt="VioletCraftworks interface"
               />
-              <p className="vc-img-note">Next.js, React, 2026</p>
             </div>
           </div>
         </section>
@@ -209,21 +206,9 @@ const Main = () => {
               <p className="hp-strength-intro">{strengthsIntro}</p>
             </div>
 
-            <div className="hp-strength-grid">
-              {strengths.map((s) => (
-                <div key={s.title} className="hp-strength">
-                  <span className="hp-strength-rule" />
-                  <div className="hp-strength-title">{s.title}</div>
-                  <div className="hp-strength-body">{s.body}</div>
-                </div>
-              ))}
-            </div>
           </section>
 
           <section className="hp-section hp-reveal">
-            <div className="hp-section-label">
-              <span>Capabilities</span>
-            </div>
             <h2 className="hp-h2">My approach</h2>
 
             <div className="hp-cap">
