@@ -192,7 +192,6 @@ const Main = () => {
             </div>
             <div className="hp-strength-head">
               <h2 className="hp-h2 hp-strength-head__title">Where I&apos;m strongest</h2>
-              <p className="hp-strength-intro">{strengthsIntro}</p>
             </div>
 
           </section>
