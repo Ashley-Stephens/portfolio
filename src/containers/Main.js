@@ -118,6 +118,12 @@ const Main = () => {
 
             <div className="vc-media">
               <img
+                className="vc-hoop"
+                src={process.env.PUBLIC_URL + "/VioletCraftworks/embroidery-hoop.webp"}
+                alt=""
+                aria-hidden="true"
+              />
+              <img
                 className="vc-img"
                 src={vcThumb}
                 alt="VioletCraftworks interface"
