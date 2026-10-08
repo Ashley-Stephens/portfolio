@@ -6,39 +6,19 @@ import "./Main.scss";
 
 const HERO_TEXT = "Hey, I'm Ashley";
 
-const capabilities = [
-  {
-    group: "Strategy & UX",
-    items: [
-      { n: "01", title: "Research synthesis", body: "Turn interviews and notes into the few requirements that drive the design." },
-      { n: "02", title: "Information architecture", body: "Organize content and navigation so people find things without stopping to think." },
-      { n: "03", title: "User flows", body: "Map the path from first tap to done, then cut the steps that don't earn their place." },
-    ],
-  },
-  {
-    group: "Interface design",
-    items: [
-      { n: "04", title: "Wireframes & prototypes", body: "Move from rough to high fidelity in Figma, testing the idea before it gets polished." },
-      { n: "05", title: "Visual systems", body: "Set type, color, and spacing as a system so the product stays consistent as it grows." },
-      { n: "06", title: "Accessible UI", body: "Contrast, keyboard support, and clear states built in while designing, not patched later." },
-    ],
-  },
-  {
-    group: "Front-end",
-    items: [
-      { n: "07", title: "React & Next.js", body: "Build the design in real code instead of handing off a flat file." },
-      { n: "08", title: "Responsive layouts", body: "Make it hold up from a phone to a wide monitor." },
-      { n: "09", title: "SEO & performance", body: "Clean markup, metadata, and fast pages so the work gets found and loads fast." },
-    ],
-  },
-  {
-    group: "Testing & Validation",
-    items: [
-      { n: "10", title: "Usability testing", body: "Put real tasks in front of real users and fix what breaks before it ships." },
-      { n: "11", title: "A/B testing", body: "Run controlled variants on copy, layouts, and CTAs to let data pick the winner." },
-      { n: "12", title: "Iterative testing", body: "Test early and often across prototype rounds so changes are cheap instead of costly." },
-    ],
-  },
+const tools = [
+  // Figma + Claude stay mid-list so they sit at the center of the row
+  { name: "Adobe Creative Cloud", src: "adobe.svg", href: "https://www.adobe.com/creativecloud.html" },
+  { name: "Canva", src: "canva.svg", href: "https://www.canva.com/" },
+  { name: "HTML5", src: "html.svg", href: "https://www.w3.org/TR/2011/WD-html5-20110405/" },
+  { name: "CSS3", src: "css.svg", href: "https://www.w3.org/Style/CSS/specs.en.html" },
+  { name: "JavaScript", src: "javascript.svg", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { name: "Figma", src: "figma.svg", href: "https://www.figma.com/" },
+  { name: "Claude", src: "claude.svg", href: "https://claude.ai/" },
+  { name: "TypeScript", src: "typescript.svg", href: "https://www.typescriptlang.org/" },
+  { name: "React", src: "react.svg", href: "https://react.dev/" },
+  { name: "Next.js", src: "nextjs.svg", href: "https://nextjs.org/" },
+  { name: "Cloudflare", src: "cloudflare.svg", href: "https://www.cloudflare.com/" },
 ];
 
 const Main = () => {
@@ -183,28 +163,18 @@ const Main = () => {
           </div>
         </section>
 
-        {/* ── STRENGTHS + CAPABILITIES ─────────────────── */}
+        {/* ── HOW I WORK ─────────────────── */}
         <div className="home-wrap home-wrap--mid">
 
           <section className="hp-section hp-reveal">
-            <h2 className="hp-h2 hp-strength-head__title">My Approach</h2>
+            <h2 className="hp-h2 hp-strength-head__title hp-tools-title">How I Work</h2>
 
-            <div className="hp-cap">
-              {capabilities.map((g) => (
-                <div key={g.group} className="hp-cap-group">
-                  <div className="hp-cap-group-label">{g.group}</div>
-                  <div className="hp-cap-items">
-                    {g.items.map((it) => (
-                      <div key={it.n} className="hp-cap-item">
-                        <span className="hp-cap-num">{it.n}</span>
-                        <div className="hp-cap-text">
-                          <div className="hp-cap-title">{it.title}</div>
-                          <div className="hp-cap-body">{it.body}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="hp-tools">
+              {tools.map((t) => (
+                <a key={t.name} className="hp-tool" href={t.href} target="_blank" rel="noopener noreferrer">
+                  <img src={`${process.env.PUBLIC_URL}/tools/${t.src}`} alt={`${t.name} logo`} />
+                  <span className="hp-tool-tip">{t.name}</span>
+                </a>
               ))}
             </div>
           </section>
