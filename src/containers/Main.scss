@@ -615,25 +615,6 @@ $vc-border: rgba(196, 154, 255, 0.22);
   margin: 0 0 28px;
 }
 
-.vc-pills {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 34px;
-}
-
-.vc-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: $vc-accent;
-  border: 1px solid $vc-border;
-  padding: 5px 11px;
-  border-radius: 4px;
-  background: rgba(107, 79, 170, 0.05);
-}
-
 .vc-cta {
   display: inline-flex;
   align-items: center;

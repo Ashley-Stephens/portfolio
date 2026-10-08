@@ -101,15 +101,9 @@ const Main = () => {
               <p className="hp-vc-sub">Cross-Stitch Pattern Shop</p>
 
               <p className="vc-desc">
-                Solo-built storefront for a real PDF-pattern shop. Designed and coded
-                end to end in Next.js — from product strategy to deployed storefront.
+                Solo-built storefront for a real PDF-pattern shop. I designed and
+                coded it in Next.js, from product strategy to the deployed site.
               </p>
-
-              <div className="vc-pills">
-                <span className="vc-pill">Responsive</span>
-                <span className="vc-pill">Designed by me</span>
-                <span className="vc-pill">Built by me</span>
-              </div>
 
               <Link className="vc-cta" to="/projects/violetcraftworks">
                 View case study →
